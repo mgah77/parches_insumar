@@ -108,7 +108,7 @@
             action="action_move_libro2"
             id="menu_action_move_libro2_form"
             parent="menu_informes_contable"
-            groups="parches.group_contable"
+            groups="parches_insumar.group_contable"
             sequence="6"
         />
     </data>

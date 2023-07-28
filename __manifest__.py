@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Parches',
+    'name': 'Parches Insumar',
     'version': '1.5.05',
     'category': 'General',
     'summary': '',
     'description': """
-
+    Parches Insuamr
 
        """,
     'author' : 'M.Gah',
