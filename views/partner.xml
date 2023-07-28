@@ -1,0 +1,41 @@
+<odoo>
+    <record model="ir.ui.view" id="view_partner_parche_inherit_form">
+        <field name="name">res.partner.parche.inherit.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="l10n_cl_fe.view_partner_activity_inherit_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='city_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='street']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='document_number']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='zip']" position="attributes">
+                <attribute name="help">Código Postal</attribute>
+            </xpath>
+            <xpath expr="//field[@name='document_type_id']" position="attributes">
+                <attribute name="string">Tipo de documento</attribute>
+            </xpath>
+            <xpath expr="//field[@name='document_number']" position="attributes">
+                <attribute name="string">Número de documento</attribute>
+            </xpath>
+            <xpath expr="//field[@name='responsability_id']" position="attributes">
+                <attribute name="string">Responsabilidad</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='lang']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='message_bounce']" position="replace">
+                <field name="credit_limit" groups="respartner-credito.group_addon_credit"/>
+            </xpath>
+            
+
+        </field>
+    </record>
+</odoo>
