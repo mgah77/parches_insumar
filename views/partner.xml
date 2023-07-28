@@ -14,7 +14,7 @@
                 <attribute name="required">1</attribute>
             </xpath>
             <xpath expr="//field[@name='zip']" position="attributes">
-                <attribute name="help">Código Postal</attribute>
+                <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='document_type_id']" position="attributes">
                 <attribute name="string">Tipo de documento</attribute>
