@@ -2,25 +2,18 @@
 
 {
     'name': 'Parches Insumar',
-    'version': '1.5.05',
+    'version': '1',
     'category': 'General',
     'summary': '',
     'description': """
-    Parches Insuamr
+    Parches Insumar
 
        """,
     'author' : 'M.Gah',
     'website': '',
     'depends': ['stock','base','sale','l10n_cl_fe'],
     'data': [
-	    "security/groups.xml",
-	    "views/menu_informe.xml",
-	    "views/export.xml",
-        "views/libro2_view.xml",
-        "views/account_payment_inherit.xml",
-        "views/partner.xml",
-        "security/ir.model.access.csv",
-        "views/account.xml"
+	    "security/groups.xml"
     ],
     'installable': True,
     'auto_install': False,
