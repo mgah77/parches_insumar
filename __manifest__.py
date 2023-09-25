@@ -13,7 +13,8 @@
     'website': '',
     'depends': ['stock','base','sale','l10n_cl_fe'],
     'data': [
-	    "security/groups.xml"
+	    "security/groups.xml",
+        "views/menu_restriccion.xml"
     ],
     'installable': True,
     'auto_install': False,

@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <!-- Herencia de la vista existente del menú -->
+        <record id="menu_apps" model="ir.ui.menu">
+            <field name="groups_id" eval="[(4, ref('parches_insumar.group_xxx_menu'))]"/>
+        </record>
+    </data>
+</odoo>
