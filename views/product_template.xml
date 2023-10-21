@@ -7,7 +7,12 @@
             <xpath expr="//field[@name='list_price']" position="attributes">
                 <attribute name="options">{'field_digits': False}</attribute>
             </xpath>
+            <xpath expr="//field[@name='qty_available']" position="attributes">
+                <attribute name="options">{'field_digits': False}</attribute>
+            </xpath>
 
         </field>
     </record>
 </odoo>
+
+qty_available
