@@ -20,6 +20,9 @@
             <xpath expr="//field[@name='list_price']" position="attributes">
                 <attribute name="options">{'field_digits': False}</attribute>
             </xpath>
+            <xpath expr="//field[@name='standard_price']" position="attributes">
+                <attribute name="options">{'field_digits': False}</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
