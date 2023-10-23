@@ -2,7 +2,7 @@
 
 {
     'name': 'Parches Insumar',
-    'version': '2.00',
+    'version': '2.01',
     'category': 'General',
     'summary': '',
     'description': """
