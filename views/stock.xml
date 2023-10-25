@@ -1,2 +1,34 @@
 <odoo>
+    <record model="ir.ui.view" id="stock_picking_kanban_test">
+        <field name="name">stock.picking.kanban.test</field>
+        <field name="model">stock.pico</field>
+        <field name="arch" type="xml">
+          <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_stock_kanban" create="0" group_create="false">
+                  <field name="code" on_change="1" modifiers="{&quot;readonly&quot;: true, &quot;required&quot;: true}"/>
+                  <field name="count_picking_ready" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_draft" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_waiting" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_late" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_backorders" modifiers="{&quot;readonly&quot;: true}"/>
+                  <templates>
+
+                  </templates>
+              </kanban>
+
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="stock_picking_kanban_action_window2">
+          <field name="name">Resumen</field>
+          <field name="res_model">stock.pico</field>
+          <field name="view_mode">kanban</field>
+    </record>
+
+
+  <menuitem name='otro'
+            id="kanban_stock"
+            sequence="130"
+            action="stock_picking_kanban_action_window2"
+            parent="stock.menu_stock_root">
+  </menuitem>
+
 </odoo>
