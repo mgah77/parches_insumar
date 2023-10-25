@@ -37,6 +37,23 @@
 
         </field>
     </record>
+    <record model="ir.ui.view" id="stock_picking_form_test">
+        <field name="name">stock.picking.form.test</field>
+        <field name="model">stock.pico</field>
+        <field name="arch" type="xml">
+          <form >
+                  <field name="color"/>
+                  <field name="code" on_change="1" modifiers="{&quot;readonly&quot;: true, &quot;required&quot;: true}"/>
+                  <field name="count_picking_ready" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_draft" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_waiting" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_late" modifiers="{&quot;readonly&quot;: true}"/>
+                  <field name="count_picking_backorders" modifiers="{&quot;readonly&quot;: true}"/>
+
+              </form>
+
+        </field>
+    </record>
     <record model="ir.actions.act_window" id="stock_picking_kanban_action_window2">
           <field name="name">Resumen</field>
           <field name="res_model">stock.pico</field>
