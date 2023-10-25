@@ -57,7 +57,7 @@
     <record model="ir.actions.act_window" id="stock_picking_kanban_action_window2">
           <field name="name">Resumen</field>
           <field name="res_model">stock.pico</field>
-          <field name="view_mode">form,kanban</field>
+          <field name="view_mode">kanban</field>
     </record>
 
 
