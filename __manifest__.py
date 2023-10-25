@@ -13,7 +13,7 @@
     'website': '',
     'depends': ['stock','base','sale','sale_stock','l10n_cl_fe','product'],
     'data': [
-	        "views/product_template.xml"
+	        "views/product_template.xml",
             "views/stock.xml"
     ],
     'installable': True,
