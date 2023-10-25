@@ -124,7 +124,7 @@
             id="kanban_stock"
             sequence="130"
             action="stock_picking_kanban_test"
-            parent="menu_stock_root">
+            parent="stock.menu_stock_root">
   </menuitem>
 
 </odoo>
