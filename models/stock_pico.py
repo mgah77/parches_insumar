@@ -11,3 +11,4 @@ class stock_picking_kanban(models.Model):
     count_picking_waiting = fields.Integer(default=3)
     count_picking_late = fields.Integer(default=4)
     count_picking_backorders = fields.Integer(default=5)
+    color = fields.Integer(default=1)
