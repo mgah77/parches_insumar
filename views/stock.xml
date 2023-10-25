@@ -30,6 +30,90 @@
                                     <a class="o_kanban_manage_toggle_button" href="#"><i class="fa fa-ellipsis-v" role="img" aria-label="Manage" title="Manage"/></a>
                                 </div>
                             </div>
+                            <div class="container o_kanban_card_content" t-if="!selection_mode">
+                                <div class="row">
+                                    <div class="col-6 o_kanban_primary_left">
+                                        <button class="btn btn-primary" name="get_action_picking_tree_ready" type="object">
+                                            <span t-if="record.code.raw_value == 'incoming'"><t t-esc="record.count_picking_ready.value"/> A Procesar</span>
+                                            <span t-elif="record.code.raw_value == 'outgoing'"><t t-esc="record.count_picking_ready.value"/> A Procesar</span>
+                                            <span t-elif="record.code.raw_value == 'internal'"><t t-esc="record.count_picking_ready.value"/> A Procesar</span>
+                                        </button>
+                                    </div>
+                                    <div class="col-6 o_kanban_primary_right">
+                                        <div t-if="record.count_picking_ready.raw_value &gt; 0" class="row">
+                                        </div>
+
+                                        <div t-if="record.count_picking_waiting.raw_value &gt; 0" class="row">
+                                            <div class="col-12">
+                                                <a name="get_action_picking_tree_waiting" type="object">
+                                                    <field name="count_picking_waiting" modifiers="{&quot;readonly&quot;: true}"/>
+                                                    En espera
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div t-if="record.count_picking_late.raw_value &gt; 0" class="row">
+                                            <div class="col-12">
+                                                <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_late" type="object">
+                                                    <field name="count_picking_late" modifiers="{&quot;readonly&quot;: true}"/>
+                                                    Retrasado
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div t-if="record.count_picking_backorders.raw_value &gt; 0" class="row" name="picking_type_backorder_count">
+                                            <div class="col-12">
+                                                <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_backorder" type="object">
+                                                    <field name="count_picking_backorders" modifiers="{&quot;readonly&quot;: true}"/>
+                                                    Pedidos pendientes
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container o_kanban_card_manage_pane dropdown-menu" role="menu">
+                               <div class="row">
+                                   <div class="col-6 o_kanban_card_manage_section o_kanban_manage_view">
+                                       <div role="menuitem" class="o_kanban_card_manage_title">
+                                           <span t-if="record.code.raw_value == 'internal'">Transferencias</span>
+                                           <span t-else="">Vista</span>
+                                       </div>
+                                       <div role="menuitem">
+                                           <a name="get_stock_picking_action_picking_type" type="object">Todos</a>
+                                       </div>
+                                       <div role="menuitem">
+                                           <a name="get_action_picking_tree_ready" type="object">Preparado</a>
+                                       </div>
+                                       <div role="menuitem">
+                                           <a name="get_action_picking_tree_waiting" type="object">En espera</a>
+                                       </div>
+                                       <div role="menuitem">
+                                           <a name="get_action_picking_type_operations" type="object">Operaciones</a>
+                                       </div>
+                                   </div>
+                                   <div class="col-6 o_kanban_card_manage_section o_kanban_manage_new">
+                                       <div role="menuitem" class="o_kanban_card_manage_title">
+                                           <span>Nuevo</span>
+                                       </div>
+                                       <div role="menuitem">
+                                           <a name="530" type="action" context="{'default_immediate_transfer': True}">Transferencia inmediata</a>
+                                       </div>
+                                       <div role="menuitem">
+                                           <a name="530" type="action">Transferencia planeada</a>
+                                       </div>
+                                   </div>
+                               </div>
+
+                               <div t-if="widget.editable" class="o_kanban_card_manage_settings row">
+                                   <div class="col-8" role="menuitem" aria-haspopup="true">
+                                       <ul class="oe_kanban_colorpicker" data-field="color" role="menu"/>
+                                   </div>
+                                   <div role="menuitem" class="col-4">
+                                       <a class="dropdown-item" role="menuitem" type="edit">Configuración</a>
+                                   </div>
+                               </div>
+                           </div>
                     </div>
                     </t>
                   </templates>
