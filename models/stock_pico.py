@@ -16,4 +16,4 @@ class stock_picking_kanban(models.Model):
     current_user = fields.Many2one('res.users','Current User', default=_get_user_id)
 
     def get_user_id(self):
-    return self.env.uid
+        return self.env.uid
