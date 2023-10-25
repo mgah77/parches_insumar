@@ -1,4 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 
-edit_account_move_libro2_manager,account_move_libro2_manager,model_account_move_libro2,account.group_account_manager,1,1,1,1
-access_account_move_libro2_user,account_move_libro2_user,model_account_move_libro2,,1,0,0,0
+access_stock_pico,access.stock.pico,model_stock_pico,group_stock_pico,1,1,1,1
