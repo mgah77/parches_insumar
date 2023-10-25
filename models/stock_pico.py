@@ -13,4 +13,7 @@ class stock_picking_kanban(models.Model):
     count_picking_backorders = fields.Integer(default=5)
     color = fields.Integer(default=1)
     warehouse_id = fields.Integer(default=1)
-    current_user = fields.Many2one('res.users','Current User', default=lambda self: self.env.uid)
+    current_user = fields.Many2one('res.users','Current User', default=_get_user_id)
+
+    def get_user_id(self):
+    return self.env.uid
