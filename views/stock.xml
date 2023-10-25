@@ -43,7 +43,7 @@
                                         <div t-if="record.count_picking_ready.raw_value &gt; 0" class="row">
                                         </div>
 
-                                        <div t-if="record.count_picking_waiting.raw_value &gt; 0" class="row">
+                                        <div t-if="record.count_picking_waiting.value &gt; 0" class="row">
                                             <div class="col-12">
 
                                                     <field name="count_picking_waiting" modifiers="{&quot;readonly&quot;: true}"/>
