@@ -120,10 +120,17 @@
 
         </field>
     </record>
+    <record model="ir.actions.act_window" id="stock_picking_kanban_action_window">
+          <field name="name">Resumen</field>
+          <field name="res_model">stock.picking.type</field>
+          <field name="view_mode">kanban</field>
+    </record>
+
+
   <menuitem name='otro'
             id="kanban_stock"
             sequence="130"
-            action="stock_picking_kanban_test"
+            action="stock_picking_kanban_action_window"
             parent="stock.menu_stock_root">
   </menuitem>
 
