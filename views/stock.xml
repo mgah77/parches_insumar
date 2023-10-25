@@ -33,7 +33,7 @@
                             <div class="container o_kanban_card_content" t-if="!selection_mode">
                                 <div class="row">
                                     <div class="col-6 o_kanban_primary_left">
-                                        <button class="btn btn-primary" name="get_action_picking_tree_ready" type="object">
+                                        <button class="btn btn-primary" name="" type="object">
                                             <span t-if="record.code.raw_value == 'incoming'"><t t-esc="record.count_picking_ready.value"/> A Procesar</span>
                                             <span t-elif="record.code.raw_value == 'outgoing'"><t t-esc="record.count_picking_ready.value"/> A Procesar</span>
                                             <span t-elif="record.code.raw_value == 'internal'"><t t-esc="record.count_picking_ready.value"/> A Procesar</span>
@@ -45,10 +45,10 @@
 
                                         <div t-if="record.count_picking_waiting.raw_value &gt; 0" class="row">
                                             <div class="col-12">
-                                                <a name="get_action_picking_tree_waiting" type="object">
+
                                                     <field name="count_picking_waiting" modifiers="{&quot;readonly&quot;: true}"/>
                                                     En espera
-                                                </a>
+
                                             </div>
                                         </div>
 
@@ -80,16 +80,16 @@
                                            <span t-else="">Vista</span>
                                        </div>
                                        <div role="menuitem">
-                                           <a name="get_stock_picking_action_picking_type" type="object">Todos</a>
+                                           Todos
                                        </div>
                                        <div role="menuitem">
-                                           <a name="get_action_picking_tree_ready" type="object">Preparado</a>
+                                           Preparado
                                        </div>
                                        <div role="menuitem">
-                                           <a name="get_action_picking_tree_waiting" type="object">En espera</a>
+                                           En espera
                                        </div>
                                        <div role="menuitem">
-                                           <a name="get_action_picking_type_operations" type="object">Operaciones</a>
+                                           Operaciones
                                        </div>
                                    </div>
                                    <div class="col-6 o_kanban_card_manage_section o_kanban_manage_new">
