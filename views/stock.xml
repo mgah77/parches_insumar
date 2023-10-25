@@ -1,7 +1,7 @@
 <odoo>
     <record model="ir.ui.view" id="stock_picking_kanban_test">
         <field name="name">stock.picking.kanban.test</field>
-        <field name="model">stock.picking</field>
+        <field name="model">stock.picking.type</field>
         <field name="arch" type="xml">
           <kanban class="oe_background_grey o_kanban_dashboard o_emphasize_colors o_stock_kanban" create="0" group_create="false">
                   <field name="code" on_change="1" modifiers="{&quot;readonly&quot;: true, &quot;required&quot;: true}"/>
@@ -12,7 +12,7 @@
                   <field name="count_picking_backorders" modifiers="{&quot;readonly&quot;: true}"/>
                   <templates>
                       <t t-name="kanban-box">
-                          <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1" name="stock_picking">
+                          <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1" t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}" name="stock_picking">
                               <div t-attf-class="o_kanban_card_header">
                                   <div class="o_kanban_card_header_title">
                                       <div class="o_primary" t-if="!selection_mode">
