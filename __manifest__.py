@@ -2,7 +2,7 @@
 
 {
     'name': 'Parches Insumar',
-    'version': '2.01',
+    'version': '3.01',
     'category': 'General',
     'summary': '',
     'description': """
@@ -16,8 +16,7 @@
             "security/groups.xml",
             "security/ir.model.access.csv",
 	        "views/product_template.xml",
-            "views/stock_picking.xml",
-            "views/stock.xml"
+            "views/stock_picking.xml"
     ],
     'installable': True,
     'auto_install': False,
