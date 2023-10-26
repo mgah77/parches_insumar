@@ -16,6 +16,7 @@
             "security/groups.xml",
             "security/ir.model.access.csv",
 	        "views/product_template.xml",
+            "views/stock_picking.xml,"
             "views/stock.xml"
     ],
     'installable': True,
