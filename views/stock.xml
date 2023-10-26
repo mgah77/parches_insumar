@@ -47,8 +47,8 @@
                                         <div t-if="record.count_picking_waiting.raw_value &gt; 0" class="row">
                                             <div class="col-12">
 
-                                                    <field name="count_picking_waiting" modifiers="{&quot;readonly&quot;: true}"/>
-                                                    En espera
+                                                    <field name="user_warehouse" modifiers="{&quot;readonly&quot;: true}"/>
+                                                    user
 
                                             </div>
                                         </div>
@@ -56,8 +56,8 @@
                                         <div t-if="record.count_picking_late.raw_value &gt; 0" class="row">
                                             <div class="col-12">
                                                 <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_late" type="object">
-                                                    <field name="count_picking_late" modifiers="{&quot;readonly&quot;: true}"/>
-                                                    Retrasado
+                                                    <field name="warehouse_id" modifiers="{&quot;readonly&quot;: true}"/>
+                                                    warehouse
                                                 </a>
                                             </div>
                                         </div>
