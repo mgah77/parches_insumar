@@ -14,8 +14,8 @@
                   <templates>
                     <t t-name="kanban-box">
 
-                      <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1" t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}" name="stock_picking">
-                      <div t-if="record.warehouse_id.raw_value == record.user_warehouse.raw_value">
+                      <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1 and record.warehouse_id.raw_value == record.user_warehouse.raw_value" t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}" name="stock_picking">
+                      <!---div t-if="record.warehouse_id.raw_value == record.user_warehouse.raw_value"-->
                       <div t-attf-class="o_kanban_card_header">
                                 <div class="o_kanban_card_header_title">
                                     <div class="o_primary" t-if="!selection_mode">
@@ -116,7 +116,7 @@
                                    </div>
                                </div>
                            </div>
-                          </div>
+                          <!--/div-->
                     </div>
                     </t>
                   </templates>
