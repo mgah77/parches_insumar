@@ -17,5 +17,5 @@ class stock_picking_kanban(models.Model):
 
     def _compute_user(self):
         for record in self:
-            record['count_picking_waiting']=self.env.user.id
+            record['count_picking_waiting']=self.env.user.warehouse_id
             return
