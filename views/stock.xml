@@ -13,8 +13,9 @@
                   <field name="count_picking_backorders" modifiers="{&quot;readonly&quot;: true}"/>
                   <templates>
                     <t t-name="kanban-box">
-                    <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1" t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}" name="stock_picking">
-                      <div t-if="[record.warehouse_id == record.user_warehouse]">
+
+                      <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1" t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}" name="stock_picking">
+                      <div t-if="record.warehouse_id == record.user_warehouse">
                       <div t-attf-class="o_kanban_card_header">
                                 <div class="o_kanban_card_header_title">
                                     <div class="o_primary" t-if="!selection_mode">
@@ -48,7 +49,7 @@
                                             <div class="col-12">
 
                                                     <field name="user_warehouse" modifiers="{&quot;readonly&quot;: true}"/>
-                                                    user
+                                                    user wh
 
                                             </div>
                                         </div>
@@ -57,7 +58,7 @@
                                             <div class="col-12">
                                                 <a class="oe_kanban_stock_picking_type_list" name="get_action_picking_tree_late" type="object">
                                                     <field name="warehouse_id" modifiers="{&quot;readonly&quot;: true}"/>
-                                                    warehouse
+                                                    warehouse id
                                                 </a>
                                             </div>
                                         </div>
