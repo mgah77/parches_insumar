@@ -13,7 +13,8 @@ class stock_picking_kanban(models.Model):
     count_picking_backorders = fields.Integer(default=5)
     color = fields.Integer(default=1)
     warehouse_id = fields.Integer(default=1)
-    
+
+
     user_warehouse = fields.Integer('Current User', compute="_compute_user")
 
     def _compute_user(self):
