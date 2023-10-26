@@ -1,0 +1,13 @@
+<odoo>
+  <record model="ir.ui.view" id="stock_picking_type_custom_kanban">
+      <field name="name">stock.picking.custom.kanban</field>
+      <field name="model">stock.picking.type</field>
+      <field name="inherit_id" ref="stock_picking_type_kanban"/>
+      <field name="arch" type="xml">
+          <xpath expr="//div[@name='stock_picking']" position="replace">
+              <div t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value &gt; -1) and record.warehouse_id.raw_value == record.user_warehouse.raw_value or record.user_warehouse.raw_value == 0" t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''}" name="stock_picking">
+              </div>
+          </xpath>
+      </field>
+  </record>
+</odoo>
