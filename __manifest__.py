@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 {
-    'name': 'Parches Insumar',
+    'name': 'Insumar_parches',
     'version': '3.01',
     'category': 'General',
     'summary': '',
