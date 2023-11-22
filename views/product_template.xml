@@ -24,7 +24,7 @@
                 <attribute name="options">{'field_digits': False}</attribute>
             </xpath>
             <xpath expr="//field[@name='service_policy']" position="after">
-                <field name="depto" />
+              <field name="depto" required="1" attrs="{'invisible': [('type', '!=', 'service')]}"/>
             </xpath>
         </field>
     </record>
