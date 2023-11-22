@@ -31,10 +31,8 @@
             <xpath expr="//field[@name='lang']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='message_bounce']" position="replace">
-                <field name="credit_limit" groups="respartner-credito.group_addon_credit"/>
-            </xpath>
             
+
 
         </field>
     </record>
