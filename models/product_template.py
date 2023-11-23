@@ -5,11 +5,11 @@ class ProductDepartment(models.Model):
 
     # Modifica el campo partner_id para agregar un filtro adicional
     depto = fields.Selection([
-                            ('bals','Inspeccion de balsa'),
-                            ('cont','Contenedores'),
-                            ('valv','Válvulas'),
-                            ('exti','Exintores'),
-                            ('segu','Equipos de seguridad'),
-                            ('bco2','Banco CO2'),
-                            ('text','Textil')
+                            ('Inspeccion de balsa','Inspeccion de balsa'),
+                            ('Contenedores','Contenedores'),
+                            ('Válvulas','Válvulas'),
+                            ('Exintores','Exintores'),
+                            ('Equipos de seguridad','Equipos de seguridad'),
+                            ('Banco CO2','Banco CO2'),
+                            ('Textil','Textil')
     ])
