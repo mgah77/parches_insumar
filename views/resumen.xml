@@ -1,0 +1,46 @@
+<odoo>
+
+<menuitem        
+            id="menu_resumen"
+            parent=""
+            name="resumen"
+            sequence="7"
+        />
+
+<menuitem            
+            action="action_resumen_admin"
+            id="menu_action_resumen_admin"
+            parent="menu_resumen"
+            groups="parches_insumar.group_admin"
+            sequence="6"
+        />
+
+<record id="action_resumen_admin" model="ir.actions.act_window">
+            <field name="name">Resumen insumar</field>
+            <field name="res_model">taller.resumen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="taller_resumen_admin" />
+            <!--<field name="search_view_id" ref="view_account_move_filter"/>
+      <field name="context"></field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+          Click para crear una vista del libro.
+          Por favor NO Guardar los cambios.
+        </p>
+                <p>
+        </p>
+            </field>-->
+        </record>       
+
+<record id="taller_resumen_admin" model="ir.ui.view">
+	<field name="name">taller.resumen.admin</field>
+	<field name="model">taller.resumen</field>
+	<field name="arch" type="xml">
+	<form string="Resumen">
+	    <field name="recibidas" />
+	</form>
+	</field>
+</record>	 
+
+</odoo>

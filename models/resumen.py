@@ -1,6 +1,5 @@
 from odoo import models, fields , _
 
-
 class Resumen(models.Model):
 
     _name = 'taller.resumen'
