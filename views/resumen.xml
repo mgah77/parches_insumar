@@ -11,8 +11,7 @@
             action="action_resumen_admin"
             id="menu_action_resumen_admin"
             parent="menu_resumen"
-            groups="parches_insumar.group_admin"
-            sequence="6"
+            sequence="9"
         />
 
 <record id="action_resumen_admin" model="ir.actions.act_window">
