@@ -5,16 +5,16 @@
 	<field name="name">taller.resumen.admin</field>
 	<field name="model">taller.resumen</field>
 	<field name="arch" type="xml">
-	<form string="Resumen">
+	<tree string="Resumen">
 	    <field name="recibidas" />
-	</form>
+	</tree>
 	</field>
 </record>	
 
 <record id="action_resumen_admin" model="ir.actions.act_window">
             <field name="name">Resumen insumar</field>
             <field name="res_model">taller.resumen</field>        
-            <field name="view_mode">form</field>            
+            <field name="view_mode">tree</field>            
         </record>       
 
  
