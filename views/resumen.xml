@@ -1,5 +1,5 @@
 <odoo>
-
+<data>
 
 <record id="action_resumen_admin" model="ir.actions.act_window">
             <field name="name">Resumen insumar</field>
@@ -43,4 +43,6 @@
             groups="parches_insumar.group_admin"
             sequence="9"
         />
+
+        </data>
 </odoo>
