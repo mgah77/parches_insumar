@@ -1,13 +1,14 @@
-from odoo import models, fields , _
+from odoo import models, fields , api,  _
 
 class Resumen(models.Model):
 
     _name = 'taller.resumen'
     _description = 'Resumen'
 
-    recibidas = fields.Integer('Recibidas', compute='_compute_recibidas')
+    recibidas = fields.Integer('Recibidas')
     por_pagar = fields.Integer('Por Pagar')
 
+    @api.model
     def _compute_recibidas(self):
         temp = temp2 = reci =0        
         for record in self:
@@ -16,4 +17,4 @@ class Resumen(models.Model):
             for line in temp2:
                 reci += 1
             record.recibidas = reci
-            
+        return    
