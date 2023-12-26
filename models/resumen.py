@@ -10,7 +10,7 @@ class Resumen(models.Model):
 
     @api.model
     def _compute_recibidas(self):
-        temp = self.env['account.move'].search_count([('move_type','=','in_invoice'),('payment_state','=','not_paid')])      
+        temp = self.env['account.move'].search_count([('move_type','=','in_invoice')])      
         for record in self:                    
             record.recibidas = temp
         return    
