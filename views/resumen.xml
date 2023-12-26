@@ -13,8 +13,7 @@
 
 <record id="action_resumen_admin" model="ir.actions.act_window">
             <field name="name">Resumen insumar</field>
-            <field name="res_model">taller.resumen</field>
-            <field name="view_type">form</field>
+            <field name="res_model">taller.resumen</field>        
             <field name="view_mode">form</field>            
         </record>       
 
