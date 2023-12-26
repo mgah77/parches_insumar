@@ -1,18 +1,5 @@
 <odoo>
 
-<menuitem        
-            id="menu_resumen"
-            parent=""
-            name="resumen"
-            sequence="7"
-        />
-
-<menuitem            
-            action="action_resumen_admin"
-            id="menu_action_resumen_admin"
-            parent="menu_resumen"
-            sequence="9"
-        />
 
 <record id="action_resumen_admin" model="ir.actions.act_window">
             <field name="name">Resumen insumar</field>
@@ -42,4 +29,18 @@
 	</field>
 </record>	 
 
+<menuitem        
+            id="menu_resumen"
+            parent=""
+            name="resumen"
+            sequence="7"
+        />
+
+<menuitem            
+            action="action_resumen_admin"
+            id="menu_action_resumen_admin"
+            parent="menu_resumen"
+            groups="parches_insumar.group_admin"
+            sequence="9"
+        />
 </odoo>
