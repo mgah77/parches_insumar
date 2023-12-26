@@ -16,7 +16,8 @@
             "security/groups.xml",
             "security/ir.model.access.csv",
 	        "views/product_template.xml",
-            "views/stock_picking.xml"
+            "views/stock_picking.xml",
+            "views/resumen.xml"
     ],
     'installable': True,
     'auto_install': False,
