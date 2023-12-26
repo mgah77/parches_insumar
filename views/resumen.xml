@@ -1,24 +1,6 @@
 <odoo>
 <data>
 
-<record id="action_resumen_admin" model="ir.actions.act_window">
-            <field name="name">Resumen insumar</field>
-            <field name="res_model">taller.resumen</field>
-            <field name="view_type">form</field>
-            <field name="view_mode">form</field>
-            
-            <!--<field name="search_view_id" ref="view_account_move_filter"/>
-      <field name="context"></field>
-            <field name="help" type="html">
-                <p class="oe_view_nocontent_create">
-          Click para crear una vista del libro.
-          Por favor NO Guardar los cambios.
-        </p>
-                <p>
-        </p>
-            </field>-->
-        </record>       
-
 <record id="taller_resumen_admin" model="ir.ui.view">
 	<field name="name">taller.resumen.admin</field>
 	<field name="model">taller.resumen</field>
@@ -27,7 +9,16 @@
 	    <field name="recibidas" />
 	</form>
 	</field>
-</record>	 
+</record>	
+
+<record id="action_resumen_admin" model="ir.actions.act_window">
+            <field name="name">Resumen insumar</field>
+            <field name="res_model">taller.resumen</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>            
+        </record>       
+
+ 
 
 <menuitem        
             id="menu_resumen"
