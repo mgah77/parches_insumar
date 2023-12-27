@@ -9,18 +9,15 @@
             
                 <kanban>
                     <templates>
-                        <t t-name="kanban-box">
-                            <div class="container" >
-                                <div  class="row">
-                                    <div class="col-sm" >
-                                            <field name="lineas_por_pagar" />
-                                           
-                                    </div>
-                                </div>
-                            
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">                            
+                            <div class="o_kanban_details">
+                                <span class="o_kanban_record_title">Not Paid Invoices</span>
+                                <span class="o_kanban_record_subtitle">Count: <field name="lineas_por_pagar"/></span>
                             </div>
-                        </t>
-                    </templates>
+                        </div>
+                    </t>
+                </templates>
                 </kanban>
             </field>
         </record>
