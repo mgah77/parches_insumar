@@ -4,7 +4,7 @@
 
 <record id="taller_resumen_admin" model="ir.ui.view">
             <field name="name">taller_resumen_kanban</field>
-            <field name="model">taller.resumen</field>
+            <field name="model">account.move</field>
             <field name="arch" type="xml">
             
                 <kanban>
@@ -13,7 +13,7 @@
                             <div class="container" >
                                 <div  class="row">
                                     <div class="col-sm" >
-                                            <field name="recibidas" />
+                                            <field name="lineas_por_pagar" />
                                            
                                     </div>
                                 </div>
@@ -27,7 +27,7 @@
 
 <record id="action_resumen_admin" model="ir.actions.act_window">
             <field name="name">Resumen insumar</field>
-            <field name="res_model">taller.resumen</field>        
+            <field name="res_model">account.move</field>        
             <field name="view_mode">kanban</field>            
         </record>       
 

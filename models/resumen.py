@@ -1,16 +1,16 @@
-from odoo import models, fields , api,  _
+from odoo import models, fields, api
 
 class Resumen(models.Model):
-
-    _name = 'taller.resumen'
-    _description = 'Resumen'
-
-    recibidas = fields.Integer('Recibidas', readonly=True, compute="_compute_recibidas")
-    por_pagar = fields.Integer('Por Pagar')
-
     
-    def _compute_recibidas(self):
-        temp = self.env['account.move'].search_count([('move_type','=','in_invoice')])      
-        for record in self:                    
-            record.recibidas = temp
-        return    
+    _inherit = 'account.move'
+
+    lineas_por_pagar = fields.Integer(compute='_compute_lineas_por_pagar', store=False)
+
+    @api.depends('payment_state', 'move_type')
+    def _compute_lineas_por_pagar(self):
+        for record in self:
+            por_pagar_count = self.search_count([
+                ('payment_state', '=', 'not_paid'),
+                ('move_type', '=', 'in_invoice')
+            ])
+            record.lineas_por_pagar = por_pagar_count
