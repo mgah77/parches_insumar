@@ -3,10 +3,9 @@
 
 
 <record id="taller_resumen_admin" model="ir.ui.view">
-            <field name="name">taller_resumen_kanban</field>
+            <field name="name">taller_resumen_admin</field>
             <field name="model">account.move</field>
             <field name="arch" type="xml">
-            
                 <kanban>
                     <templates>
                     <t t-name="kanban-box">
