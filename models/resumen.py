@@ -5,10 +5,10 @@ class Resumen(models.Model):
     _name = 'taller.resumen'
     _description = 'Resumen'
 
-    recibidas = fields.Integer('Recibidas', readonly=True)
+    recibidas = fields.Integer('Recibidas', readonly=True, compute="_compute_recibidas")
     por_pagar = fields.Integer('Por Pagar')
 
-    @api.model
+    
     def _compute_recibidas(self):
         temp = self.env['account.move'].search_count([('move_type','=','in_invoice')])      
         for record in self:                    
