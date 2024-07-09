@@ -1,10 +1,10 @@
 <odoo>
 <data>
 
-
+<!--
 <menuitem id="stock.menu_stock_inventory_control" groups="parches_insumar.group_menu_prod"/>
 
-
+-->
 
 </data>
 </odoo>
