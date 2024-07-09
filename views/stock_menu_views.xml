@@ -1,0 +1,6 @@
+<odoo>
+<data>
+
+<menuitem id="menu_product_in_config_stock" groups="parches_insumar.group_menu_prod"/>
+</data>
+</odoo>

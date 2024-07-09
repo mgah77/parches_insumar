@@ -2,7 +2,7 @@
 
 {
     'name': 'Insumar_parches',
-    'version': '3.01',
+    'version': '4.01',
     'category': 'General',
     'summary': '',
     'description': """
@@ -17,7 +17,8 @@
             "security/ir.model.access.csv",
 	        "views/product_template.xml",
             "views/stock_picking.xml",
-            "views/resumen.xml"
+            "views/resumen.xml",
+            "views/stock_menu_views.xml"
     ],
     'installable': True,
     'auto_install': False,
