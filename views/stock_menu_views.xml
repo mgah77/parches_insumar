@@ -1,6 +1,8 @@
 <odoo>
 <data>
-
+    <record id="stock.menu_stock_inventory_control" model="ir.ui.menu">
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
+    </record>
 <!--
 <menuitem id="stock.menu_stock_inventory_control" groups="parches_insumar.group_menu_prod"/>
 
