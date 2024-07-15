@@ -19,7 +19,7 @@
             "views/stock_picking.xml",
             "views/resumen.xml",
             "views/stock_menu_views.xml",
-            "configuration_menu.xml"
+            "views/configuration_menu.xml"
     ],
     'installable': True,
     'auto_install': False,
