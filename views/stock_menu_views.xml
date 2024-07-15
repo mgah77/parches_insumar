@@ -3,9 +3,6 @@
     <record id="stock.menu_stock_inventory_control" model="ir.ui.menu"> <!-- inventario/productos -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
-    <record id="stock.menu_stock_config_settings" model="ir.ui.menu"> <!-- inventario/configuracion -->
-        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
-    </record>
     <record id="stock.menu_action_inventory_tree" model="ir.ui.menu"> <!-- inventario/operaciones/ajustes de inventario -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
