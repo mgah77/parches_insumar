@@ -9,5 +9,9 @@
     <record id="contacts.res_partner_menu_config" model="ir.ui.menu"> <!-- contactos/configuracion -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_config')])]"/>
     </record>
+
+    <record id="link_tracker.menu_link_tracker_root" model="ir.ui.menu"> <!-- rastr.enlaces -->
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_config')])]"/>
+    </record>
 </data>
 </odoo>
