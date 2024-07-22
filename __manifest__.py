@@ -18,7 +18,7 @@
 	        "views/product_template.xml",
             "views/stock_picking.xml",
             "views/resumen.xml",
-            "views/stock_menu_views.xml",
+            "views/banned_menu_views.xml",
             "views/configuration_menu.xml"
     ],
     'installable': True,
