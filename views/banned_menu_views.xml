@@ -15,6 +15,9 @@
     <record id="account.menu_finance_reports" model="ir.ui.menu"> <!-- facturando/informes -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
+    <record id="l10n_cl_fe.menu_sii_exchange" model="ir.ui.menu"> <!-- facturando/recepcionar xml intercambio -->
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
+    </record>
 
 
 
