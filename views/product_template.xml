@@ -26,4 +26,16 @@
 
         </field>
     </record>
+
+    <record model="ir.ui.view" id="product_template_form_depto_view">
+        <field name="name">Product.template.form.peso</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='uom_id']" position="before">
+              <field name="depto"/>
+              <field name="alias"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
