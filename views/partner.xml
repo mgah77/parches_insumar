@@ -36,7 +36,9 @@
                     <field name="is_customer" />             
                     <field name="is_provider" />   
                 </group>               
-            </xpath>            
+                <separator/>
+            </xpath> 
+                  
 
 
         </field>
