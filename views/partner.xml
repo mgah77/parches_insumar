@@ -31,7 +31,7 @@
             <xpath expr="//field[@name='lang']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='acteco_ids']" position="before">
+            <xpath expr="//field[@name='acteco_ids']" position="after">
                 <group>                
                     <field name="is_customer" />             
                     <field name="is_provider" />   
