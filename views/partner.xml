@@ -40,7 +40,9 @@
             <xpath expr="//div[@class='oe_title mb24']" position="after">
                 <div style="border-top: 1px solid #000; margin: 10px 0;"></div>     
             </xpath> 
-                  
+            <xpath expr="//field[@name='website']" position="attributes">
+                <attribute name="placeholder">e.j. https://www.insumar.cl</attribute>  
+            </xpath>      
 
 
         </field>
