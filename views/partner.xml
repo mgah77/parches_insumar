@@ -17,7 +17,7 @@
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//field[@name='document_type_id']" position="attributes">
-                <attribute name="string">Tipo de documentos</attribute>
+                <attribute name="string">Tipo de documento</attribute>
             </xpath>
             <xpath expr="//field[@name='document_number']" position="attributes">
                 <attribute name="string">Número de documento</attribute>
@@ -31,7 +31,7 @@
             <xpath expr="//field[@name='lang']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
-            <xpath expr="//field[@name='street']" position="after">
+            <xpath expr="//field[@name='acteco_ids']" position="before">
                 <group>                
                     <field name="is_customer" />             
                     <field name="is_provider" />   
