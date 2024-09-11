@@ -37,7 +37,7 @@
                     <field name="is_provider" />   
                 </group>               
             </xpath> 
-            <xpath expr="//field[@name='parent_id']" position="after">
+            <xpath expr="//field[@name='type']" position="before">
                 <separator/>        
             </xpath> 
                   
