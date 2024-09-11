@@ -19,7 +19,8 @@
             "views/stock_picking.xml",
             "views/resumen.xml",
             "views/banned_menu_views.xml",
-            "views/configuration_menu.xml"
+            "views/configuration_menu.xml",
+            "views/partner.xml"
     ],
     'installable': True,
     'auto_install': False,
