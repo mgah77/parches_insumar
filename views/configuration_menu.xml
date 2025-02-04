@@ -19,7 +19,7 @@
     </record>
 
     <record id="hr.menu_hr_root" model="ir.ui.menu"> <!-- empleados -->
-        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_config')])]"/>
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
     </record>
 
 
