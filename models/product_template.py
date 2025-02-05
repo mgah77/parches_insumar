@@ -13,3 +13,5 @@ class ProductDepartment(models.Model):
                             ('Banco CO2','Banco CO2'),
                             ('Textil','Textil')
     ])
+    exchange_ok = fields.Boolean(string='Exchange', default=False)
+
