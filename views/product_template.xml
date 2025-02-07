@@ -36,6 +36,7 @@
                 <span class="d-inline-block"><field name="sale_ok"/><label for="sale_ok"/> </span>
                 <span class="d-inline-block"><field name="purchase_ok"/><label for="purchase_ok"/> </span>
                 <span class="d-inline-block"><field name="exchange_ok"/><label for="exchange_ok"/> </span>
+                <span class="d-inline-block"><field name="sucursal" attrs="{'invisible': [('exchange_ok', '=', False)]}"/> </span>
             </xpath>
         </field>
     </record>
