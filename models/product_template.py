@@ -5,5 +5,3 @@ class ProductDepartment(models.Model):
 
 
     exchange_ok = fields.Boolean(string='Para Reemplazo', default=False)
-    sucursal = fields.Selection([('2','Ñuble'),('3','Par Vial')],string='Sucursal')
-
