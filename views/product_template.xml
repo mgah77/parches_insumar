@@ -35,8 +35,7 @@
             <xpath expr="//div[@name='options']" position="replace">
                 <span class="d-inline-block"><field name="sale_ok"/><label for="sale_ok"/> </span>
                 <span class="d-inline-block"><field name="purchase_ok"/><label for="purchase_ok"/> </span>
-                <span class="d-inline-block"><field name="exchange_ok"/><label for="exchange_ok"/> </span>
-                <span class="d-inline-block"><label for="sucursal" attrs="{'invisible': [('exchange_ok', '=', False)]}"/><field name="sucursal" string="Sucursal" attrs="{'invisible': [('exchange_ok', '=', False)]}"/></span>
+                <span class="d-inline-block"><field name="exchange_ok"/><label for="exchange_ok"/> </span>            
             </xpath>
         </field>
     </record>
