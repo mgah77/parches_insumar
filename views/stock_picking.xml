@@ -124,6 +124,16 @@
             <attribute name="can_create">False</attribute>
             <attribute name="can_write">False</attribute> 
         </xpath>
+        <xpath expr="//field[@name='move_ids_without_package']//field[@name='product_id']" position="attributes">
+            <attribute name="can_create">False</attribute>
+            <attribute name="can_write">False</attribute> <!-- Opcional: evitar edición -->
+        </xpath>
+        
+        <!-- Si también quieres bloquear en move_line_ids (stock.move.line - operaciones detalladas) -->
+        <xpath expr="//field[@name='move_line_ids']//field[@name='product_id']" position="attributes">
+            <attribute name="can_create">False</attribute>
+            <attribute name="can_write">False</attribute>
+        </xpath>
         </field>
     </record>
 
