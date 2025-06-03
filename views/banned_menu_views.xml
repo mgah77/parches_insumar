@@ -1,8 +1,8 @@
 <odoo>
 <data>
-    <record id="stock.menu_stock_inventory_control" model="ir.ui.menu"> <!-- inventario/productos -->
+    <!--record id="stock.menu_stock_inventory_control" model="ir.ui.menu"> 
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
-    </record>
+    </record-->
     <record id="stock.menu_action_inventory_tree" model="ir.ui.menu"> <!-- inventario/operaciones/ajustes de inventario -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
@@ -22,6 +22,20 @@
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
     </record>
 
+    <record id="product_template_kanban_view_talleres" model="ir.ui.view">
+        <field name="name">product.template.kanban.talleres</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_kanban_view"/>
+        <field name="groups_id" eval="[(6, 0, [ref('taller.group_nuble'), ref('taller.group_parvial')])]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="edit">false</attribute>
+                <attribute name="create">false</attribute>
+                <attribute name="delete">false</attribute>
+                <attribute name="open_action">false</attribute>
+            </xpath>
+        </field>
+    </record>
 
 
 </data>
