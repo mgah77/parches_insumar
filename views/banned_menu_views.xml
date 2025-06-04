@@ -21,6 +21,9 @@
     <record id="account.menu_finance_payables" model="ir.ui.menu"> <!-- facturando/proveedores -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
     </record>
+    <record id="account.menu_finance" model="ir.ui.menu"> <!-- facturando -->
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
+    </record>
 
 
 
