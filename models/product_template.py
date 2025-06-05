@@ -13,6 +13,6 @@ class ProductDepartment(models.Model):
         for product in self:
             if product.standard_price > 0 and product.list_price > 0:
                 # Fórmula: ((Precio venta - Precio costo) / Precio costo) * 100
-                product.margenes = ((product.list_price - product.standard_price) / product.standard_price) * 100
+                product.margenes = ((product.list_price - product.standard_price) / product.standard_price)
             else:
                 product.margenes = 0.0
