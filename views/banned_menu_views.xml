@@ -4,7 +4,7 @@
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
     <record id="stock.menu_action_inventory_tree" model="ir.ui.menu"> <!-- inventario/operaciones/ajustes de inventario -->
-        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_admin')])]"/>
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
     </record>
     <record id="account.product_product_menu_sellable" model="ir.ui.menu"> <!-- facturando/clientes/productos -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
