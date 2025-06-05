@@ -5,3 +5,5 @@ class ProductDepartment(models.Model):
 
 
     exchange_ok = fields.Boolean(string='Para Reemplazo', default=False)
+
+    margenes = fields.Float(string='Margen', store=True)
