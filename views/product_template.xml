@@ -23,6 +23,9 @@
             <xpath expr="//field[@name='standard_price']" position="attributes">
                 <attribute name="options">{'field_digits': False}</attribute>
             </xpath>
+            <xpath expr="//field[@name='taxes_id']" position="after">
+                <field name="margenes" widget="percentage"/>
+            </xpath>
 
         </field>
     </record>
