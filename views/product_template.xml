@@ -19,7 +19,6 @@
         <field name="arch" type="xml">
         <xpath expr="//field[@name='standard_price']" position="attributes">
             <attribute name="options">{'field_digits': False}</attribute>
-            <attribute name="groups">taller.group_admin</attribute>
         </xpath>
         <!-- standard_price: Invisible para no-admin -->
         <xpath expr="//field[@name='list_price']" position="attributes">
