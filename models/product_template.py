@@ -6,7 +6,7 @@ class ProductDepartment(models.Model):
 
     exchange_ok = fields.Boolean(string='Para Reemplazo', default=False)
 
-    margenes = fields.Float(string='Margen', store=True, compute='_compute_margenes')
+    margenes = fields.Float(string='Margen', compute='_compute_margenes')
 
     @api.depends('standard_price', 'list_price')
     def _compute_margenes(self):
