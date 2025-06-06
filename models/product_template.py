@@ -16,3 +16,10 @@ class ProductDepartment(models.Model):
                 product.margenes = ((product.list_price - product.standard_price) / product.standard_price)
             else:
                 product.margenes = 0.0
+
+    is_admin_user = fields.Boolean(string="list_price", compute="_compute_is_admin_user", store=False)
+
+    @api.depends_context('uid')
+    def _compute_is_admin_user(self):
+        for rec in self:
+            rec.is_admin_user = self.env.user.has_group('parches_insumar.group_list_price')
