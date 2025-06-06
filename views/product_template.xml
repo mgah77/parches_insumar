@@ -27,7 +27,6 @@
             <attribute name="attrs">{'readonly': [('groups_id', 'not in', [ref('parches_insumar.group_admin')])]}</attribute>
         </xpath>
       
-        </xpath>
             <xpath expr="//field[@name='taxes_id']" position="after">
                 <field name="margenes" widget="percentage"/>
             </xpath>
