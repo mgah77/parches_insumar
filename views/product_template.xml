@@ -24,7 +24,7 @@
         <!-- standard_price: Invisible para no-admin -->
         <xpath expr="//field[@name='list_price']" position="attributes">
             <attribute name="options">{'field_digits': False}</attribute>
-            <attribute name="attrs">{'readonly': [('groups_id', 'not in', [ref('parches_insumar.group_admin')])]}</attribute>
+            <attribute name="attrs">{'readonly': [('user_has_groups', '!=', 'parches_insumar.group_admin')]}</attribute>
         </xpath>
       
             <xpath expr="//field[@name='taxes_id']" position="after">
