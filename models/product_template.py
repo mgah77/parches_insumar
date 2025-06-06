@@ -24,15 +24,3 @@ class ProductDepartment(models.Model):
         for rec in self:
             rec.is_admin_user = self.env.user.has_group('parches_insumar.group_list_price')
 
-
-    def write(self, vals):
-        res = super(ProductDepartment, self).write(vals)
-        for record in self:
-            modified_fields = ', '.join([field for field in vals.keys()])
-            record.message_post(
-                body=_("El usuario <b>%s</b> realizó cambios en los siguientes campos: <b>%s</b>") % (
-                    self.env.user.name, modified_fields),
-                message_type="notification",
-                subtype="mail.mt_note"
-            )
-        return res
