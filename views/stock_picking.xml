@@ -124,6 +124,7 @@
          <xpath expr="//field[@name='partner_id']" position="attributes">
             <attribute name="can_create">False</attribute>
             <attribute name="can_write">False</attribute> 
+         <attribute name="domain">[('type', '!=', 'private'), ('is_company', '=', True), ('type','=','contact'), ('is_customer','=',True)]</attribute>
         </xpath>
 
         </field>
