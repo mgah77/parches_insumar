@@ -137,7 +137,7 @@
             <xpath expr="//field[@name='move_ids_without_package']//field[@name='product_id']" position="attributes">
                 <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
             </xpath>
-            <xpath expr="//field[@name='move_line_ids']//field[@name='product_id']" position="attributes">
+            <xpath expr="//field[@name='move_line_nosuggest_ids']//field[@name='product_id']" position="attributes">
                 <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
             </xpath>
         </field>
