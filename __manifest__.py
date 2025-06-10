@@ -17,6 +17,7 @@
             "security/ir.model.access.csv",
 	        "views/product_template.xml",
             "views/stock_picking.xml",
+            "views/sale_order.xml",
             "views/banned_menu_views.xml",
             "views/configuration_menu.xml",
             "views/partner.xml",
