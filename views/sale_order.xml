@@ -3,6 +3,7 @@
         <field name="name">sale.order.form.filter.customer</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority">20</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="can_create">False</attribute>
