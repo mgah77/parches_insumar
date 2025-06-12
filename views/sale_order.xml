@@ -2,13 +2,25 @@
     <record id="view_order_form_filter_customer" model="ir.ui.view">
         <field name="name">sale.order.form.filter.customer</field>
         <field name="model">sale.order</field>
-        <field name="inherit_id" ref="l10n_cl_fe.view_order_form"/>
+        <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="priority">20</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='partner_id']" position="attributes">
                 <attribute name="can_create">False</attribute>
                 <attribute name="can_write">False</attribute> 
                 <attribute name="domain">[('type', '!=', 'private'), ('is_company', '=', True), ('type','=','contact'), ('is_customer','=',True)]</attribute>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_sale_order_line_tree_no_create_product" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.no.create.product</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.view_order_line_tree"/>
+        <field name="groups_id" eval="[(4, ref('taller.group_parvial'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
+                <attribute name="domain">[('sale_ok', '=', True)]</attribute>
             </xpath>
         </field>
     </record>
