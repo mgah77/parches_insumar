@@ -10,17 +10,11 @@
                 <attribute name="can_write">False</attribute> 
                 <attribute name="domain">[('type', '!=', 'private'), ('is_company', '=', True), ('type','=','contact'), ('is_customer','=',True)]</attribute>
             </xpath>
-        </field>
-    </record>
-    <record id="view_sale_order_line_tree_no_create_product" model="ir.ui.view">
-        <field name="name">sale.order.line.tree.no.create.product</field>
-        <field name="model">sale.order.line</field>
-        <field name="inherit_id" ref="sale.view_order_line_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='product_id']" position="attributes">
+            <xpath expr="//field[@name='order_line']//field[@name='product_id']" position="attributes">
                 <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
                 <attribute name="domain">[('sale_ok', '=', True)]</attribute>
             </xpath>
         </field>
     </record>
+    
 </odoo>
