@@ -13,6 +13,8 @@
             <xpath expr="//field[@name='order_line']//field[@name='product_id']" position="attributes">
                 <attribute name="options">{'no_create': True, 'no_create_edit': True}</attribute>
                 <attribute name="domain">[('sale_ok', '=', True)]</attribute>
+                <attribute name="can_create">false</attribute>
+                <attribute name="can_write">false</attribute>
             </xpath>
         </field>
     </record>
