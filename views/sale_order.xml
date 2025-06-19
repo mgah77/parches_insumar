@@ -6,7 +6,7 @@
         <field name="priority">21</field>
         <field name="arch" type="xml">
             <field name="acteco_id" position="after">
-                <field name="glosa" attrs="{'invisible': [('acteco_ids','=', [])]}"7>
+                <field name="glosa" attrs="{'invisible': [('acteco_ids','=', [])]}"/>
             </field>
         </field>
     </record>
