@@ -1,7 +1,5 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
-class AccountMoveLineDigits(models.Model):
+class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
-    
-    quantity = fields.Float(digits=0)
-    price_unit = fields.Float(digits=0)
+
