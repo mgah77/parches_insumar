@@ -1,5 +1,11 @@
 from odoo import models, fields, api
 
+class AccountMove(models.Model):
+    _inherit = 'account.move'
+
+    glosa = fields.Char(string="Glosa")
+
+
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
