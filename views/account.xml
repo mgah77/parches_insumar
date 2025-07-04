@@ -10,9 +10,9 @@
             <xpath expr="//page[@name='electronic_invoice']" position="attributes">
                 <attribute name="string">Factura electrónica</attribute>
             </xpath>
-            <xpath expr="//field[@name='narration']" position="before">
-                <field name="glosa"></field>
-            </xpath>
+            <field name="acteco_id" position="after">
+                <field name="glosa" attrs="{'invisible': [('acteco_ids','=', [])]}"/>
+            </field>
         </field>
     </record>
     <record model="ir.ui.view" id="view_account_inherit_tree">
