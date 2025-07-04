@@ -7,6 +7,9 @@
             <xpath expr="//field[@name='acteco_id']" position="attributes">
                 <attribute name="string">Actividad económica</attribute>
             </xpath>
+            <field name="acteco_id" position="after">
+                <field name="glosa"/>
+            </field>
         </field>
     </record>
     <!--record model="ir.ui.view" id="view_account_inherit_tree">
