@@ -15,7 +15,7 @@
     <record model="ir.ui.view" id="view_account_inherit_tree">
         <field name="name">account.parche.inherit.tree</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="l10n_cl_fe.invoice.tree"/>
+        <field name="inherit_id" ref="l10n_cl_fe.invoice_tree"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='amount_untaxed_signed']" position="attributes">
                 <attribute name="string">Neto</attribute>
