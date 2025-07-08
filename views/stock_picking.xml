@@ -126,9 +126,13 @@
             <attribute name="can_write">False</attribute> 
          <attribute name="domain">[('type', '!=', 'private'), ('is_company', '=', True), ('type','=','contact'), ('is_customer','=',True)]</attribute>
         </xpath>
+        <xpath expr="//field[@name='location_id']" position="before">
+            <field name="user_stock_location_id" invisible="1"/>
+        </xpath>
         <xpath expr="//field[@name='location_id']" position="attributes">
             <attribute name="domain">[('id', '=', user_stock_location_id)]</attribute>
         </xpath>
+        
         </field>
     </record>
 
