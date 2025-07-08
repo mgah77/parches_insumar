@@ -40,10 +40,23 @@ class SaleOrderLine(models.Model):
 
         for order_id, new_lines in order_lines_map.items():
             order = self.env['sale.order'].browse(order_id)
-            if len(order.order_line) + new_lines > 30:
-                raise exceptions.ValidationError(
-                    _('No se pueden agregar más de 30 líneas de producto por orden.')
-                )
+            if order.exists():
+                existing_lines = len(order.order_line)
+            else:
+                existing_lines = 0
+
+            total_lines = existing_lines + new_lines
+            if total_lines > 30:
+                if existing_lines == 0:
+                    raise exceptions.ValidationError(
+                        _('Estás intentando crear una orden con %s líneas.\n'
+                        'El límite es de 30 líneas por orden.') % (new_lines)
+                    )
+                else:
+                    raise exceptions.ValidationError(
+                        _('La orden ya tiene %s líneas y estás intentando agregar %s más.\n'
+                        'El límite es de 30 líneas por orden.') % (existing_lines, new_lines)
+                    )
 
         # Continuar con lógica original
         for vals in vals_list:
@@ -64,10 +77,23 @@ class SaleOrderLine(models.Model):
         # Si se cambia de orden, verificar límite
         if 'order_id' in values:
             new_order = self.env['sale.order'].browse(values['order_id'])
-            if len(new_order.order_line) + len(self) > 30:
-                raise exceptions.ValidationError(
-                    _('No se pueden agregar más de 30 líneas de producto por orden.')
-                )
+            if new_order.exists():
+                existing_lines = len(new_order.order_line)
+            else:
+                existing_lines = 0
+
+            total_lines = existing_lines + len(self)
+            if total_lines > 30:
+                if existing_lines == 0:
+                    raise exceptions.ValidationError(
+                        _('Estás intentando mover %s líneas a una orden nueva.\n'
+                        'El límite es de 30 líneas por orden.') % len(self)
+                    )
+                else:
+                    raise exceptions.ValidationError(
+                        _('La orden ya tiene %s líneas y estás intentando mover %s más.\n'
+                        'El límite es de 30 líneas por orden.') % (existing_lines, len(self))
+                    )
 
         if 'display_type' in values and self.filtered(lambda l: l.display_type != values.get('display_type')):
             raise exceptions.UserError(_("You cannot change the type of a sale order line. Instead you should delete the current line and create a new line of the proper type."))
