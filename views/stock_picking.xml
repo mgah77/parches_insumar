@@ -129,7 +129,7 @@
             <xpath expr="//field[@name='location_id']" position="before">
                 <field name="user_stock_location_id" invisible="1"/>
             </xpath>
-            <!--xpath expr="//field[@name='location_id']" position="replace">
+            <xpath expr="//field[@name='location_id']" position="replace">
                 <field name="location_id"
                     domain="[('id', '=', user_stock_location_id)]"
                     options="{'no_create': True}"
@@ -139,7 +139,7 @@
                                 'required': True}"
                     can_create="true"
                     can_write="true"/>
-            </xpath-->
+            </xpath>
                 
         </field>
     </record>
