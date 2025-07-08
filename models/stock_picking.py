@@ -23,7 +23,7 @@ class StockPicking(models.Model):
     @api.depends('picking_type_id')
     def _compute_user_stock_location(self):
         for record in self:
-            warehouse = self.env.user.warehouse_id
+            warehouse = self.env.user.property_warehouse_id
             if warehouse:
                 record.user_stock_location_id = warehouse.lot_stock_id
             else:
