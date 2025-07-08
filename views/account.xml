@@ -12,19 +12,18 @@
             </field>
         </field>
     </record>
-    <!--record model="ir.ui.view" id="view_account_inherit_tree">
+    <record model="ir.ui.view" id="view_account_inherit_tree">
         <field name="name">account.parche.inherit.tree</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="l10n_cl_fe.invoice_tree"/>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="l10n_cl_fe.invoice.tree"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='amount_untaxed_invoice_signed']" position="attributes">
+            <xpath expr="//field[@name='amount_untaxed_signed']" position="attributes">
                 <attribute name="string">Neto</attribute>
             </xpath>
-            <xpath expr="//field[@name='amount_tax_signed']" position="attributes">
+            <!--xpath expr="//field[@name='amount_tax_signed']" position="attributes">
                 <attribute name="string">IVA</attribute>
-            </xpath>
+            </xpath-->
         </field>
-    </record-->
-
+    </record>
 
 </odoo>
