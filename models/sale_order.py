@@ -17,7 +17,13 @@ class SaleOrderCompany(models.Model):
     def _check_glosa_length(self):
         for record in self:
             if record.glosa and len(record.glosa) > 40:
-                raise ValidationError("La glosa no puede exceder los 40 caracteres")
+                raise exceptions.ValidationError("La glosa no puede exceder los 40 caracteres")
+            
+    @api.constrains('order_line')
+    def _check_order_line_limit(self):
+        for order in self:
+            if len(order.order_line) > 30:
+                raise exceptions.ValidationError("No se pueden tener más de 30 líneas de producto por orden.")
             
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
