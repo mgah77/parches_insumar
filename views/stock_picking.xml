@@ -129,8 +129,15 @@
             <xpath expr="//field[@name='location_id']" position="before">
                 <field name="user_stock_location_id" invisible="1"/>
             </xpath>
-
-                
+            <xpath expr="//field[@name='location_id'][@groups='stock.group_stock_multi_locations']" position="replace">
+                <field name="location_id"
+                    domain="[(user_stock_location_id) and ('id', '=', user_stock_location_id) or ('id', '!=', False)]"
+                    options="{'no_create': True}"
+                    groups="stock.group_stock_multi_locations"
+                    attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"
+                    can_create="true"
+                    can_write="true"/>
+            </xpath>              
         </field>
     </record>
 
