@@ -137,7 +137,16 @@
                     attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}"
                     can_create="true"
                     can_write="true"/>
-            </xpath>              
+            </xpath>      
+            <xpath expr="//field[@name='location_dest_id'][@groups='stock.group_stock_multi_locations']" position="replace">
+                <field name="location_dest_id"
+                    domain="[('name', '=', 'Stock')]"
+                    options="{'no_create': True}"
+                    groups="stock.group_stock_multi_locations"
+                    attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"
+                    can_create="true"
+                    can_write="true"/>
+            </xpath>        
         </field>
     </record>
 
