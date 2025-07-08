@@ -129,17 +129,7 @@
             <xpath expr="//field[@name='location_id']" position="before">
                 <field name="user_stock_location_id" invisible="1"/>
             </xpath>
-            <xpath expr="//sheet/group/group/field[@name='location_id']" position="replace">
-                <field name="location_id"
-                    domain="[('id', '=', user_stock_location_id)]"
-                    options="{'no_create': True}"
-                    on_change="1"
-                    modifiers="{'invisible': [['picking_type_code', '=', 'incoming']],
-                                'readonly': [['state', 'in', ['done']]],
-                                'required': True}"
-                    can_create="true"
-                    can_write="true"/>
-            </xpath>
+
                 
         </field>
     </record>
