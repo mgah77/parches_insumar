@@ -23,6 +23,9 @@
             <xpath expr="//field[@name='amount_untaxed_signed']" position="after">
                 <field name="amount_tax_signed"/>
             </xpath>
+            <xpath expr="//field[@name='invoice_partner_display_name']" position="after">
+                <field name="glosa"/>
+            </xpath>
             <xpath expr="//field[@name='amount_tax_signed']" position="attributes">
                 <attribute name="string">IVA</attribute>
             </xpath>
@@ -30,6 +33,8 @@
                 <attribute name="string">Numero</attribute>
             </xpath>
             <xpath expr="//field[@name='amount_total_in_currency_signed']" position="replace">               
+            </xpath>
+            <xpath expr="//field[@name='activity_ids']" position="replace">               
             </xpath>
         </field>
     </record>
