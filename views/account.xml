@@ -29,6 +29,8 @@
             <xpath expr="//field[@name='sii_document_number']" position="attributes">
                 <attribute name="string">Numero</attribute>
             </xpath>
+            <xpath expr="//field[@name='amount_total_in_currency_signed']" position="replace">               
+            </xpath>
         </field>
     </record>
 
