@@ -23,9 +23,9 @@
             <xpath expr="//field[@name='amount_untaxed_signed']" position="after">
                 <field name="amount_tax_signed"/>
             </xpath>
-            <!--xpath expr="//field[@name='amount_tax_signed']" position="attributes">
+            <xpath expr="//field[@name='amount_tax_signed']" position="attributes">
                 <attribute name="string">IVA</attribute>
-            </xpath-->
+            </xpath>
         </field>
     </record>
 
