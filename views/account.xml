@@ -20,6 +20,9 @@
             <xpath expr="//field[@name='amount_untaxed_signed']" position="attributes">
                 <attribute name="string">Neto</attribute>
             </xpath>
+            <xpath expr="//field[@name='amount_untaxed_signed']" position="after">
+                <field name="amount_tax_signed"/>
+            </xpath>
             <!--xpath expr="//field[@name='amount_tax_signed']" position="attributes">
                 <attribute name="string">IVA</attribute>
             </xpath-->
