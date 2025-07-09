@@ -23,7 +23,7 @@
             <xpath expr="//field[@name='amount_untaxed_signed']" position="after">
                 <field name="amount_tax_signed"/>
             </xpath>
-            <xpath expr="//field[@name='invoice_partner_display_name']" position="after">
+            <xpath expr="//field[@name='invoice_partner_display_name']" position="before">
                 <field name="glosa"/>
             </xpath>
             <xpath expr="//field[@name='amount_tax_signed']" position="attributes">
