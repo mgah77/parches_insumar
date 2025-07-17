@@ -1,5 +1,5 @@
 <odoo>
-  <template id="report_saleorder_document" name="Sale Order Document">
+  <template id="sale.report_saleorder_document" name="Sale Order Document">
     <!-- pega aquí el contenido del template original que copiaste -->
     <t t-name="sale.report_saleorder_document">
         <t t-call="web.external_layout">
