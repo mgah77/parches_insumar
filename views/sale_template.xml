@@ -5,6 +5,46 @@
         <t t-call="web.basic_layout">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
+                <div class="row">
+                    <div class="col-7 center-text">
+                        <img t-if="logo" t-att-src="image_data_uri(logo)" class="logo-img"/>
+                        <h4 class="company-name">
+                              <t t-esc="doc.company_id.name"/>
+                        </h4>
+                        <p class="company-details">
+                            <span t-field="doc.company_id.activity_description.name"/><br/>
+                              <!-- domicilios -->
+                              <!--span>Dirección: </span><span t-field="company.street"/>, <span t-field="company.city_id.name"/>, <span t-field="company.city"/>
+                              
+                              <t t-if="o.company_id.sucursal_ids and o.use_documents">
+                                <t t-if="len(o.company_id.sucursal_ids) == 1">
+                                 <span>Sucursal: </span><span t-field="o.company_id.sucursal_ids[0].partner_id.street"/>, <span t-field="o.company_id.sucursal_ids[0].partner_id.city_id.name"/>, <span t-field="o.company_id.sucursal_ids[0].partner_id.city"/>
+                                </t>
+                                <t t-else="">
+                                  <span>Sucursales: </span>
+                                    <t t-foreach="o.company_id.sucursal_ids" t-as="sucursal">
+                                      <span t-field="sucursal.partner_id.street"/>, <span t-field="sucursal.partner_id.city_id.name"/>, <span t-field="sucursal.partner_id.city"/>/
+                                    </t>
+                                </t>
+                              </t-->
+                            <br/>
+                            <t t-if="doc.company_id.id == 1">
+                                    <t t-if="doc.team_id.id == 1">
+                                        <span>Dirección: PAR VIAL 2704, Puerto Montt</span><br/>
+                                        <span>Telefono: 65 231 3101</span><br/>  
+                                        <span>Email: ventas.parvial@insumar.cl</span><br/>                         
+                                    </t>
+                                    <t t-if="doc.team_id.id == 5">
+                                        <span>Dirección: Ñuble 190, Puerto Montt</span><br/>
+                                        <span>Telefono: 65 271 5386</span><br/>
+                                        <span>Email: ventas@insumar.cl</span><br/>  
+                                    </t>  
+                            </t>                              
+                            <br/>                              
+                            <span t-field="company.website"/>
+                        </p>
+                    </div>
+                </div>
 
                 <h2 class="mt-4">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
