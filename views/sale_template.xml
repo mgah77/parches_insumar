@@ -33,7 +33,7 @@
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
                     <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
                     <span t-else="">Order # </span>
-                    <span t-field="doc.name"/>
+                    <span t-field="doc.glosa"/>
                 </h2>
 
                 <div class="row mt-4 mb-4" id="informations">
