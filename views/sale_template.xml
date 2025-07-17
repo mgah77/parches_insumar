@@ -39,9 +39,7 @@
                                         <span>Telefono: 65 271 5386</span><br/>
                                         <span>Email: ventas@insumar.cl</span><br/>  
                                     </t>  
-                            </t>                              
-                            <br/>                              
-                            <span t-field="company.website"/>
+                            </t>                           
                         </p>
                     </div>
                 </div>
