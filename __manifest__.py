@@ -22,7 +22,8 @@
             "views/banned_menu_views.xml",
             "views/configuration_menu.xml",
             "views/partner.xml",
-            "views/calendar.xml"
+            "views/calendar.xml",
+            "views/sale_template.xml"
     ],
     'installable': True,
     'auto_install': False,
