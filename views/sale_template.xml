@@ -2,7 +2,8 @@
   <template id="sale.report_saleorder_document" name="Sale Order Document">
     <!-- pega aquí el contenido del template original que copiaste -->
     <t t-name="sale.report_saleorder_document">
-        <t t-call="web.basic_layout">           
+        <t t-call="web.basic_layout">
+           <div style="margin-top: -30px;">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
             <t t-set="logo" t-value="doc.company_id.logo_web"/>
             <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
@@ -43,7 +44,7 @@
                             </t>                           
                         </p>
                     </div>
-            
+                </div>
 
                 <h2 class="mt-4">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
