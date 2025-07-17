@@ -3,7 +3,9 @@
     <!-- pega aquí el contenido del template original que copiaste -->
     <t t-name="sale.report_saleorder_document">
         <t t-call="web.basic_layout">
+           <div style="margin-top: -30px;">
             <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+            <t t-set="logo" t-value="doc.company_id.logo_web"/>
             <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
                 <div class="row">
                     <div class="col-7 center-text">
@@ -266,6 +268,7 @@
                     </p>
                 </div>
             </div>
+          </div>  
         </t>
     </t>
   </template>
