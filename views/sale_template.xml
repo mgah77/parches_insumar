@@ -27,13 +27,92 @@
                 </t>
             </t>
             <div class="page">
+                    <div class="row table-container">
+                        <table class="table table-no-margin">
+                            <tbody>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Señor (es):</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="doc.partner_id.name"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Fecha:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                            <span t-field="doc.date_order"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>RUT:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="doc.partner_id.document_number"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Comuna:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-field="doc.partner_id.city_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Domicilio:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="doc.partner_id.street"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Ciudad:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-field="doc.partner_id.city"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Giro:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Condición de Pago:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-if="'payment_term_id' in doc" t-field="doc.payment_term_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Contacto:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <t t-if="'contact_id' in doc and doc.contact_id">
+                                            <span t-field="doc.contact_id.name"/>
+                                        </t>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Vencimiento:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                      
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
                 <div class="oe_structure"/>
 
                 <h2 class="mt-4">
                     <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice # </span>
                     <span t-elif="doc.state in ['draft','sent']">Quotation # </span>
                     <span t-else="">Order # </span>
-                    <span t-field="doc.glosa"/>
+                    <span t-field="doc.name"/>
                 </h2>
 
                 <div class="row mt-4 mb-4" id="informations">
