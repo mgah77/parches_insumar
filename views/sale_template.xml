@@ -187,7 +187,7 @@
                         <div class="col-5">
                             <div class="total-box">
                                 <table style="width: 100%; border: none;">
-                                    <tr>
+                                    <tr style="border: none; padding-bottom: 5px;">
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>Neto</span>
                                         </td>
@@ -195,7 +195,7 @@
                                             <span t-field="doc.amount_untaxed"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: none;">
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>IVA</span>
                                         </td>
@@ -203,7 +203,7 @@
                                             <span t-field="doc.amount_tax"/>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr style="border: none;">
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <strong>Total</strong>
                                         </td>
