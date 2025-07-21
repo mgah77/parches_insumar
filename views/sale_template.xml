@@ -188,9 +188,9 @@
                         </div>
                         <div class="col-5">
                             <div class="total-box">
-                                <table style="width: 100%;">
+                                <table style="width: 100%; border: none;">
                                     <tr>
-                                        <td class="table-cell-no-padding" style="text-align: left;">
+                                        <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>Neto</span>
                                         </td>
                                         <td class="table-cell-no-padding" style="text-align: right;">                                       
@@ -198,7 +198,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-no-padding" style="text-align: left;">
+                                        <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>IVA</span>
                                         </td>
                                         <td class="table-cell-no-padding" style="text-align: right;">                                       
@@ -206,7 +206,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="table-cell-no-padding" style="text-align: left;">
+                                        <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <strong>Total</strong>
                                         </td>
                                         <td class="table-cell-no-padding" style="text-align: right;">                                       
