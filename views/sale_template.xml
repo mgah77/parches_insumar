@@ -8,7 +8,7 @@
             <t t-set="logo" t-value="doc.company_id.logo_web"/>
             <t t-set="forced_vat" t-value="doc.fiscal_position_id.foreign_vat"/> <!-- So that it appears in the footer of the report instead of the company VAT if it's set -->
                 <div class="header">
-                    <div class="row" style="margin-top: -30px;">
+                    <div class="row" style="margin-top: 0px;">
                         <div class="col-7 center-text">
                             <img t-if="logo" t-att-src="image_data_uri(logo)" class="logo-img"/>
                             <h4 class="company-name">
@@ -45,6 +45,20 @@
                                 </t>                           
                             </p>
                         </div>
+                        <div class="col-5">
+                          <div class="document-box">
+                              <h6 class="rut-header">
+                                Cotización<br />
+                                N° <span t-esc="doc.name"/>
+                              </h6>
+                              
+                          </div>
+                          <!--div class="row center-text" style="text-align: center !important;">
+                              <p class="sii-info">
+                                SII - <span t-field="o.company_id.sii_regional_office_id.name"/>
+                              </p>
+                          </div-->
+                      </div>
                     </div>
                 </div>
                 <h2 class="mt-4">
