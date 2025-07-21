@@ -134,9 +134,9 @@
                                             <strong>Vencimiento:</strong>
                                         </td>
                                         <td class="table-cell-no-padding">
-                                            <div t-if="doc.validity_date" >
+                                            <t-if="doc.validity_date" >
                                                <p t-field="doc.validity_date"/>
-                                            </div>                                    
+                                            </t>                                    
                                         </td>
                                     </tr>
                                 </tbody>
