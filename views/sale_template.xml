@@ -46,8 +46,8 @@
                             </p>
                         </div>
                         <div class="col-5">
-                          <div class="document-box">
-                              <h4 class="rut-header">
+                          <div class="document-box2">
+                              <h4 class="rut-header2">
                               <br />
                                 COTIZACION<br />
                                 # <span t-esc="doc.name"/>
