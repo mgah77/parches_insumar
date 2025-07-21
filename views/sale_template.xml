@@ -185,7 +185,7 @@
                                     </td>
                                     
                                     <td class="table-cell-no-padding" style="text-align: left;">
-                                        <span t-field="l.product_id"/>
+                                        <span t-field="l.product_id.name"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
                                         <span t-esc="int(l.price_unit)"/>
