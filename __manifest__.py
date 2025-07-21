@@ -25,6 +25,11 @@
             "views/calendar.xml",
             "views/sale_template.xml"
     ],
+    'assets': {
+        'web.report_assets_common': [
+            'parches_insumar/static/src/css/styles_pdf_layout.css',
+        ],
+    },            
     'installable': True,
     'auto_install': False,
     'application': True,
