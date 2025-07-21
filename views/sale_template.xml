@@ -136,7 +136,9 @@
                                             <strong>Vencimiento:</strong>
                                         </td>
                                         <td class="table-cell-no-padding">
-                                                                       
+                                            <t-if="doc.validity_date and doc.state in ['draft', 'sent']" >                                                
+                                                <span t-field="doc.validity_date"/>
+                                            </t>                                      
                                         </td>
                                     </tr>
                                 </tbody>
@@ -145,23 +147,44 @@
                         
                     <div class="oe_structure"/>
 
-                    
+                        <div class="row mt-4 mb-4" id="informations">
+                            <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
+                                <strong>Your Reference:</strong>
+                                <p class="m-0" t-field="doc.client_order_ref"/>
+                            </div>
+                            <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2" name="informations_date">
+                                <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
+                                <strong t-else="">Order Date:</strong>
+                                <p class="m-0" t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                            </div>
+                            <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date">
+                                <strong>Expiration:</strong>
+                                <p class="m-0" t-field="doc.validity_date"/>
+                            </div>
+                            <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                                <strong>son:</strong>
+                                <p class="m-0" t-field="doc.user_id"/>
+                            </div>
+                        </div>
+
+                    <!-- Is there a discount on at least one line? -->
+
                     <div class="row table-container" name="detalles" style="min-height: 543px; max-height: 543px;">
                         <table class="table table-condensed">
                             <thead>
                                 <tr class="table-row-small" style="padding:0px;">
-                                    <th/>                                                                 
+                                    <th/>                                                         
                                     <th>Descripción</th>
                                     <th class="text-teft">Precio Unitario</th>
-                                    <th>Cantidad</th>
+                                    <th>Cantidad</th>                                    
                                     <th class="text-left">Precio</th>
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody" style="text-align: center;">
-                                    <tr t-foreach="doc.order_line.sorted(key=lambda l: l.sequence)" t-as="l" class="table-row-small">
+                                <tr t-foreach="doc.order_line.sorted(key=lambda l: l.sequence)" t-as="l" class="table-row-small">
                                     <td class="table-cell-no-padding">
                                         <span t-field="l.sequence"/>
-                                    </td>                                   
+                                    </td>
                                     
                                     <td class="table-cell-no-padding" style="text-align: left;">
                                         <span t-field="l.product_id"/>
@@ -173,10 +196,7 @@
                                         <span t-field="l.product_uom_qty"/>
                                         <!--span t-field="l.product_uom_id" groups="uom.group_uom"/-->
                                     </td>
-                                    <td t-if="display_discount" class="table-cell-no-padding" groups="sale.group_discount_per_so_line">
-                                        <span t-field="l.discount"/>
-                                    </td>
-                                    <td class="table-cell-no-padding" style="text-align: right;">                                        
+                                    <td class="table-cell-no-padding" style="text-align: right;">                                       
                                         <span t-field="l.price_total"/>
                                     </td>
                                 </tr>
