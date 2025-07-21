@@ -188,7 +188,7 @@
                                         <span t-field="l.product_id"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
-                                        <span t-esc="doc.currency_format(int(l.price_unit))"/>
+                                        <span t-esc="int(l.price_unit)"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
                                         <span t-field="l.product_uom_qty"/>
