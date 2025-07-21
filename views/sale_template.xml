@@ -188,7 +188,7 @@
                         </div>
                         <div class="col-5">
                             <div class="total-box">
-                                <table>
+                                <table style="width: 100%;">
                                     <tr>
                                         <td class="table-cell-no-padding" style="text-align: left;">
                                             <span>Neto</span>
@@ -215,11 +215,7 @@
                                     </tr>                                
                                 </table>                           
                             </div>
-                            <!--div class="row center-text" style="text-align: center !important;">
-                                <p class="sii-info">
-                                    SII - <span t-field="o.company_id.sii_regional_office_id.name"/>
-                                </p>
-                            </div-->
+
                         </div>
                     </div>
 
