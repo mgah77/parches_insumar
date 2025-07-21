@@ -148,7 +148,7 @@
 
                     <!-- Is there a discount on at least one line? -->
 
-                    <div class="row table-container" name="detalles" style="min-height: 543px; max-height: 543px;">
+                    <div class="row table-container" name="detalles" style="min-height: 550px; max-height: 550px;">
                         <table class="table table-condensed">
                             <thead>
                                 <tr class="table-row-small" style="padding:0px;">
