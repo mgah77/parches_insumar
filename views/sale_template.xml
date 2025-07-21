@@ -160,10 +160,9 @@
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody" style="text-align: center;">
-                                <tr t-foreach="doc.order_line.sorted(key=lambda l: l.sequence)" t-as="l" t-foreach-index="i" class="table-row-small">
-                                    <td class="table-cell-no-padding">
-                                        <t t-set="line_number" t-value="(i or 0) + 1"/>
-                                        <span t-esc="line_number"/>
+                                <tr t-foreach="doc.order_line.sorted(key=lambda l: l.sequence)" t-as="l" class="table-row-small">
+                                    <td class="table-cell-no-padding">                                    
+                                        <t t-esc="(l_index + 1)"/>
                                     </td>                                 
                                     <td class="table-cell-no-padding" style="text-align: left;">
                                         <span t-field="l.product_id.name"/>
