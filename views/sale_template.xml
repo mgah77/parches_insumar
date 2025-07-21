@@ -64,7 +64,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="page" style="padding-top: 55px;">
+                <div class="page" style="padding-top: 57px;">
                     <div class="row table-container">
                             <table class="table table-no-margin">
                                 <tbody>
@@ -134,7 +134,7 @@
                                             </t>
                                         </td>
                                         <td class="table-cell-no-padding">
-                                            <strong>Vencimiento:</strong>
+                                            <strong>Valido hasta:</strong>
                                         </td>
                                         <td class="table-cell-no-padding">
                                             <t t-if="doc.validity_date" >
@@ -185,7 +185,8 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-8">                        
+                        <div class="col-8">
+                        <p t-field="doc.glosa" name="Glosa"/>                    
                         </div>
                         <div class="col-4">
                             <div class="total-box">
@@ -234,7 +235,7 @@
                     </div>
 
                     <div>
-                        <p t-field="doc.glosa" name="order_note"/>
+                        
                         <p t-if="not is_html_empty(doc.payment_term_id.note)">
                             <span t-field="doc.payment_term_id.note"/>
                         </p>
