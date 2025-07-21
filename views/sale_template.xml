@@ -30,7 +30,6 @@
                                         </t>
                                     </t>
                                 </t-->
-                                <br/>
                                 <t t-if="doc.company_id.id == 1">
                                         <t t-if="doc.team_id.id == 1">
                                             <span>Dirección: PAR VIAL 2704, Puerto Montt</span><br/>
@@ -62,7 +61,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="page" style="padding-top: 25px; ">
+                <div class="page" style="padding-top: 30px;">
                     <div class="row table-container">
                             <table class="table table-no-margin">
                                 <tbody>
