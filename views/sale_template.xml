@@ -154,28 +154,29 @@
                                 <tr class="table-row-small" style="padding:0px;">
                                     <th/>                                                         
                                     <th>Descripción</th>
-                                    <th>Cantidad</th> 
                                     <th class="text-teft">Precio Unitario</th>
-                                                                       
+                                    <th>Cantidad</th>                                    
                                     <th class="text-left">Precio</th>
                                 </tr>
                             </thead>
                             <tbody class="invoice_tbody" style="text-align: center;">
-                                <tr t-foreach="doc.order_line.sorted(key=lambda l: l.sequence)" t-as="l" t-foreach-index="i" class="table-row-small">
+                                <tr t-foreach="doc.order_line.sorted(key=lambda l: l.sequence)" t-as="l" class="table-row-small">
                                     <td class="table-cell-no-padding">
-                                        <span t-esc="i + 1"/>
-                                    </td>                                    
-                                    <td class="table-cell-no-padding" style="text-align: left;">
-                                        <span t-field="l.product_id.name"/>                                    
+                                        <span t-field="l.sequence"/>
                                     </td>
-                                    <td class="table-cell-no-padding" style="text-align: right;">
-                                        <span t-field="l.product_uom_qty"/>
+                                    
+                                    <td class="table-cell-no-padding" style="text-align: left;">
+                                        <span t-field="l.product_id.name"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
                                         <span t-esc="l.price_unit"/>
                                     </td>
+                                    <td class="table-cell-no-padding" style="text-align: right;">
+                                        <span t-field="l.product_uom_qty"/>
+                                        <!--span t-field="l.product_uom_id" groups="uom.group_uom"/-->
+                                    </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">                                       
-                                        <span t-field="l.price_subtotal"/>
+                                        <span t-field="l.price_total"/>
                                     </td>
                                 </tr>
                             </tbody>
@@ -218,6 +219,17 @@
                         </div>
                     </div>
 
+                    <div class="clearfix" name="so_total_summary">
+                        <div id="total" class="row" name="total">
+                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
+                                <table class="table table-sm table-borderless">
+                                    <!-- Tax totals -->
+                                    <t t-set="tax_totals" t-value="doc.tax_totals"/>
+                                    <t t-call="account.document_tax_totals"/>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
                     <div t-if="doc.signature" class="mt-4 ml64 mr4" name="signature">
                         <div class="offset-8">
