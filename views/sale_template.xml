@@ -61,7 +61,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="page" style="padding-top: 30px;">
+                <div class="page" style="padding-top: 32px;">
                     <div class="row table-container">
                             <table class="table table-no-margin">
                                 <tbody>
@@ -134,7 +134,9 @@
                                             <strong>Vencimiento:</strong>
                                         </td>
                                         <td class="table-cell-no-padding">
-                                                                             
+                                            <div t-if="doc.validity_date" >
+                                               <p t-field="doc.validity_date"/>
+                                            </div>                                    
                                         </td>
                                     </tr>
                                 </tbody>
