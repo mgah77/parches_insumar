@@ -45,7 +45,7 @@
                                             <span>Email: ventas@insumar.cl</span><br/>  
                                         </t>                                       
                                 </t>        
-                                <span>Encargado: <strong><span t-field="doc.user_id"/></strong></span><span>  <strong><span t-field="doc.user_id.mobile"/></strong></span><br/>                   
+                                <span>Encargado: <strong><span t-field="doc.user_id"/></strong></span><span>   <span t-field="doc.user_id.mobile"/></span><br/>                   
                             </p>
                         </div>
                         <div class="col-5">
