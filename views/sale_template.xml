@@ -174,7 +174,7 @@
                                         <span t-field="l.product_uom_qty"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
-                                        <span t-esc="l.price_unit"/>
+                                        <span t-field="l.price_unit"/>
                                     </td>                                    
                                     <td class="table-cell-no-padding" style="text-align: right;">                                       
                                         <span t-field="l.price_subtotal"/>
