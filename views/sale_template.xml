@@ -185,11 +185,32 @@
                         </div>
                         <div class="col-5">
                             <div class="total-box">
-                                
-                                <span t-field="doc.amount_untaxed"/><br />
-                                <span t-field="doc.amount_tax"/><br />
-                                <span t-field="doc.amount_total"/>
-                                                           
+                                <table>
+                                    <tr>
+                                        <td class="table-cell-no-padding" style="text-align: left;">
+                                            <span>Neto</span>
+                                        </td>
+                                        <td class="table-cell-no-padding" style="text-align: right;">                                       
+                                            <span t-field="doc.amount_untaxed"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-cell-no-padding" style="text-align: left;">
+                                            <span>IVA</span>
+                                        </td>
+                                        <td class="table-cell-no-padding" style="text-align: right;">                                       
+                                            <span t-field="doc.amount_tax"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="table-cell-no-padding" style="text-align: left;">
+                                            <strong>Total</strong>
+                                        </td>
+                                        <td class="table-cell-no-padding" style="text-align: right;">                                       
+                                            <strong><span t-field="doc.amount_total"/></strong>
+                                        </td>
+                                    </tr>                                
+                                </table>                           
                             </div>
                             <!--div class="row center-text" style="text-align: center !important;">
                                 <p class="sii-info">
