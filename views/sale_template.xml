@@ -186,28 +186,28 @@
                         </div>
                         <div class="col-5">
                             <div class="total-box">
-                                <table cellspacing="0" cellpadding="0" style="width: 100%; border: none !important; border-collapse: collapse; box-shadow: none !important; outline: none !important;">
+                                <table cellspacing="0" cellpadding="0" style="width: 100%; border: 2px;">
                                     <tr style="border: none;">
                                         <td style="text-align: left; border: none; padding: 5px;">
                                             <span>Neto</span>
                                         </td>
-                                        <td style="text-align: right; border: none;">                                       
+                                        <td style="text-align: right; border: none; padding: 5px;">                                       
                                             <span t-field="doc.amount_untaxed"/>
                                         </td>
                                     </tr>
                                     <tr style="border: none;">
-                                        <td class="table-cell-no-padding" style="text-align: left; border: none;">
+                                        <td class="table-cell-no-padding" style="text-align: left; border: none; padding: 5px;">
                                             <span>IVA</span>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right; border: none;">                                       
+                                        <td class="table-cell-no-padding" style="text-align: right; border: none; padding: 5px;">                                       
                                             <span t-field="doc.amount_tax"/>
                                         </td>
                                     </tr>
                                     <tr style="border: none;">
-                                        <td class="table-cell-no-padding" style="text-align: left; border: none;">
+                                        <td class="table-cell-no-padding" style="text-align: left; border: none; padding: 5px;">
                                             <strong>Total</strong>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right; border: none;">                                       
+                                        <td class="table-cell-no-padding" style="text-align: right; border: none; padding: 5px;">                                       
                                             <strong><span t-field="doc.amount_total"/></strong>
                                         </td>
                                     </tr>                                
