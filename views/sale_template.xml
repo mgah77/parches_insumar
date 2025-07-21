@@ -186,7 +186,7 @@
                         </div>
                         <div class="col-5">
                             <div class="total-box">
-                                <table class="table-no-margin" cellspacing="0" cellpadding="0" style="width: 100%; border-collapse: collapse; border: none !important;">
+                                <table cellspacing="0" cellpadding="0" style="width: 100%; border: none !important; border-collapse: collapse; box-shadow: none !important; outline: none !important;">
                                     <tr style="border: none;">
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>Neto</span>
