@@ -172,7 +172,6 @@
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
                                         <span t-field="l.product_uom_qty"/>
-                                        <!--span t-field="l.product_uom_id" groups="uom.group_uom"/-->
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">                                       
                                         <span t-field="l.price_subtotal"/>
@@ -192,7 +191,7 @@
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>Neto</span>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right;">                                       
+                                        <td class="table-cell-no-padding" style="text-align: right; border: none;">                                       
                                             <span t-field="doc.amount_untaxed"/>
                                         </td>
                                     </tr>
@@ -200,7 +199,7 @@
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <span>IVA</span>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right;">                                       
+                                        <td class="table-cell-no-padding" style="text-align: right; border: none;">                                       
                                             <span t-field="doc.amount_tax"/>
                                         </td>
                                     </tr>
@@ -208,7 +207,7 @@
                                         <td class="table-cell-no-padding" style="text-align: left; border: none;">
                                             <strong>Total</strong>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right;">                                       
+                                        <td class="table-cell-no-padding" style="text-align: right; border: none;">                                       
                                             <strong><span t-field="doc.amount_total"/></strong>
                                         </td>
                                     </tr>                                
