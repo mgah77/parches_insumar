@@ -41,16 +41,18 @@
                                             <span>Dirección: Ñuble 190, Puerto Montt</span><br/>
                                             <span>Telefono: 65 271 5386</span><br/>
                                             <span>Email: ventas@insumar.cl</span><br/>  
-                                        </t>  
+                                        </t>
+                                    <span>Encargado: </span><t-field="doc.user_id"/><br/>   
                                 </t>                           
                             </p>
                         </div>
                         <div class="col-5">
                           <div class="document-box">
-                              <h6 class="rut-header">
-                                Cotización<br />
-                                N° <span t-esc="doc.name"/>
-                              </h6>
+                              <h4 class="rut-header">
+                              <br />
+                                COTIZACION<br />
+                                # <span t-esc="doc.name"/>
+                              </h4>
                               
                           </div>
                           <!--div class="row center-text" style="text-align: center !important;">
@@ -82,7 +84,7 @@
                                             <strong>Fecha:</strong>
                                         </td>
                                         <td class="table-cell-no-padding">
-                                                <span t-field="doc.date_order"/>
+                                                <span t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
                                         </td>
                                     </tr>
                                     <tr class="table-row-small">
