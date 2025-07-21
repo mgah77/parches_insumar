@@ -226,7 +226,10 @@
                         
                     </div>
 
-
+                    <div>
+                        <p name="order_note"/>
+                       
+                    </div>
                 </div>
                 <div class="row mt-4 mb-4" id="informations">
                             <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
