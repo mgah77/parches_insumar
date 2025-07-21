@@ -176,7 +176,7 @@
                                         <!--span t-field="l.product_uom_id" groups="uom.group_uom"/-->
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">                                       
-                                        <span t-field="l.price_total"/>
+                                        <span t-field="l.price_subtotal"/>
                                     </td>
                                 </tr>
                             </tbody>
