@@ -188,10 +188,10 @@
                             <div class="total-box">
                                 <table cellspacing="0" cellpadding="0" style="width: 100%; border: none !important; border-collapse: collapse; box-shadow: none !important; outline: none !important;">
                                     <tr style="border: none;">
-                                        <td class="table-cell-no-padding" style="text-align: left; border: none;">
+                                        <td style="text-align: left; border: none;">
                                             <span>Neto</span>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right; border: none;">                                       
+                                        <td style="text-align: right; border: none;">                                       
                                             <span t-field="doc.amount_untaxed"/>
                                         </td>
                                     </tr>
