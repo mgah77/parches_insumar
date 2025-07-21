@@ -213,13 +213,3 @@ body {
 @page {
   margin: 30mm 10mm;
 }
-
-.total-box {
-  border: 2px solid black;
-  text-align: center;
-  font-size: 15px;
-  padding: 5px;
-  height: 140px;
-  width: 350px;
-  margin: 0 auto 10px;
-}

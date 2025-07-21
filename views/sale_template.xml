@@ -144,6 +144,27 @@
                     </div>    
                         
                     <div class="oe_structure"/>
+
+                        <div class="row mt-4 mb-4" id="informations">
+                            <div t-if="doc.client_order_ref" class="col-auto col-3 mw-100 mb-2" name="informations_reference">
+                                <strong>Your Reference:</strong>
+                                <p class="m-0" t-field="doc.client_order_ref"/>
+                            </div>
+                            <div t-if="doc.date_order" class="col-auto col-3 mw-100 mb-2" name="informations_date">
+                                <strong t-if="doc.state in ['draft', 'sent']">Quotation Date:</strong>
+                                <strong t-else="">Order Date:</strong>
+                                <p class="m-0" t-field="doc.date_order" t-options="{&quot;widget&quot;: &quot;date&quot;}"/>
+                            </div>
+                            <div t-if="doc.validity_date and doc.state in ['draft', 'sent']" class="col-auto col-3 mw-100 mb-2" name="expiration_date">
+                                <strong>Expiration:</strong>
+                                <p class="m-0" t-field="doc.validity_date"/>
+                            </div>
+                            <div t-if="doc.user_id.name" class="col-auto col-3 mw-100 mb-2">
+                                <strong>son:</strong>
+                                <p class="m-0" t-field="doc.user_id"/>
+                            </div>
+                        </div>
+
                     <!-- Is there a discount on at least one line? -->
 
                     <div class="row table-container" name="detalles" style="min-height: 543px; max-height: 543px;">
@@ -179,25 +200,8 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="row">
-                        <div class="col-7">                        
                         </div>
-                        <div class="col-5">
-                            <div class="total-box">
-                                
-                                <span t-field="doc.amount_untaxed"/><br />
-                                <span t-field="doc.amount_tax"/><br />
-                                <span t-field="doc.amount_total"/>
-                                                           
-                            </div>
-                            <!--div class="row center-text" style="text-align: center !important;">
-                                <p class="sii-info">
-                                    SII - <span t-field="o.company_id.sii_regional_office_id.name"/>
-                                </p>
-                            </div-->
-                        </div>
-                    </div>
+
                     <div class="clearfix" name="so_total_summary">
                         <div id="total" class="row" name="total">
                             <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ms-auto">
