@@ -50,7 +50,7 @@
                               <h4 class="rut-header2">
                               <br />
                                 COTIZACION<br />
-                                # <span t-esc="doc.name"/>
+                                N° <span t-esc="doc.name[2:]"/>
                               </h4>                              
                           </div>
                           <!--div class="row center-text" style="text-align: center !important;">
