@@ -14,6 +14,9 @@
                             <h4 class="company-name">
                                 <t t-esc="doc.company_id.name"/>
                             </h4>
+                            <h5 class="company-name">
+                                <t t-esc="doc.company_id.document_number"/>
+                            </h5>
                             <p class="company-details">
                                 <span t-field="doc.company_id.activity_description.name"/><br />
                                 <!-- domicilios -->
@@ -196,18 +199,18 @@
                                         </td>
                                     </tr>
                                     <tr style="border: none;">
-                                        <td class="table-cell-no-padding" style="text-align: left; border: none; padding: 5px;">
+                                        <td  style="text-align: left; border: none; padding: 5px;">
                                             <span>IVA</span>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right; border: none; padding: 5px;">                                       
+                                        <td style="text-align: right; border: none; padding: 5px;">                                       
                                             <span t-field="doc.amount_tax"/>
                                         </td>
                                     </tr>
                                     <tr style="border: none;">
-                                        <td class="table-cell-no-padding" style="text-align: left; border: none; padding: 5px;">
+                                        <td style="text-align: left; border: none; padding: 5px;">
                                             <strong>Total</strong>
                                         </td>
-                                        <td class="table-cell-no-padding" style="text-align: right; border: none; padding: 5px;">                                       
+                                        <td style="text-align: right; border: none; padding: 5px;">                                       
                                             <strong><span t-field="doc.amount_total"/></strong>
                                         </td>
                                     </tr>                                
