@@ -136,7 +136,7 @@
                                             <strong>Vencimiento:</strong>
                                         </td>
                                         <td class="table-cell-no-padding">
-                                            <t-if="doc.validity_date and doc.state in ['draft', 'sent']" >                                                
+                                            <t-if="doc.validity_date">                                                
                                                 <span t-field="doc.validity_date"/>
                                             </t>                                      
                                         </td>
