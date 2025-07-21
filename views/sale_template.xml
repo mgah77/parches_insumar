@@ -41,9 +41,9 @@
                                             <span>Dirección: Ñuble 190, Puerto Montt</span><br/>
                                             <span>Telefono: 65 271 5386</span><br/>
                                             <span>Email: ventas@insumar.cl</span><br/>  
-                                        </t>
-                                    <span>Encargado: </span><t-field="doc.user_id"/><br/>   
-                                </t>                           
+                                        </t>                                       
+                                </t>        
+                                <span>Encargado: </span><t-field="doc.user_id"/><br/>                   
                             </p>
                         </div>
                         <div class="col-5">
