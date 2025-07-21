@@ -11,13 +11,13 @@
                     <div class="row" style="margin-top: 0px;">
                         <div class="col-7 center-text">
                             <img t-if="logo" t-att-src="image_data_uri(logo)" class="logo-img"/>
-                            <h4 class="company-name">
+                            <h4 class="company-name2">
                                 <t t-esc="doc.company_id.name"/>
                             </h4>
-                            <h5 class="company-name">
+                            <h5 class="company-name2">
                                 <t t-esc="doc.company_id.document_number"/>
                             </h5>
-                            <p class="company-details">
+                            <p class="company-details2">
                                 <span t-field="doc.company_id.activity_description.name"/><br />
                                 <!-- domicilios -->
                                 <!--span>Dirección: </span><span t-field="company.street"/>, <span t-field="company.city_id.name"/>, <span t-field="company.city"/>
@@ -64,7 +64,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="page" style="padding-top: 57px;">
+                <div class="page" style="padding-top: 67px;">
                     <div class="row table-container">
                             <table class="table table-no-margin">
                                 <tbody>

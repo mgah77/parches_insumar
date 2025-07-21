@@ -29,18 +29,18 @@
 }
 
 /* 4. Nombre de la compañía */
-.company-name {
+.company-name2 {
   text-transform: uppercase;
   font-weight: 900;
-  font-size: 18px;
+  font-size: 17px;
   color: black !important;
   margin: 5px 0;
 }
 
 /* 5. Detalles de la compañía */
-.company-details {
+.company-details2 {
   text-align: left;
-  font-size: 10px;
+  font-size: 11px;
   color: black !important;
   text-transform: uppercase;
   word-wrap: break-word;
