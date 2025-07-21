@@ -157,8 +157,8 @@
                                 <tr class="table-row-small" style="padding:0px;">
                                     <th/>                                                         
                                     <th>Descripción</th>
-                                    <th class="text-teft">Precio Unitario</th>
-                                    <th>Cantidad</th>                                    
+                                    <th>Cantidad</th>           
+                                    <th class="text-teft">Precio Unitario</th>                                                             
                                     <th class="text-left">Precio</th>
                                 </tr>
                             </thead>
@@ -171,11 +171,11 @@
                                         <span t-field="l.product_id.name"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
-                                        <span t-esc="l.price_unit"/>
-                                    </td>
-                                    <td class="table-cell-no-padding" style="text-align: right;">
                                         <span t-field="l.product_uom_qty"/>
                                     </td>
+                                    <td class="table-cell-no-padding" style="text-align: right;">
+                                        <span t-esc="l.price_unit"/>
+                                    </td>                                    
                                     <td class="table-cell-no-padding" style="text-align: right;">                                       
                                         <span t-field="l.price_subtotal"/>
                                     </td>
