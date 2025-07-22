@@ -1,6 +1,7 @@
-from odoo import models, fields
+from odoo import models, fields, api
 
 class Crm_team_mail(models.Model):
+
     _inherit = 'crm.team'
 
-    mail_team = fields.char(string ='Team e-mail')
+    mail_team = fields.Char(string ="Team e-mail")
