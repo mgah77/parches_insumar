@@ -4,4 +4,3 @@ from . import stock_picking
 from . import resumen
 from . import product_template
 from . import account
-from . import crm
