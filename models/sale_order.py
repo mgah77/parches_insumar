@@ -9,7 +9,7 @@ class SaleOrderCompany(models.Model):
     glosa = fields.Char(string="Glosa", size=40)
 
     def _prepare_invoice(self):
-        invoice_vals = super(SaleOrder, self)._prepare_invoice()  # Mantén los valores originales
+        invoice_vals = super()._prepare_invoice()  # Mantén los valores originales
         invoice_vals['glosa'] = self.glosa  # Copia el campo 'glosa' de la venta a la factura
         return invoice_vals
    
