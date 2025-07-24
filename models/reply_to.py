@@ -35,8 +35,8 @@ class BaseModel(models.AbstractModel):
         for record in self:
             if record.id in left_ids:
                 email = False
-                if hasattr(record, 'team_id') and record.team_id and record.team_id.team_mail:
-                    email = record.team_id.team_mail
+                if hasattr(record, 'team_id') and record.team_id and record.team_id.mail_team:
+                    email = record.team_id.mail_team
                 elif hasattr(record, 'user_id') and record.user_id and record.user_id.email:
                     email = record.user_id.email
 
