@@ -6,3 +6,4 @@ from . import product_template
 from . import account
 from . import crm
 from . import mail_template
+from . import reply_to
