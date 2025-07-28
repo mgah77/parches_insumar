@@ -1,26 +1,26 @@
-<odoo>
-    <record id="view_order_tree_glosa" model="ir.ui.view">
-        <field name="name">sale.order.tree.glosa</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
-        <field name="priority">22</field>
-        <field name="arch" type="xml">
-            <field name="partner_id" position="after">
-                <field name="glosa"/>
-            </field>
-        </field>
-    </record>
+<odoo>  
     <record id="view_order_tree_glosa" model="ir.ui.view">
         <field name="name">sale.order.tree.glosa</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_tree"/>
-        <field name="priority">22</field>
         <field name="arch" type="xml">
             <field name="partner_id" position="after">
                 <field name="glosa"/>
             </field>
         </field>
     </record>
+    <!--record id="view_order_tree_glosa" model="ir.ui.view">
+        <field name="name">sale.order.tree.glosa</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="priority">27</field>
+        <field name="arch" type="xml">
+            <field name="partner_id" position="after">
+                <field name="glosa"/>
+            </field>
+        </field>
+    </record-->
+
     <record id="view_order_form_glosa" model="ir.ui.view">
         <field name="name">sale.order.form.glosa</field>
         <field name="model">sale.order</field>
