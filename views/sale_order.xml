@@ -10,7 +10,7 @@
         </field>
     </record>
     <record id="view_order_tree_glosa_ppto" model="ir.ui.view">
-        <field name="name">sale.order.tree.glosa</field>
+        <field name="name">sale.order.tree.glosa_ppto</field>
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
         <field name="arch" type="xml">
