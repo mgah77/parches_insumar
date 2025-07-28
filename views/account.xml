@@ -41,13 +41,14 @@
     <record id="account_move_search_custom" model="ir.ui.view">
         <field name="name">account.move.search.glosa.prioritaria</field>
         <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_account_move_filter"/>
+        <field name="inherit_id" ref="l10n_cl_fe.view_account_invoice_filter"/>
         <field name="arch" type="xml">
-        <!-- Insertar glosa como primer campo de búsqueda -->
         <xpath expr="//search/field[1]" position="before">
             <field name="glosa" string="Glosa"/>
         </xpath>
         </field>
-    </record>
+    </record>                  
+
+
 
 </odoo>
