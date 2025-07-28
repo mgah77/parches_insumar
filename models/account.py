@@ -9,7 +9,7 @@ class AccountMove(models.Model):
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    glosa = fields.Char(string="Glosa")
+    glosa = fields.Char(string="Glosa", index=True)
 
     @api.depends('product_id')
     def _compute_name(self):
