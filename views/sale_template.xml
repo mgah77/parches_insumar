@@ -185,8 +185,29 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-8">   
-                            <p t-field="doc.glosa" name="Glosa"/>                     
+                        <div class="col-5" style="font-size: 10px;">
+                                <t t-if="doc.glosa">
+                                    <strong>Glosa: </strong>
+                                    <span t-field="doc.glosa"/>
+                                </t>
+                        </div>
+                        <div class="col-3" style="font-size: 10px;">                     
+                            <t t-if="doc.team_id.id == 1">
+                                <div style="font-weight: bold; color: red;">Datos para transferencia:</div>
+                                <div>Banco BCI</div>
+                                <div>Comercializadora Insumar SPA</div>
+                                <div>76.445.265-8</div>
+                                <div>Cuenta Corriente</div>
+                                <div>Nº 70846626</div>                      
+                            </t>
+                            <t t-if="doc.team_id.id == 5">
+                                <div style="font-weight: bold; color: red;">Datos para transferencia:</div>
+                                <div>Banco Internacional</div>
+                                <div>Comercializadora Insumar SPA</div>
+                                <div>76.445.265-8</div>
+                                <div>Cuenta Corriente</div>
+                                <div>Nº 9530855</div>  
+                            </t>                           
                         </div>
                         <div class="col-4">
                             <div class="total-box">
