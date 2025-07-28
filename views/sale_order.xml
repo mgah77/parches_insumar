@@ -58,7 +58,7 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_sales_order_filter"/>
         <field name="arch" type="xml">
-        <xpath expr="//search" position="inside">
+        <xpath expr="//search/field[1]" position="before">
             <field name="glosa" string="Glosa"/>
         </xpath>
         </field>
