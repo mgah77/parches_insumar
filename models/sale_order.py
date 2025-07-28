@@ -6,7 +6,7 @@ class SaleOrderCompany(models.Model):
 
     # Modifica el campo partner_id para agregar un filtro adicional
     partner_id = fields.Many2one(domain="[('type', '!=', 'private'), ('company_id', 'in', (False, company_id)), ('is_company', '=', True), ('type','=','contact')]")
-    glosa = fields.Char(string="Glosa", size=40)
+    glosa = fields.Char(string="Glosa", size=40, index=True)
 
     def _prepare_invoice(self):
         invoice_vals = super()._prepare_invoice()  # Mantén los valores originales
