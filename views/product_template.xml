@@ -56,7 +56,7 @@
         <field name="inherit_id" ref="product.product_template_search_view"/>
         <field name="arch" type="xml">
             <xpath expr="//filter[@name='filter_to_purchase']" position="after">
-                <filter string="Reemplazo" name="filter_exchange" domain="[('exchange_ok', '=', True)]"/>
+                <filter string="Es reemplazo" name="filter_exchange" domain="[('exchange_ok', '=', True)]"/>
             </xpath>
         </field>
     </record>
