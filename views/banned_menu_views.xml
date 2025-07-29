@@ -12,6 +12,11 @@
     <record id="account.product_product_menu_purchasable" model="ir.ui.menu"> <!-- facturando/clientes/productos -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
+
+    <record id="sale.product_menu_catalog" model="ir.ui.menu"> <!-- ventas/productos -->
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
+    </record>
+
     <record id="account.menu_finance_reports" model="ir.ui.menu"> <!-- facturando/informes -->
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_menu_prod')])]"/>
     </record>
