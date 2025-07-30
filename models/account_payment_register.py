@@ -18,7 +18,7 @@ class AccountPaymentRegisterCustom(models.TransientModel):
 
             wizard.amount = abs(move.amount_residual) if move else 0.0
             wizard.amount_total = abs(move.amount_total) if move else 0.0 
-        self.write({'amount_total': wizard.amount_total})
+        wizard.write({'amount_total': move.amount_total})
 
     
     @api.depends('can_edit_wizard', 'amount')
