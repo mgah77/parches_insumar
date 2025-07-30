@@ -80,19 +80,19 @@ class AccountPaymentRegisterCustom(models.TransientModel):
         # Paso 3: Conciliar
         self._reconcile_payments(to_process, edit_mode=edit_mode)
 
-        # Paso 4: Forzar residual y estado en la factura (SQL)
+        # Paso 4: Forzar residual y estado de pago (payment_state) en la factura
         move_ids = self.env.context.get('active_ids', []) if self.env.context.get('active_model') == 'account.move' else []
         for move in self.env['account.move'].browse(move_ids):
             pagado = self.amount
             total = move.amount_total
             nuevo_residual = move.company_currency_id.round(total - pagado)
 
-            estado = 'paid' if move.company_currency_id.is_zero(nuevo_residual) else 'partial'
+            estado = 'paid' if nuevo_residual == 0.0 else 'partial'
 
             self.env.cr.execute("""
                 UPDATE account_move
                 SET amount_residual = %s,
-                    invoice_payment_state = %s
+                    payment_state = %s
                 WHERE id = %s
             """, (nuevo_residual, estado, move.id))
 
