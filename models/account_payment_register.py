@@ -55,9 +55,10 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                     self.env.cr.execute("""
                         UPDATE account_move
                         SET amount_residual = %s,
-                            payment_state = %s
+                            payment_state = %s,
+                            qr_code_method = %s
                         WHERE id = %s
-                    """, (nuevo_residual, estado, move_id))
+                    """, (nuevo_residual, estado, estado, move_id))
 
         if self._context.get('dont_redirect_to_payments'):
             return True
