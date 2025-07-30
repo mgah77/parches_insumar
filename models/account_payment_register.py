@@ -54,9 +54,10 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                     self.env.cr.execute("""
                         UPDATE account_move
                         SET amount_residual = %s,
+                            amount_total = %s,
                             payment_state = %s
                         WHERE id = %s
-                    """, (nuevo_residual, estado, move_id))
+                    """, (nuevo_residual, total, estado, move_id))
 
         # Redirección estándar
         action = {
