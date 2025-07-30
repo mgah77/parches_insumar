@@ -1,9 +1,9 @@
-from odoo import models, api, _
+from odoo import models, fields, api, _
 
 class AccountPaymentRegisterCustom(models.TransientModel):
     _inherit = 'account.payment.register'
 
-    amount_total = fields.Float(string="Total de la factura", store=False, readonly=True)
+    amount_total = fields.Monetary(currency_field='currency_id', store=True, readonly=False)
 
     @api.depends('line_ids')
     def _compute_amount(self):
