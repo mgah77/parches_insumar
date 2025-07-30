@@ -34,13 +34,18 @@ class AccountPaymentRegisterCustom(models.TransientModel):
             else:
                 wizard.payment_difference = 0.0
 
-
     def _create_payments(self):
         self.ensure_one()
         batches = self._get_batches()
         first_batch_result = batches[0]
         edit_mode = self.can_edit_wizard and (len(first_batch_result['lines']) == 1 or self.group_payment)
         to_process = []
+
+        # ⚠️ Capturar valores originales de las facturas
+        original_amounts = {}
+        move_ids = self.env.context.get('active_ids', []) if self.env.context.get('active_model') == 'account.move' else []
+        for move in self.env['account.move'].browse(move_ids):
+            original_amounts[move.id] = move.amount_total
 
         if edit_mode:
             payment_vals = self._create_payment_vals_from_wizard(first_batch_result)
@@ -74,19 +79,17 @@ class AccountPaymentRegisterCustom(models.TransientModel):
         # Paso 1: Crear pagos
         payments = self._init_payments(to_process, edit_mode=edit_mode)
 
-        # Paso 2: Postear
+        # Paso 2: Publicar pagos
         self._post_payments(to_process, edit_mode=edit_mode)
 
         # Paso 3: Conciliar
         self._reconcile_payments(to_process, edit_mode=edit_mode)
 
         # Paso 4: Forzar residual y estado de pago (payment_state) en la factura
-        move_ids = self.env.context.get('active_ids', []) if self.env.context.get('active_model') == 'account.move' else []
         for move in self.env['account.move'].browse(move_ids):
+            total = original_amounts.get(move.id, 0.0)
             pagado = self.amount
-            total = move.amount_total
             nuevo_residual = move.company_currency_id.round(total - pagado)
-
             estado = 'paid' if nuevo_residual == 0.0 else 'partial'
 
             self.env.cr.execute("""
