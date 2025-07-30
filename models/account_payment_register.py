@@ -35,41 +35,65 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                 wizard.payment_difference = 0.0
 
 
-    def action_create_payments(self):
-        payments = self._create_payments()
+    def _create_payments(self):
+        self.ensure_one()
+        batches = self._get_batches()
+        first_batch_result = batches[0]
+        edit_mode = self.can_edit_wizard and (len(first_batch_result['lines']) == 1 or self.group_payment)
+        to_process = []
 
-        if self._context.get('dont_redirect_to_payments'):
-            return True
+        if edit_mode:
+            payment_vals = self._create_payment_vals_from_wizard(first_batch_result)
+            to_process.append({
+                'create_vals': payment_vals,
+                'to_reconcile': first_batch_result['lines'],
+                'batch': first_batch_result,
+            })
+        else:
+            if not self.group_payment:
+                new_batches = []
+                for batch_result in batches:
+                    for line in batch_result['lines']:
+                        new_batches.append({
+                            **batch_result,
+                            'payment_values': {
+                                **batch_result['payment_values'],
+                                'payment_type': 'inbound' if line.balance > 0 else 'outbound'
+                            },
+                            'lines': line,
+                        })
+                batches = new_batches
 
-        for wizard in self:
-            if wizard.env.context.get('active_model') == 'account.move':
-                move_ids = wizard.env.context.get('active_ids', [])
-                for move in wizard.env['account.move'].browse(move_ids):
-                    pagado = wizard.amount
-                    total = move.amount_total
-                    nuevo_residual = move.company_currency_id.round(total - pagado)
+            for batch_result in batches:
+                to_process.append({
+                    'create_vals': self._create_payment_vals_from_batch(batch_result),
+                    'to_reconcile': batch_result['lines'],
+                    'batch': batch_result,
+                })
 
-                    # Por defecto: estado parcial
-                    payment_state = 'partial'
+        # Paso 1: Crear pagos
+        payments = self._init_payments(to_process, edit_mode=edit_mode)
 
-                    # Si pagado cubre total (dentro de margen de error), marcar como pagado
-                    if move.company_currency_id.is_zero(nuevo_residual):
-                        payment_state = 'paid'
+        # Paso 2: Postear
+        self._post_payments(to_process, edit_mode=edit_mode)
 
-                    # Actualizar por SQL solo la factura
-                    self.env.cr.execute("""
-                        UPDATE account_move
-                        SET amount_residual = %s,
-                            invoice_payment_state = %s
-                        WHERE id = %s
-                    """, (nuevo_residual, payment_state, move.id))
+        # Paso 3: Conciliar
+        self._reconcile_payments(to_process, edit_mode=edit_mode)
 
-        return {
-            'name': _('Payments'),
-            'type': 'ir.actions.act_window',
-            'res_model': 'account.payment',
-            'context': {'create': False},
-            'view_mode': 'form' if len(payments) == 1 else 'tree,form',
-            'res_id': payments.id if len(payments) == 1 else False,
-            'domain': [('id', 'in', payments.ids)] if len(payments) > 1 else [],
-        }
+        # Paso 4: Forzar residual y estado en la factura (SQL)
+        move_ids = self.env.context.get('active_ids', []) if self.env.context.get('active_model') == 'account.move' else []
+        for move in self.env['account.move'].browse(move_ids):
+            pagado = self.amount
+            total = move.amount_total
+            nuevo_residual = move.company_currency_id.round(total - pagado)
+
+            estado = 'paid' if move.company_currency_id.is_zero(nuevo_residual) else 'partial'
+
+            self.env.cr.execute("""
+                UPDATE account_move
+                SET amount_residual = %s,
+                    invoice_payment_state = %s
+                WHERE id = %s
+            """, (nuevo_residual, estado, move.id))
+
+        return payments
