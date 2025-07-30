@@ -46,21 +46,21 @@ class AccountPaymentRegisterCustom(models.TransientModel):
         # ⏬ Forzar valores al final del proceso
         for wizard in self:
             if wizard.env.context.get('active_model') == 'account.move':
-                move_ids = wizard.env.context.get('active_ids', [])
-                total = wizard.amount_total
+                move_ids = wizard.env.context.get('active_ids', [])                
                 pagado = wizard.amount
-                nuevo_residual = round(total - pagado, 2)
-                estado = 'paid' if nuevo_residual == 0.0 else 'partial'
-                pagado = 'paid'
 
                 for move_id in move_ids:
-                    self.env.cr.execute("""
+                    move = wizard.env['account.move'].browse(move_id)
+                    total = move.amount_total
+                    nuevo_residual = int(round(total - pagado))
+                    estado = 'paid' if nuevo_residual == 0 else 'partial'
+
+                    wizard.env.cr.execute("""
                         UPDATE account_move
-                        SET amount_residual = %s,                            
-                            qr_code_method = %s,
+                        SET amount_residual = %s,
                             payment_state = %s
                         WHERE id = %s
-                    """, (nuevo_residual, pagado, estado, move_id))
+                    """, (nuevo_residual, estado, move_id))
 
         if self._context.get('dont_redirect_to_payments'):
             return True
