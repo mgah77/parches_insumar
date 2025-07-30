@@ -35,22 +35,24 @@ class AccountPaymentRegisterCustom(models.TransientModel):
             else:
                 wizard.payment_difference = 0.0
 
+
+        # 🔧 Escritura SQL DESPUÉS de que todo Odoo haya terminado sus cálculos
     def action_create_payments(self):
         payments = self._create_payments()
 
         if self._context.get('dont_redirect_to_payments'):
             return True
 
-        # 🔧 Escritura SQL DESPUÉS de que todo Odoo haya terminado sus cálculos
+        # ⏬ Forzar valores al final del proceso
         for wizard in self:
             if wizard.env.context.get('active_model') == 'account.move':
                 move_ids = wizard.env.context.get('active_ids', [])
-                for move_id in move_ids:
-                    total = wizard.amount_total
-                    pagado = wizard.amount
-                    nuevo_residual = round(total - pagado, 2)
-                    estado = 'paid' if nuevo_residual == 0.0 else 'partial'
+                total = wizard.amount_total
+                pagado = wizard.amount
+                nuevo_residual = round(total - pagado, 2)
+                estado = 'paid' if nuevo_residual == 0.0 else 'partial'
 
+                for move_id in move_ids:
                     self.env.cr.execute("""
                         UPDATE account_move
                         SET amount_residual = %s,
