@@ -13,11 +13,11 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                 move_ids = wizard.env.context.get('active_ids')
                 if move_ids:
                     move = wizard.env['account.move'].browse(move_ids[0])
-            else:
-                move = None  # porque no usaremos line_ids
+            elif wizard.line_ids:
+                move = wizard.line_ids[0].move_id
 
             wizard.amount = abs(move.amount_residual) if move else 0.0
-            wizard.amount_total = abs(move.amount_total) if move else 0.0
+            wizard.amount_total = abs(move.amount_total) if move else 0.0 
 
     
     @api.depends('can_edit_wizard', 'amount')
@@ -28,6 +28,8 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                 move_ids = wizard.env.context.get('active_ids')
                 if move_ids:
                     move = wizard.env['account.move'].browse(move_ids[0])
+            elif wizard.line_ids:
+                move = wizard.line_ids[0].move_id
 
             if move:
                 expected = abs(move.amount_residual)
@@ -40,25 +42,25 @@ class AccountPaymentRegisterCustom(models.TransientModel):
     def action_create_payments(self):
         payments = self._create_payments()
 
+        if self._context.get('dont_redirect_to_payments'):
+            return True
+
         # ⏬ Forzar valores al final del proceso
         for wizard in self:
             if wizard.env.context.get('active_model') == 'account.move':
-                move_id = wizard.env.context.get('active_ids', [False])[0]
+                move_ids = wizard.env.context.get('active_ids', [])
                 total = wizard.amount_total
                 pagado = wizard.amount
                 nuevo_residual = round(total - pagado, 2)
                 estado = 'paid' if nuevo_residual == 0.0 else 'partial'
 
-                wizard.env.cr.execute("""
-                    UPDATE account_move
-                    SET amount_residual = %s,
-                        amount_total = %s,
-                        payment_state = %s
-                    WHERE id = %s
-                """, (nuevo_residual, total, estado, move_id))
-
-        if self._context.get('dont_redirect_to_payments'):
-            return True
+                for move_id in move_ids:
+                    self.env.cr.execute("""
+                        UPDATE account_move
+                        SET amount_residual = %s,
+                            payment_state = %s
+                        WHERE id = %s
+                    """, (nuevo_residual, estado, move_id))
 
         # Redirección estándar
         action = {
