@@ -42,9 +42,6 @@ class AccountPaymentRegisterCustom(models.TransientModel):
     def action_create_payments(self):
         payments = self._create_payments()
 
-        if self._context.get('dont_redirect_to_payments'):
-            return True
-
         # ⏬ Forzar valores al final del proceso
         for wizard in self:
             if wizard.env.context.get('active_model') == 'account.move':
@@ -61,6 +58,9 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                             payment_state = %s
                         WHERE id = %s
                     """, (nuevo_residual, estado, move_id))
+
+        if self._context.get('dont_redirect_to_payments'):
+            return True
 
         # Redirección estándar
         action = {
