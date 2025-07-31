@@ -212,7 +212,7 @@
                         <div class="col-4">
                             <div class="total-box">
                                 <table cellspacing="0" cellpadding="0" style="width: 100%; border: 2px;">
-                                    <tr style="border: none;">
+                                    <tr>
                                         <td style="text-align: left; border: none; padding: 5px;">
                                             <span>Neto</span>
                                         </td>
