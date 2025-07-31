@@ -44,6 +44,7 @@ class AccountPaymentRegisterCustom(models.TransientModel):
         payments = self._create_payments()
 
         # ⏬ Forzar valores al final del proceso
+
         for wizard in self:
             if wizard.env.context.get('active_model') == 'account.move':
                 move_ids = wizard.env.context.get('active_ids', [])                
@@ -55,12 +56,27 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                     nuevo_residual = int(round(total - pagado))
                     estado = 'paid' if nuevo_residual == 0 else 'partial'
 
+                    # Actualizar el encabezado de factura
                     wizard.env.cr.execute("""
                         UPDATE account_move
                         SET amount_residual = %s,
                             payment_state = %s
                         WHERE id = %s
                     """, (nuevo_residual, estado, move_id))
+
+                    # Solo si se paga completamente, marcar líneas como conciliadas
+                    if nuevo_residual == 0:
+                        wizard.env.cr.execute("""
+                            UPDATE account_move_line
+                            SET amount_residual = 0,
+                                amount_residual_currency = 0,
+                                reconciled = true
+                            WHERE move_id = %s
+                            AND display_type = 'payment_term'
+                            AND account_id IN (
+                                SELECT id FROM account_account WHERE reconcile = true
+                            )
+                        """, (move_id,))
 
         if self._context.get('dont_redirect_to_payments'):
             return True
