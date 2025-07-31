@@ -19,10 +19,9 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     glosa = fields.Char(string="Glosa")
-
-
     
     @api.depends('move_type', 'line_ids.amount_residual')
+    #hay que filtrar para proveedores aun
     def _compute_payments_widget_reconciled_info(self):
         for move in self:
             payments_widget_vals = {'title': _('Less Payment'), 'outstanding': False, 'content': []}
@@ -44,7 +43,7 @@ class AccountMove(models.Model):
                     reconciled_vals.append({
                         'name': counterpart_line.name,
                         'journal_name': counterpart_line.journal_id.name,
-                        'amount': 3,
+                        'amount': abs(counterpart_line.balance),
                         'currency_id': move.company_id.currency_id.id if reconciled_partial['is_exchange'] else reconciled_partial['currency'].id,
                         'date': counterpart_line.date,
                         'partial_id': reconciled_partial['partial_id'],
