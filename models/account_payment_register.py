@@ -51,7 +51,7 @@ class AccountPaymentRegisterCustom(models.TransientModel):
 
                 for move_id in move_ids:
                     move = wizard.env['account.move'].browse(move_id)
-                    total = move.amount_total
+                    total = move.amount_residual
                     nuevo_residual = int(round(total - pagado))
                     estado = 'paid' if nuevo_residual == 0 else 'partial'
 
