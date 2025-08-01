@@ -1,4 +1,5 @@
 from odoo import models, fields, api ,_
+from collections import defaultdict
 from odoo.tools import (
     date_utils,
     email_re,
@@ -212,7 +213,7 @@ class AccountMove(models.Model):
 
                     elif reconciliation_vals:
                         new_pmt_state = 'partial'
-                        
+
             if invoice.amount_residual == 0:
                 invoice.payment_state = 'paid'
             else:
