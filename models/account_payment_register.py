@@ -65,18 +65,66 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                     """, (nuevo_residual, estado, move_id))
 
                     # Solo si se paga completamente, marcar líneas como conciliadas
+                    # Conciliación manual si el residuo es cero
                     if nuevo_residual == 0:
-                        wizard.env.cr.execute("""
-                            UPDATE account_move_line
-                            SET amount_residual = 0,
-                                amount_residual_currency = 0,
-                                reconciled = true
+                        # Obtener líneas de factura reconciliables
+                        self.env.cr.execute("""
+                            SELECT id, debit, credit, amount_currency, currency_id
+                            FROM account_move_line
                             WHERE move_id = %s
-                            AND display_type = 'payment_term'
+                            AND display_type IS payment_term
                             AND account_id IN (
                                 SELECT id FROM account_account WHERE reconcile = true
                             )
                         """, (move_id,))
+                        lineas_factura = self.env.cr.fetchall()
+
+                        # Obtener líneas de pago reconciliables
+                        self.env.cr.execute("""
+                            SELECT aml.id, aml.debit, aml.credit, aml.amount_currency, aml.currency_id
+                            FROM account_move_line aml
+                            JOIN account_move am ON aml.move_id = am.id
+                            WHERE am.payment_id = %s
+                            AND aml.account_id IN (
+                                SELECT id FROM account_account WHERE reconcile = true
+                            )
+                        """, (payments.id,))
+                        lineas_pago = self.env.cr.fetchall()
+
+                        for linea_fact in lineas_factura:
+                            for linea_pago in lineas_pago:
+                                amount_fact = linea_fact[1] or linea_fact[2]
+                                amount_pago = linea_pago[2] or linea_pago[1]
+                                amount = min(amount_fact, amount_pago)
+                                if amount == 0:
+                                    continue
+
+                                debit_id = linea_fact[0] if linea_fact[1] else linea_pago[0]
+                                credit_id = linea_pago[0] if linea_fact[1] else linea_fact[0]
+
+                                self.env.cr.execute("""
+                                    INSERT INTO account_partial_reconcile (
+                                        debit_move_id, credit_move_id,
+                                        amount,
+                                        debit_amount_currency, credit_amount_currency,
+                                        debit_currency_id, credit_currency_id,
+                                        create_date, write_date
+                                    ) VALUES (
+                                        %s, %s,
+                                        %s,
+                                        %s, %s,
+                                        %s, %s,
+                                        NOW(), NOW()
+                                    )
+                                """, (
+                                    debit_id,
+                                    credit_id,
+                                    amount,
+                                    linea_fact[3],
+                                    linea_pago[3],
+                                    linea_fact[4],
+                                    linea_pago[4]
+                                ))
 
         if self._context.get('dont_redirect_to_payments'):
             return True
