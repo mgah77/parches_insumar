@@ -72,7 +72,7 @@ class AccountPaymentRegisterCustom(models.TransientModel):
                             SELECT id, debit, credit, amount_currency, currency_id
                             FROM account_move_line
                             WHERE move_id = %s
-                            AND display_type IS payment_term
+                            AND display_type = 'payment_term'
                             AND account_id IN (
                                 SELECT id FROM account_account WHERE reconcile = true
                             )
