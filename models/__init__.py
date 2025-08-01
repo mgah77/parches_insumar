@@ -7,4 +7,3 @@ from . import account
 from . import crm
 from . import mail_template
 from . import reply_to
-from . import account_payment_register
