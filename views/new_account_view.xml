@@ -4,7 +4,7 @@
     <!-- ========================= -->
     <menuitem id="menu_root_nueva_facturacion"
               name="Contabilidad"
-              parent="base.menu_root"
+              parent=""
               groups="group_admin,group_wvl"
               sequence="10"/>
 
