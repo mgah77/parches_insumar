@@ -5,7 +5,7 @@
     <menuitem id="menu_root_nueva_facturacion"
               name="Contabilidad"
               parent=""
-              sequence="10"/>
+              sequence="17"/>
 
     <!-- ========================= -->
     <!-- CLIENTES -->
