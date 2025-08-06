@@ -169,9 +169,9 @@
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="name"/>
-                                    <field name="quantity"/>
+                                    <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
-                                    <field name="price_subtotal" readonly="1"/>
+                                    <field name="price_subtotal" readonly="1" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
@@ -183,9 +183,9 @@
                                             <!-- Totals (only invoices / receipts) -->
                         <group colspan="4">
                             <group>
-                                <field name="amount_untaxed"/>
-                                <field name="amount_tax"/>
-                                <field name="amount_total"/>
+                                <field name="amount_untaxed" widget="float" options="{'digits': [16, 0]}"/>
+                                <field name="amount_tax" widget="float" options="{'digits': [16, 0]}"/>
+                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}"/>
                             </group>                                        
                         </group>
                 </group>
