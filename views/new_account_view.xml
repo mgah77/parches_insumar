@@ -51,21 +51,21 @@
                             </field>
                         </page>
                     </notebook>
+                    <group col="12" class="oe_invoice_lines_tab">
+                    <group colspan="8">
+                    </group>
+                                            <!-- Totals (only invoices / receipts) -->
+                        <group colspan="4">
+                            <group>
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <field name="amount_total"/>
+                            </group>                                        
+                        </group>
+                </group>
                 </sheet>
             </form>
-        </field>
-        <group col="12" class="oe_invoice_lines_tab">
-            <group colspan="8">
-            </group>
-                                    <!-- Totals (only invoices / receipts) -->
-                    <group colspan="4">
-                    <group>
-                        <field name="amount_untaxed"/>
-                        <field name="amount_tax"/>
-                        <field name="amount_total"/>
-                    </group>                                        
-                </group>
-            </group>
+        </field>        
     </record>
 
     <!-- Tree Rectificativas Clientes -->
