@@ -10,14 +10,13 @@
         <field name="name">account.move.tree.facturas.clientes</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <tree string="Facturas de Clientes">
+            <tree string="Facturas de Clientes" create="false">
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
-                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -62,14 +61,13 @@
         <field name="name">account.move.tree.rectificativas.clientes</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <tree string="Rectificativas de Clientes">
+            <tree string="Rectificativas de Clientes" create="false">
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
-                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -118,14 +116,13 @@
         <field name="name">account.move.tree.facturas.proveedores</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <tree string="Facturas de Proveedores">
+            <tree string="Facturas de Proveedores" create="false">
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
-                <field name="state"/>
             </tree>
         </field>
     </record>
@@ -170,14 +167,13 @@
         <field name="name">account.move.tree.rectificativas.proveedores</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <tree string="Rectificativas de Proveedores">
+            <tree string="Rectificativas de Proveedores" create="false">
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
-                <field name="state"/>
             </tree>
         </field>
     </record>
