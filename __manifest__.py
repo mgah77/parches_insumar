@@ -24,7 +24,8 @@
             "views/partner.xml",
             "views/calendar.xml",
             "views/sale_template.xml",
-            "views/crm.xml"
+            "views/crm.xml",
+            "views/new_account_view.xml"
     ],
     'assets': {
         'web.report_assets_common': [
