@@ -271,6 +271,7 @@
     <menuitem id="menu_root_nueva_facturacion"
               name="Contabilidad"
               parent=""
+              groups="parches_insumar.group_wvl,parches_insumar.group_admin"
               sequence="77"/>
 
     <!-- ========================= -->
@@ -306,6 +307,7 @@
               parent="menu_proveedores"
               action="action_facturas_proveedores"
               sequence="1"/>
+
     <menuitem id="menu_rectificativas_proveedores"
               name="Rectificativas"
               parent="menu_proveedores"
