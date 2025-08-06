@@ -170,8 +170,7 @@
                                     <field name="product_id"/>
                                     <field name="name"/>
                                     <field name="quantity"/>
-                                    <field name="price_unit" options="{'widget': 'monetary', 'currency_field': 'move_id.currency_id', 'digits': [16, 0]}"/>
-                                    <field name="currency_id" invisible="1"/>
+                                    <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="price_subtotal" readonly="1"/>
                                     <field name="company_id" invisible="1"/>
                                 </tree>
