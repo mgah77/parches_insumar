@@ -14,8 +14,8 @@
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
-                <field name="amount_untaxed"/>
-                <field name="amount_tax"/>
+                <field name="amount_untaxed" string="Neto"/>
+                <field name="amount_tax" string="IVA"/>
                 <field name="amount_total"/>
             </tree>
         </field>
@@ -65,8 +65,8 @@
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
-                <field name="amount_untaxed"/>
-                <field name="amount_tax"/>
+                <field name="amount_untaxed" string="Neto"/>
+                <field name="amount_tax" string="IVA"/>
                 <field name="amount_total"/>
             </tree>
         </field>
@@ -120,8 +120,8 @@
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
-                <field name="amount_untaxed"/>
-                <field name="amount_tax"/>
+                <field name="amount_untaxed" string="Neto"/>
+                <field name="amount_tax" string="IVA"/>
                 <field name="amount_total"/>
             </tree>
         </field>
@@ -171,8 +171,8 @@
                 <field name="sii_document_number"/>
                 <field name="partner_id"/>
                 <field name="invoice_date"/>
-                <field name="amount_untaxed"/>
-                <field name="amount_tax"/>
+                <field name="amount_untaxed" string="Neto"/>
+                <field name="amount_tax" string="IVA"/>
                 <field name="amount_total"/>
             </tree>
         </field>
