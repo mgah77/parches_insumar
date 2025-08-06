@@ -44,6 +44,7 @@
                                     <field name="price_unit"/>
                                     <field name="tax_ids"/>
                                     <field name="price_subtotal" readonly="1"/>
+                                    <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
@@ -92,6 +93,7 @@
                                     <field name="price_unit"/>
                                     <field name="tax_ids"/>
                                     <field name="price_subtotal" readonly="1"/>
+                                    <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
@@ -144,6 +146,7 @@
                                     <field name="price_unit"/>
                                     <field name="tax_ids"/>
                                     <field name="price_subtotal" readonly="1"/>
+                                    <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
@@ -192,6 +195,7 @@
                                     <field name="price_unit"/>
                                     <field name="tax_ids"/>
                                     <field name="price_subtotal" readonly="1"/>
+                                    <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
