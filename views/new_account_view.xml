@@ -210,24 +210,29 @@
     </record>
 
 
-
     <!-- FACTURAS CLIENTES -->
     <record id="action_facturas_clientes" model="ir.actions.act_window">
         <field name="name">Facturas</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_facturas_clientes_tree"/>
         <field name="domain">[('move_type','=','out_invoice')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_facturas_clientes_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_facturas_clientes_form')})
+        ]"/>
     </record>
 
 
     <!-- RECTIFICATIVAS CLIENTES -->
     <record id="action_rectificativas_clientes" model="ir.actions.act_window">
-        <field name="name">Notas de Credito</field>
+        <field name="name">Notas de Crédito</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_rectificativas_clientes_tree"/>
         <field name="domain">[('move_type','=','out_refund')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_rectificativas_clientes_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_rectificativas_clientes_form')})
+        ]"/>
     </record>
 
 
@@ -236,21 +241,25 @@
         <field name="name">Facturas</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_facturas_proveedores_tree"/>
         <field name="domain">[('move_type','=','in_invoice')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_facturas_proveedores_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_facturas_proveedores_form')})
+        ]"/>
     </record>
 
 
     <!-- RECTIFICATIVAS PROVEEDORES -->
     <record id="action_rectificativas_proveedores" model="ir.actions.act_window">
-        <field name="name">Notas de credito</field>
+        <field name="name">Notas de Crédito</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_id" ref="view_rectificativas_proveedores_tree"/>
         <field name="domain">[('move_type','=','in_refund')]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_rectificativas_proveedores_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_rectificativas_proveedores_form')})
+        ]"/>
     </record>
-
-
 
     <!-- ========================= -->
     <!-- MENÚ RAÍZ -->
