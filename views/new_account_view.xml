@@ -5,7 +5,7 @@
     <menuitem id="menu_root_nueva_facturacion"
               name="Contabilidad"
               parent=""
-              sequence="17"/>
+              sequence="77"/>
 
     <!-- ========================= -->
     <!-- CLIENTES -->
@@ -13,7 +13,7 @@
     <menuitem id="menu_clientes"
               name="Clientes"
               parent="menu_root_nueva_facturacion"
-              sequence="1"/>
+              sequence="10"/>
 
     <!-- FACTURAS CLIENTES -->
     <record id="action_facturas_clientes" model="ir.actions.act_window">
