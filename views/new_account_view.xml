@@ -33,8 +33,8 @@
                         <field name="partner_id" options="{'no_open': True}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
+                        <field name="invoice_date_due"/>
                         <field name="amount_total" readonly="1"/>
-                        <field name="state"/>
                     </group>
                     <notebook>
                         <page string="Líneas">
@@ -84,8 +84,8 @@
                         <field name="partner_id"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
+                        <field name="invoice_date_due"/>
                         <field name="amount_total" readonly="1"/>
-                        <field name="state"/>
                     </group>
                     <notebook>
                         <page string="Líneas">
@@ -139,8 +139,8 @@
                         <field name="partner_id" options="{'no_open': True}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
+                        <field name="invoice_date_due"/>
                         <field name="amount_total" readonly="1"/>
-                        <field name="state"/>
                     </group>
                     <notebook>
                         <page string="Líneas">
@@ -190,8 +190,8 @@
                         <field name="partner_id" options="{'no_open': True}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
+                        <field name="invoice_date_due"/>
                         <field name="amount_total" readonly="1"/>
-                        <field name="state"/>
                     </group>
                     <notebook>
                         <page string="Líneas">
