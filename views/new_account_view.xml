@@ -30,6 +30,7 @@
                     <group>
                         <field name="name"/>
                         <field name="partner_id"/>
+                        <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
                         <field name="state"/>
@@ -79,6 +80,7 @@
                     <group>
                         <field name="name"/>
                         <field name="partner_id"/>
+                        <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
                         <field name="state"/>
@@ -132,6 +134,7 @@
                     <group>
                         <field name="name"/>
                         <field name="partner_id"/>
+                        <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
                         <field name="state"/>
@@ -181,6 +184,7 @@
                     <group>
                         <field name="name"/>
                         <field name="partner_id"/>
+                        <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
                         <field name="state"/>
