@@ -12,8 +12,8 @@
         <field name="arch" type="xml">
             <tree string="Facturas de Clientes">
                 <field name="sii_document_number"/>
-                <field name="invoice_date"/>
                 <field name="partner_id"/>
+                <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
@@ -64,8 +64,8 @@
         <field name="arch" type="xml">
             <tree string="Rectificativas de Clientes">
                 <field name="sii_document_number"/>
-                <field name="invoice_date"/>
                 <field name="partner_id"/>
+                <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
@@ -120,8 +120,8 @@
         <field name="arch" type="xml">
             <tree string="Facturas de Proveedores">
                 <field name="sii_document_number"/>
-                <field name="invoice_date"/>
                 <field name="partner_id"/>
+                <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
@@ -172,8 +172,8 @@
         <field name="arch" type="xml">
             <tree string="Rectificativas de Proveedores">
                 <field name="sii_document_number"/>
-                <field name="invoice_date"/>
                 <field name="partner_id"/>
+                <field name="invoice_date"/>
                 <field name="amount_untaxed"/>
                 <field name="amount_tax"/>
                 <field name="amount_total"/>
