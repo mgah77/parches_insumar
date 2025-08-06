@@ -178,14 +178,14 @@
                         </page>
                     </notebook>
                     <group col="12" class="oe_invoice_lines_tab">
-                    <group colspan="8">
+                    <group colspan="7">
                     </group>
                                             <!-- Totals (only invoices / receipts) -->
-                        <group colspan="4">
+                        <group colspan="5">
                             <group>
-                                <field name="amount_untaxed" widget="float" options="{'digits': [16, 0]}"/>
-                                <field name="amount_tax" widget="float" options="{'digits': [16, 0]}"/>
-                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}"/>
+                                <field name="amount_untaxed" widget="float" options="{'digits': [16, 0]}" style="font-size: 18px;"/>
+                                <field name="amount_tax" widget="float" options="{'digits': [16, 0]}" style="font-size: 18px;"/>
+                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 18px; font-weight: bold;"/>
                             </group>                                        
                         </group>
                 </group>
