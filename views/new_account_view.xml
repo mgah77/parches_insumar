@@ -183,9 +183,9 @@
                                             <!-- Totals (only invoices / receipts) -->
                         <group colspan="5">
                             <group>
-                                <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 18px;"/>
-                                <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 18px;"/>
-                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 18px; font-weight: bold;"/>
+                                <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px; font-weight: bold;"/>
                             </group>                                        
                         </group>
                 </group>
