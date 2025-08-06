@@ -30,7 +30,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="partner_id"/>
+                        <field name="partner_id" options="{'no_open': True}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
@@ -63,7 +63,7 @@
         <field name="arch" type="xml">
             <tree string="Rectificativas de Clientes" create="false">
                 <field name="sii_document_number"/>
-                <field name="partner_id"/>
+                <field name="partner_id" options="{'no_open': True}"/>
                 <field name="invoice_date"/>
                 <field name="amount_untaxed" string="Neto"/>
                 <field name="amount_tax" string="IVA"/>
@@ -136,7 +136,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="partner_id"/>
+                        <field name="partner_id" options="{'no_open': True}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
@@ -187,7 +187,7 @@
                 <sheet>
                     <group>
                         <field name="name"/>
-                        <field name="partner_id"/>
+                        <field name="partner_id" options="{'no_open': True}"/>
                         <field name="company_id" invisible="1"/>
                         <field name="invoice_date"/>
                         <field name="amount_total" readonly="1"/>
