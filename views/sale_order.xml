@@ -48,6 +48,9 @@
                 <attribute name="can_create">false</attribute>
                 <attribute name="can_write">false</attribute>
             </xpath>
+             <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+            <attribute name="options">{'widget': 'float', 'digits': [16, 0]}</attribute>
+            </xpath>
         </field>
     </record>
     <record id="view_order_form_management_filter_customer" model="ir.ui.view">
@@ -60,6 +63,9 @@
                 <attribute name="domain">[('sale_ok', '=', True)]</attribute>
                 <attribute name="can_create">false</attribute>
                 <attribute name="can_write">false</attribute>
+            </xpath>
+             <xpath expr="//field[@name='price_unit']" position="attributes">
+            <attribute name="options">{'widget': 'float', 'digits': [16, 0]}</attribute>
             </xpath>
         </field>
     </record>
