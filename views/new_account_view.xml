@@ -184,10 +184,10 @@
                         </page>
                     </notebook>
                     <group col="12" class="oe_invoice_lines_tab">
-                    <group colspan="7">
+                    <group colspan="8">
                     </group>
                                             <!-- Totals (only invoices / receipts) -->
-                        <group colspan="5" class="text-end">
+                        <group colspan="4" class="text-end">
                             <group>
                                 <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
                                 <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
