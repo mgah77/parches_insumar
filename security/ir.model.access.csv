@@ -3,4 +3,4 @@ access_product_template_read_all,access_product_template_read_all,product.model_
 access_product_template_full_edit_group,access_product_template_full_edit_group,product.model_product_template,parches_insumar.group_admin,1,1,1,1
 access_account_move_wvl,account.move.wvl,account.model_account_move,parches_insumar.group_wvl,1,0,0,0
 access_account_move_line_wvl,account.move.line.wvl,account.model_account_move_line,parches_insumar.group_wvl,1,0,0,0
-access_account_move_comision_wvl,account.move.comision.wvl,account.model_account_move_comision,parches_insumar.group_wvl,1,0,0,0
+access_account_move_comision_wvl,account.move.comision.wvl,l10n_cl_fe.model_account_move_comision,parches_insumar.group_wvl,1,0,0,0
