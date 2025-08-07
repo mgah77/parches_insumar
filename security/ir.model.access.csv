@@ -5,5 +5,5 @@ access_account_move_wvl,account.move.wvl,account.model_account_move,parches_insu
 access_account_move_line_wvl,account.move.line.wvl,account.model_account_move_line,parches_insumar.group_wvl,1,0,0,0
 access_account_move_comision_wvl,account.move.comision.wvl,l10n_cl_fe.model_account_move_comision,parches_insumar.group_wvl,1,0,0,0
 access_account_account_tag_wvl,account.account.tag.wvl,account.model_account_account_tag,parches_insumar.group_wvl,1,0,0,0
-access_calendar_event_wvl,calendar.event.wvl,base.model_calendar_event,parches_insumar.group_wvl,1,0,0,0
+access_calendar_event_wvl,calendar.event.wvl,calendar.model_calendar_event,parches_insumar.group_wvl,1,0,0,0
 access_res_partner_wvl,res.partner.wvl,base.model_res_partner,parches_insumar.group_wvl,1,0,0,0
