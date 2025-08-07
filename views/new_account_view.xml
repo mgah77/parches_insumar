@@ -168,10 +168,9 @@
                             <field name="invoice_date_due" readonly="1"/>
                             <field name="forma_pago" readonly="1"/>
                         </group>
-                    </group>
-                    <div style="border:1px solid black;">
+                    </group>                    
                     <notebook>
-                        <page string="Líneas">
+                        <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
@@ -184,18 +183,18 @@
                             </field>
                         </page>
                     </notebook>
-                    </div>
+                   
                     <group col="12" class="oe_invoice_lines_tab">
                     <group colspan="8">
                     </group>
                                             <!-- Totals (only invoices / receipts) -->
                         <group colspan="4" class="text-end">
-                            <group>
-                            <div style="border:1px solid gray;">
+                            <group style="border:1px solid gray;">
+                            
                                 <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
                                 <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
                                 <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px; font-weight: bold;"/>
-                            </div>
+                            
                             </group>                                        
                         </group>
                 </group>
