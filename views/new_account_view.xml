@@ -1,5 +1,11 @@
 <odoo>
 
+    <!-- ========================= -->
+    <!-- ELIMINA MENU CONTACOTS -->
+    <!-- ========================= -->
+    <record id="contacts.menu_contacts" model="ir.ui.menu">
+        <field name="groups_id" eval="[(4, ref('base.group_user')), (3, ref('parches_insumar.group_wvl'))]"/>
+    </record>
 
     <!-- ========================= -->
     <!-- VISTAS CLIENTES -->
