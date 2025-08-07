@@ -169,7 +169,7 @@
                             <field name="forma_pago" readonly="1"/>
                         </group>
                     </group>
-                    <div style="border=1px solid black;">
+                    <div style="border:1px solid black;">
                     <notebook>
                         <page string="Líneas">
                             <field name="invoice_line_ids">
@@ -191,9 +191,11 @@
                                             <!-- Totals (only invoices / receipts) -->
                         <group colspan="4" class="text-end">
                             <group>
+                            <div style="border:1px solid gray;">
                                 <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
                                 <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
                                 <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px; font-weight: bold;"/>
+                            </div>
                             </group>                                        
                         </group>
                 </group>
