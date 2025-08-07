@@ -369,7 +369,7 @@
               sequence="1"/>
 
         <menuitem id="menu_rectificativas_clientes"
-              name="Rectificativas"
+              name="Notas de Credito"
               parent="menu_clientes"
               action="action_rectificativas_clientes"
               sequence="2"/>
@@ -381,7 +381,7 @@
               sequence="1"/>
 
     <menuitem id="menu_rectificativas_proveedores"
-              name="Rectificativas"
+              name="Notas de Credito"
               parent="menu_proveedores"
               action="action_rectificativas_proveedores"
               sequence="2"/>
