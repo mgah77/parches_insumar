@@ -2,3 +2,4 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_product_template_read_all,access_product_template_read_all,product.model_product_template,,1,0,0,0
 access_product_template_full_edit_group,access_product_template_full_edit_group,product.model_product_template,parches_insumar.group_admin,1,1,1,1
 access_account_move_wvl,account.move.wvl,account.model_account_move,parches_insumar.group_wvl,1,0,0,0
+access_account_move__line_wvl,account.move.line.wvl,account.model_account_move_line,parches_insumar.group_wvl,1,0,0,0
