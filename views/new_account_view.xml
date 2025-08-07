@@ -288,7 +288,7 @@
 
     <!-- FACTURAS CLIENTES -->
     <record id="action_facturas_clientes" model="ir.actions.act_window">
-        <field name="name">Facturas</field>
+        <field name="name">Facturas a Clientes</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('move_type','=','out_invoice')]</field>
@@ -301,7 +301,7 @@
 
     <!-- RECTIFICATIVAS CLIENTES -->
     <record id="action_rectificativas_clientes" model="ir.actions.act_window">
-        <field name="name">Notas de Crédito</field>
+        <field name="name">Notas de Crédito a Clientes</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('move_type','=','out_refund')]</field>
@@ -314,7 +314,7 @@
 
     <!-- FACTURAS PROVEEDORES -->
     <record id="action_facturas_proveedores" model="ir.actions.act_window">
-        <field name="name">Facturas</field>
+        <field name="name">Facturas de Proveedores</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('move_type','=','in_invoice')]</field>
@@ -327,7 +327,7 @@
 
     <!-- RECTIFICATIVAS PROVEEDORES -->
     <record id="action_rectificativas_proveedores" model="ir.actions.act_window">
-        <field name="name">Notas de Crédito</field>
+        <field name="name">Notas de Crédito de Proveedores</field>
         <field name="res_model">account.move</field>
         <field name="view_mode">tree,form</field>
         <field name="domain">[('move_type','=','in_refund')]</field>
