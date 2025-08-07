@@ -20,8 +20,8 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
 
     glosa = fields.Char(string="Glosa")
+    document_number = fields.Char(related='partner_id.document_number', string="RUT", store=False)
     
-
 
 
 class AccountMoveLine(models.Model):
