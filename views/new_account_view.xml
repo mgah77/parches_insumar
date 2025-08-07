@@ -172,9 +172,9 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="sii_document_number" string="Número de Factura"/>
-                            <field name="partner_id" options="{'no_open': True}"/>
-                            <field name="document_number" options="{'no_open': True}"/>
+                            <field name="sii_document_number" string="Número de Factura" style="font-weight: bold;"/>
+                            <field name="partner_id" options="{'no_open': True}" style="font-weight: bold;"/>
+                            <field name="document_number" options="{'no_open': True}" style="font-weight: bold;"/>
                             <field name="activity_description" options="{'no_open': True}"/>
                         </group>
                         <group>
@@ -241,7 +241,7 @@
                 <sheet>
                     <group>
                         <group>
-                            <field name="sii_document_number" string="Número de Factura"/>
+                            <field name="sii_document_number" string="Número de Factura" />
                             <field name="partner_id" options="{'no_open': True}"/>
                             <field name="activity_description" options="{'no_open': True}"/>
                         </group>
