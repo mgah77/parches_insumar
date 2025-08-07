@@ -8,7 +8,7 @@
                 <attribute name="options">{'field_digits': False}</attribute>
             </xpath>
             <xpath expr="//field[@name='qty_available']" position="attributes">
-                <attribute name="options">{'field_digits': False}</attribute>
+                <attribute name="options">{'widget': 'float', 'digits': [16, 0]}</attribute>
             </xpath>
         </field>
     </record>
