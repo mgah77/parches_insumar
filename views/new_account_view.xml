@@ -168,12 +168,13 @@
         <field name="name">account.move.form.facturas.proveedores</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <form string="Factura de Proveedor">
+            <form string="Factura de Proveedor" create="false">
                 <sheet>
                     <group>
                         <group>
                             <field name="sii_document_number" string="Número de Factura"/>
                             <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="partner_id.document_number" string="RUT" readonly="1"/>
                             <field name="activity_description" options="{'no_open': True}"/>
                         </group>
                         <group>
