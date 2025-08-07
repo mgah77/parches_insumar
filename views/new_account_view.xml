@@ -169,7 +169,8 @@
                             <field name="forma_pago" readonly="1"/>
                         </group>
                     </group>
-                    <notebook style="border: 1px solid black;">
+                    <div style="border=1px solid black;">
+                    <notebook>
                         <page string="Líneas">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
@@ -183,6 +184,7 @@
                             </field>
                         </page>
                     </notebook>
+                    </div>
                     <group col="12" class="oe_invoice_lines_tab">
                     <group colspan="8">
                     </group>
