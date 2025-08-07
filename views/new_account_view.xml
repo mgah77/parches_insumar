@@ -29,36 +29,43 @@
             <form string="Factura de Cliente">
                 <sheet>
                     <group>
-                        <field name="sii_document_number"/>
-                        <field name="partner_id" options="{'no_open': True}"/>
-                        <field name="company_id" invisible="1"/>
-                        <field name="invoice_date"/>
-                        <field name="invoice_date_due"/>
-                    </group>
+                        <group>
+                            <field name="sii_document_number" string="Número de Factura"/>
+                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="activity_description" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="invoice_date" readonly="1" string="Fecha de emisión"/>
+                            <field name="invoice_date_due" readonly="1"/>
+                            <field name="forma_pago" readonly="1"/>
+                        </group>
+                    </group>                    
                     <notebook>
-                        <page string="Líneas">
+                        <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="name"/>
-                                    <field name="quantity"/>
-                                    <field name="price_unit"/>
-                                    <field name="tax_ids"/>
-                                    <field name="price_subtotal" readonly="1"/>
+                                    <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
+                                    <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
+                                    <field name="price_subtotal" readonly="1" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
+                    </notebook>                   
                     <group col="12" class="oe_invoice_lines_tab">
                     <group colspan="8">
                     </group>
                                             <!-- Totals (only invoices / receipts) -->
-                        <group colspan="4">
-                            <group>
-                                <field name="amount_untaxed"/>
-                                <field name="amount_tax"/>
-                                <field name="amount_total"/>
+                        <group colspan="4" class="text-end">
+                            <group style="border:1px solid gray;">
+                            
+                                <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px; font-weight: bold;"/>
+                            
                             </group>                                        
                         </group>
                 </group>
@@ -91,36 +98,43 @@
             <form string="Factura Rectificativa Cliente">
                 <sheet>
                     <group>
-                        <field name="sii_document_number"/>
-                        <field name="partner_id"/>
-                        <field name="company_id" invisible="1"/>
-                        <field name="invoice_date"/>
-                        <field name="invoice_date_due"/>
-                    </group>
+                        <group>
+                            <field name="sii_document_number" string="Número de Factura"/>
+                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="activity_description" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="invoice_date" readonly="1" string="Fecha de emisión"/>
+                            <field name="invoice_date_due" readonly="1"/>
+                            <field name="forma_pago" readonly="1"/>
+                        </group>
+                    </group>                    
                     <notebook>
-                        <page string="Líneas">
+                        <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="name"/>
-                                    <field name="quantity"/>
-                                    <field name="price_unit"/>
-                                    <field name="tax_ids"/>
-                                    <field name="price_subtotal" readonly="1"/>
+                                    <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
+                                    <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
+                                    <field name="price_subtotal" readonly="1" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
+                    </notebook>                   
                     <group col="12" class="oe_invoice_lines_tab">
                     <group colspan="8">
                     </group>
                                             <!-- Totals (only invoices / receipts) -->
-                        <group colspan="4">
-                            <group>
-                                <field name="amount_untaxed"/>
-                                <field name="amount_tax"/>
-                                <field name="amount_total"/>
+                        <group colspan="4" class="text-end">
+                            <group style="border:1px solid gray;">
+                            
+                                <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px; font-weight: bold;"/>
+                            
                             </group>                                        
                         </group>
                 </group>
@@ -182,8 +196,7 @@
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
-                   
+                    </notebook>                   
                     <group col="12" class="oe_invoice_lines_tab">
                     <group colspan="8">
                     </group>
@@ -227,36 +240,43 @@
             <form string="Factura Rectificativa Proveedor">
                 <sheet>
                     <group>
-                        <field name="sii_document_number"/>
-                        <field name="partner_id" options="{'no_open': True}"/>
-                        <field name="company_id" invisible="1"/>
-                        <field name="invoice_date"/>
-                        <field name="invoice_date_due"/>
-                    </group>
+                        <group>
+                            <field name="sii_document_number" string="Número de Factura"/>
+                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="activity_description" options="{'no_open': True}"/>
+                        </group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="invoice_date" readonly="1" string="Fecha de emisión"/>
+                            <field name="invoice_date_due" readonly="1"/>
+                            <field name="forma_pago" readonly="1"/>
+                        </group>
+                    </group>                    
                     <notebook>
-                        <page string="Líneas">
+                        <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
                                     <field name="name"/>
-                                    <field name="quantity"/>
-                                    <field name="price_unit"/>
-                                    <field name="tax_ids"/>
-                                    <field name="price_subtotal" readonly="1"/>
+                                    <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
+                                    <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
+                                    <field name="price_subtotal" readonly="1" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="company_id" invisible="1"/>
                                 </tree>
                             </field>
                         </page>
-                    </notebook>
+                    </notebook>                   
                     <group col="12" class="oe_invoice_lines_tab">
                     <group colspan="8">
                     </group>
                                             <!-- Totals (only invoices / receipts) -->
-                        <group colspan="4">
-                            <group>
-                                <field name="amount_untaxed"/>
-                                <field name="amount_tax"/>
-                                <field name="amount_total"/>
+                        <group colspan="4" class="text-end">
+                            <group style="border:1px solid gray;">
+                            
+                                <field name="amount_untaxed" string="Neto" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_tax" string="IVA" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px;"/>
+                                <field name="amount_total" widget="float" options="{'digits': [16, 0]}" style="font-size: 16px; font-weight: bold;"/>
+                            
                             </group>                                        
                         </group>
                 </group>
