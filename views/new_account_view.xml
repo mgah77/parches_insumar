@@ -26,12 +26,13 @@
         <field name="name">account.move.form.facturas.clientes</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <form string="Factura de Cliente">
+            <form string="Factura de Cliente" create="false">
                 <sheet>
                     <group>
                         <group>
-                            <field name="sii_document_number" string="Número de Factura"/>
-                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="sii_document_number" string="Número de Factura" style="font-weight: bold;"/>
+                            <field name="partner_id" options="{'no_open': True}" style="font-weight: bold;"/>
+                            <field name="document_number" options="{'no_open': True}" style="font-weight: bold;"/>
                             <field name="activity_description" options="{'no_open': True}"/>
                         </group>
                         <group>
@@ -45,7 +46,6 @@
                         <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
-                                    <field name="product_id"/>
                                     <field name="name"/>
                                     <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
@@ -95,12 +95,13 @@
         <field name="name">account.move.form.rectificativas.clientes</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <form string="Factura Rectificativa Cliente">
+            <form string="Factura Rectificativa Cliente" create="false">
                 <sheet>
                     <group>
                         <group>
-                            <field name="sii_document_number" string="Número de Factura"/>
-                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="sii_document_number" string="Número de Factura" style="font-weight: bold;"/>
+                            <field name="partner_id" options="{'no_open': True}" style="font-weight: bold;"/>
+                            <field name="document_number" options="{'no_open': True}" style="font-weight: bold;"/>
                             <field name="activity_description" options="{'no_open': True}"/>
                         </group>
                         <group>
@@ -114,7 +115,6 @@
                         <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
-                                    <field name="product_id"/>
                                     <field name="name"/>
                                     <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
@@ -237,12 +237,13 @@
         <field name="name">account.move.form.rectificativas.proveedores</field>
         <field name="model">account.move</field>
         <field name="arch" type="xml">
-            <form string="Factura Rectificativa Proveedor">
+            <form string="Factura Rectificativa Proveedor" create="false">
                 <sheet>
                     <group>
                         <group>
-                            <field name="sii_document_number" string="Número de Factura" />
-                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="sii_document_number" string="Número de Factura" style="font-weight: bold;"/>
+                            <field name="partner_id" options="{'no_open': True}" style="font-weight: bold;"/>
+                            <field name="document_number" options="{'no_open': True}" style="font-weight: bold;"/>
                             <field name="activity_description" options="{'no_open': True}"/>
                         </group>
                         <group>
@@ -256,7 +257,6 @@
                         <page string="Líneas" style="border:1px solid black;">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
-                                    <field name="product_id"/>
                                     <field name="name"/>
                                     <field name="quantity" widget="float" options="{'digits': [16, 0]}"/>
                                     <field name="price_unit" widget="float" options="{'digits': [16, 0]}"/>
