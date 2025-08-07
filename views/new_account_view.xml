@@ -169,8 +169,8 @@
                             <field name="forma_pago" readonly="1"/>
                         </group>
                     </group>
-                    <notebook>
-                        <page string="Líneas" style="border: 1px solid black;">
+                    <notebook style="border: 1px solid black;">
+                        <page string="Líneas">
                             <field name="invoice_line_ids">
                                 <tree editable="bottom">
                                     <field name="product_id"/>
