@@ -157,11 +157,17 @@
             <form string="Factura de Proveedor">
                 <sheet>
                     <group>
-                        <field name="sii_document_number" string="Número de Factura"/>
-                        <field name="partner_id" options="{'no_open': True}"/>
-                        <field name="company_id" invisible="1"/>
-                        <field name="invoice_date" readonly="1" string="Fecha de emisión"/>
-                        <field name="invoice_date_due" readonly="1"/>
+                        <group>
+                            <field name="sii_document_number" string="Número de Factura"/>
+                            <field name="partner_id" options="{'no_open': True}"/>
+                            <field name="activity_description"/>
+                        <group>
+                        <group>
+                            <field name="company_id" invisible="1"/>
+                            <field name="invoice_date" readonly="1" string="Fecha de emisión"/>
+                            <field name="invoice_date_due" readonly="1"/>
+                            <field name="forma_pago" readonly="1"/>
+                        <group>
                     </group>
                     <notebook>
                         <page string="Líneas">
