@@ -15,13 +15,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-
-#: model_terms:ir.ui.view,arch_db:sale.view_quotation_tree
-#: selection:sale.order,state:0
-msgid "Quotation"
-msgstr "Cotización"
-
-
 #. module: sale
 #: model:ir.actions.report.xml,name:sale.report_sale_order
 msgid "Quotation / Order"
