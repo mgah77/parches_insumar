@@ -49,7 +49,7 @@
                           <div class="document-box2">
                               <h4 class="rut-header2">
                               <br />
-                                R.U.T.: 76.445.265-8<br />
+                                R.U.T.: 76.445.265-8<br /><br />
                                 COTIZACION<br />
                                 N° <span t-esc="doc.name[2:]"/>
                               </h4>                              
@@ -62,7 +62,7 @@
                       </div>
                     </div>
                 </div>
-                <div class="page" style="padding-top: 60px;">
+                <div class="page" style="padding-top: 67px;">
                     <div class="row table-container">
                             <table class="table table-no-margin">
                                 <tbody>
