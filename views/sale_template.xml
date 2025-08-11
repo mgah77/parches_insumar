@@ -170,11 +170,11 @@
                                     <td class="table-cell-no-padding" style="text-align: left;">
                                         <span t-field="l.product_id.name"/>
                                     </td>
-                                    <td class="table-cell-no-padding" style="text-align: right;">
-                                        <span t-field="l.product_uom_qty"/>
+                                    <td class="table-cell-no-padding" style="text-align: right;">                                    
+                                        <span t-esc="'%.0f' % l.product_uom_qty"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">
-                                        <span t-field="l.price_unit"/>
+                                        <span t-esc="'%.0f' % l.price_unit"/>
                                     </td>                                    
                                     <td class="table-cell-no-padding" style="text-align: right;">                                       
                                         <span t-field="l.price_subtotal"/>
