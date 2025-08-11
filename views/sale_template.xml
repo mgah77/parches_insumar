@@ -52,6 +52,7 @@
                           <div class="document-box2">
                               <h4 class="rut-header2">
                               <br />
+                                76.445.265-8
                                 COTIZACION<br />
                                 N° <span t-esc="doc.name[2:]"/>
                               </h4>                              
