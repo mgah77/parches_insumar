@@ -60,7 +60,7 @@
 
 /* 7. Encabezado del R.U.T. */
 .rut-header2 {
-  color: black;
+  color: darkblue;
   font-size: 20px;
   padding-top: 5px;
   margin: 0;
@@ -68,10 +68,10 @@
 }
 
 /* 8. Encabezado del tipo de documento */
-.document-class-header {
+.document-class-header2 {
   line-height: 1.2;
   font-size: 20px;
-  color: red;
+  color: darkblue;
   text-align: center;
   text-transform: uppercase;
   padding-bottom: 10px;
@@ -80,8 +80,8 @@
 }
 
 /* 9. Número SII */
-.sii-doc-number {
-  color: red;
+.sii-doc-number2 {
+  color: darkblue;
   text-align: center;
   font-size: 20px;
   padding-bottom: 5px;

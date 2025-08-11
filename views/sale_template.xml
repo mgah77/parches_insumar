@@ -48,13 +48,13 @@
                         <div class="col-5">
                           <div class="document-box2">          
 
-                              <h6 class="rut-header">
+                              <h6 class="rut-header2">
                                 R.U.T.: 76.445.265-8
                               </h6>
-                              <h6 class="document-class-header">
+                              <h6 class="document-class-header2">
                                   COTIZACION
                               </h6>
-                              <h6 class="sii-doc-number">
+                              <h6 class="sii-doc-number2">
                                   N° <span t-esc="doc.name[2:]"/>
                               </h6>
                               <br />                             
