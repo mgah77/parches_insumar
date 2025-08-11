@@ -46,13 +46,23 @@
                             </p>
                         </div>
                         <div class="col-5">
-                          <div class="document-box2">
-                              <h4 class="rut-header2">
+                          <div class="document-box2">                              
                               <br />
-                                R.U.T.: 76.445.265-8<br /> <br />
+                                R.U.T.: 76.445.265-8<br />
                                 COTIZACION<br />
                                 N° <span t-esc="doc.name[2:]"/>
-                              </h4>                              
+                              </h4>
+
+                              <h6 class="rut-header">
+                                R.U.T.: 76.445.265-8
+                              </h6>
+                              <h6 class="document-class-header">
+                                  COTIZACION
+                              </h6>
+                              <h6 class="sii-doc-number">
+                                  N° <span t-esc="doc.name[2:]"/>
+                              </h6>
+                              <br />                             
                           </div>
                           <!--div class="row center-text" style="text-align: center !important;">
                               <p class="sii-info">
