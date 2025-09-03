@@ -25,6 +25,7 @@
             "views/calendar.xml",
             "views/sale_template.xml",
             "views/crm.xml",
+            "views/price_check_wizard_views.xml",
             "views/new_account_view.xml"
     ],
     'assets': {
