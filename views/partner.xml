@@ -60,7 +60,7 @@
         id="menu_contacts_title_custom" 
         name="Títulos de contacto" 
         parent="menu_contacts_config_custom"
-        action="base.action_partner_title"
+        action="base.action_partner_title_contact"
         sequence="10" />
 
 </odoo>
