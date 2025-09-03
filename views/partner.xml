@@ -47,4 +47,20 @@
 
         </field>
     </record>
+
+    <!-- Nuevo menú Configuración dentro de Contactos -->
+    <menuitem 
+        id="menu_contacts_config_custom" 
+        name="Configuración" 
+        parent="contacts.menu_contacts" 
+        sequence="90" />
+
+    <!-- Submenú Titulos de Contacto dentro del nuevo Configuración -->
+    <menuitem 
+        id="menu_contacts_title_custom" 
+        name="Títulos de contacto" 
+        parent="menu_contacts_config_custom"
+        action="base.action_res_partner_title_form" 
+        sequence="10" />
+
 </odoo>
