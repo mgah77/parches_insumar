@@ -21,7 +21,20 @@ class AccountMove(models.Model):
 
     glosa = fields.Char(string="Glosa")
     document_number = fields.Char(related='partner_id.document_number', string="RUT", store=False)
+
+    # Campo computado para el equipo del usuario actual
+    current_user_team_id = fields.Many2one(
+        'crm.team',
+        string='Equipo del Usuario Actual', 
+        compute='_compute_current_user_team',
+        store=False
+    )
     
+    def _compute_current_user_team(self):
+        """Calcula el equipo del usuario actual para cada registro"""
+        user_team = self.env.user.team_id
+        for record in self:
+            record.current_user_team_id = user_team
 
 
 class AccountMoveLine(models.Model):
