@@ -17,6 +17,11 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="l10n_cl_fe.invoice_tree"/>
         <field name="arch" type="xml">
+             <tree position="attributes">
+                    <attribute name="domain">
+                        ['|', ('current_user_team_id', '=', False), ('team_id', '=', current_user_team_id)]
+                    </attribute>
+                </tree>
             <xpath expr="//field[@name='amount_untaxed_signed']" position="attributes">
                 <attribute name="string">Neto</attribute>
             </xpath>
@@ -48,19 +53,6 @@
         </xpath>
         </field>
     </record>   
-                   
-    <record id="view_account_move_tree_inherit" model="ir.ui.view">
-            <field name="name">account.move.tree.inherit</field>
-            <field name="model">account.move</field>
-            <field name="inherit_id" ref="account.view_move_tree"/>
-            <field name="arch" type="xml">
-                <tree position="attributes">
-                    <attribute name="domain">
-                        ['|', ('current_user_team_id', '=', False), ('team_id', '=', current_user_team_id)]
-                    </attribute>
-                </tree>
-            </field>
-        </record>
 
 
 </odoo>
