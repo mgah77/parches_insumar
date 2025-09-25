@@ -6,15 +6,24 @@ class PriceCheckWizard(models.TransientModel):
     _description = "Consulta de Precios"
 
     search_text = fields.Char(string="Buscar producto")
+
     result_ids = fields.One2many(
         "price.check.wizard.line", "wizard_id", string="Resultados"
     )
 
-    def action_search_products(self):
-        self.ensure_one()
-        domain = ["|",
-                  ("name", "ilike", self.search_text),
-                  ("default_code", "ilike", self.search_text)]
+    @api.onchange("search_text")
+    def _onchange_search_text(self):
+        """Busca productos cuando se escribe y se confirma (Enter)."""
+        if not self.search_text:
+            self.result_ids = [(5, 0, 0)]
+            return
+
+        domain = [
+            ("sale_ok", "=", True),
+            "|",
+            ("name", "ilike", self.search_text),
+            ("default_code", "ilike", self.search_text),
+        ]
         products = self.env["product.product"].search(domain, limit=50)
 
         lines = []
@@ -27,13 +36,7 @@ class PriceCheckWizard(models.TransientModel):
             }))
 
         self.result_ids = [(5, 0, 0)] + lines
-        return {
-            "type": "ir.actions.act_window",
-            "res_model": "price.check.wizard",
-            "res_id": self.id,
-            "view_mode": "form",
-            "target": "new",
-        }
+
 
 class PriceCheckWizardLine(models.TransientModel):
     _name = "price.check.wizard.line"
