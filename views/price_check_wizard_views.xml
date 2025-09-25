@@ -29,7 +29,7 @@
                 </group>
 
                 <group col="1">
-                    <field name="result_ids" nolabel="1" colspan="4" readonly="1">
+                    <field name="result_ids" nolabel="1" colspan="3" readonly="1">
                         <tree create="false" delete="false" editable="false">
                             <field name="product_id"
                                    string="Producto"
