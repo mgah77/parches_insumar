@@ -33,7 +33,7 @@
                         <field name="product_id"
                             string="Producto"
                             options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"
-                            style="min-width:400px;"/>
+                            style="min-width:300px;"/>
                         <field name="price_net"   string="Precio Neto"  widget="integer" style="width:120px;"/>
                         <field name="price_gross" string="Precio + IVA" widget="integer" style="width:140px;"/>
                     </tree>
