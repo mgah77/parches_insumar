@@ -22,29 +22,34 @@
         <field name="name">price.check.wizard.form</field>
         <field name="model">price.check.wizard</field>
         <field name="arch" type="xml">
-           <form string="Consulta de Precios">
-                <group>
-                    <field name="search_text" placeholder="Escriba parte del nombre o referencia"/>
-                    <button string="Buscar" type="object" name="action_search_products" class="btn-primary"/>
-                </group>
+<form string="Consulta de Precios">
+    <group>
+        <field name="search_text" placeholder="Escriba parte del nombre o referencia"/>
+        <button string="Buscar" type="object" name="action_search_products" class="btn-primary"/>
+    </group>
 
-                <!-- Grupo de UNA sola columna para que el tree tome todo el ancho -->
-                <group col="1">
-                    <field name="result_ids" nolabel="1">
-                        <tree editable="false" create="false">
-                            <field name="product_id"
-                                string="Producto"
-                                options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
-                            <field name="price_net" string="Precio Neto" widget="integer"/>
-                            <field name="price_gross" string="Precio + IVA" widget="integer"/>
-                        </tree>
-                    </field>
-                </group>
+    <!-- Tabla a todo el ancho -->
+    <group col="1">
+        <field name="result_ids" nolabel="1" colspan="4" readonly="1">
+            <!-- sin crear ni borrar líneas manualmente -->
+            <tree create="false" delete="false" editable="false">
+                <!-- Producto bien ancho -->
+                <field name="product_id"
+                       string="Producto"
+                       width="600"
+                       options="{'no_open': True, 'no_create': True, 'no_create_edit': True}"/>
+                <!-- Precios con ancho fijo y sin decimales -->
+                <field name="price_net"   string="Precio Neto"   widget="integer" width="140"/>
+                <field name="price_gross" string="Precio + IVA"  widget="integer" width="160"/>
+            </tree>
+        </field>
+    </group>
 
-                <footer>
-                    <button string="Cerrar" class="btn-secondary" special="cancel"/>
-                </footer>
-            </form>
+    <footer>
+        <button string="Cerrar" class="btn-secondary" special="cancel"/>
+    </footer>
+</form>
+
         </field>
     </record>
 
