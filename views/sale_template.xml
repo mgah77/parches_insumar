@@ -171,7 +171,7 @@
                                         <t t-esc="(l_index + 1)"/>
                                     </td>                                 
                                     <td class="table-cell-no-padding" style="text-align: left;">
-                                        <span t-field="l.product_id.name"/>
+                                        <span t-field="l.name"/>
                                     </td>
                                     <td class="table-cell-no-padding" style="text-align: right;">                                    
                                         <span t-esc="'%.0f' % l.product_uom_qty"/>
