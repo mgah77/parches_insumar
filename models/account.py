@@ -72,8 +72,7 @@ class AccountPayment(models.Model):
     serie_cheque = fields.Char(string="Serie del cheque")
     banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
     fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
-    is_cheque = fields.Boolean(string="¿Es pago con cheque?", compute="_compute_is_cheque", store=True)
-
+    is_cheque = fields.Boolean(string="¿Es pago con cheque?", compute="_compute_is_cheque", store=False)
 
     @api.depends('payment_method_line_id', 'payment_method_id')
     def _compute_is_cheque(self):
