@@ -30,29 +30,25 @@
 
         </field>
     </record>
-
-       <record id="view_estado_cheques_tree" model="ir.ui.view">
+ <record id="view_estado_cheques_tree" model="ir.ui.view">
         <field name="name">estado.cheques.tree</field>
         <field name="model">account.payment</field>
         <field name="arch" type="xml">
-            <tree string="Estado de Cheques" default_order="date asc">
-                <field name="move_id" string="Asiento Contable"/>
+            <tree string="Estado de Cheques" default_order="date asc"
+                  decoration-success="estado_cheque == 'cobrado'"
+                  decoration-danger="estado_cheque == 'no_cobrado'">
+                
+                <field name="factura_relacionada_id" string="Factura"/>
                 <field name="partner_id" string="Cliente"/>
-                <field name="partner_id.document_number" string="RUT" readonly="1"/>
+                <field name="partner_vat" string="RUT"/>
                 <field name="date" string="Fecha de Pago"/>
                 <field name="amount" string="Monto" widget="monetary"/>
                 <field name="currency_id" invisible="1"/>
                 <field name="serie_cheque" string="N° Documento"/>
                 <field name="fecha_cobro" string="Fecha Documento"/>
                 <field name="banco_cheque_id" string="Banco"/>
+                <field name="estado_cheque" string="Estado" readonly="1"/>
                 
-                <!-- Estado con color -->
-                <field name="estado_cheque" string="Estado">
-                    <attribute name="widget">statusbar</attribute>
-                    <attribute name="statusbar_visible">no_cobrado,cobrado</attribute>
-                </field>
-
-                <!-- Botón visible solo cuando NO está cobrado -->
                 <button name="action_toggle_estado_cheque"
                         type="object"
                         string="Marcar como Cobrado"
