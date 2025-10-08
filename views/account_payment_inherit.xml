@@ -75,12 +75,13 @@
         </field>
     </record>
 
-    <record id="action_estado_cheques" model="ir.actions.act_window">
-        <field name="name">Estado de Cheques</field>
-        <field name="res_model">account.payment</field>
-        <field name="view_mode">tree</field>
-        <field name="domain">[('payment_method_line_id', 'in', [1,2,4,22,29,32,34,39,45])]</field>
-    </record>
+ <record id="action_estado_cheques" model="ir.actions.act_window">
+    <field name="name">Estado de Cheques</field>
+    <field name="res_model">account.payment</field>
+    <field name="view_mode">tree</field>
+    <field name="view_id" ref="view_estado_cheques_tree"/>
+    <field name="domain">[('payment_method_line_id', 'in', [1,2,4,22,29,32,34,39,45])]</field>
+</record>
 
     <menuitem id="menu_estado_cheques"
               name="Estado de Cheques"
