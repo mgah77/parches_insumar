@@ -36,7 +36,7 @@
         <field name="model">account.payment</field>
         <field name="arch" type="xml">
             <tree string="Estado de Cheques" default_order="date asc">
-                <field name="invoice_ids" string="Factura" widget="many2many_tags" context="{'default_move_type': 'out_invoice'}"/>
+                <field name="move_id" string="Asiento Contable"/>
                 <field name="partner_id" string="Cliente"/>
                 <field name="partner_id.document_number" string="RUT" readonly="1"/>
                 <field name="date" string="Fecha de Pago"/>
