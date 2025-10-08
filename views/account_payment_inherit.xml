@@ -50,7 +50,6 @@
                 <button name="action_toggle_estado_cheque"
                         type="object"
                         string="Marcar como Cobrado"
-                        icon="fa-check"
                         class="oe_highlight"
                         attrs="{'invisible': [('estado_cheque', '=', 'cobrado')]}"/>
             </tree>
