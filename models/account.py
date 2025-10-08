@@ -74,19 +74,20 @@ class AccountPayment(models.Model):
     fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
     is_cheque = fields.Boolean(string="¿Es pago con cheque?", compute="_compute_is_cheque", store=False)
 
-    @api.depends('payment_method_line_id')
+    @api.depends('payment_method_line_id', 'payment_method_id')
     def _compute_is_cheque(self):
         for rec in self:
-            rec.is_cheque = False
+            metodo = False
+            # algunos pagos usan payment_method_line_id, otros payment_method_id
             if rec.payment_method_line_id and rec.payment_method_line_id.payment_method_id:
-                # comparar por nombre en minúsculas
-                if rec.payment_method_line_id.payment_method_id.name and \
-                   rec.payment_method_line_id.payment_method_id.name.strip().lower() == 'cheque':
-                    rec.is_cheque = True
+                metodo = rec.payment_method_line_id.payment_method_id.name
+            elif rec.payment_method_id:
+                metodo = rec.payment_method_id.name
 
-    @api.onchange('payment_method_line_id')
-    def _onchange_payment_method_line_id(self):
-        """Forzar actualización inmediata en vista"""
+            rec.is_cheque = bool(metodo and metodo.strip().lower() == 'cheque')
+
+    @api.onchange('payment_method_line_id', 'payment_method_id')
+    def _onchange_payment_method(self):
         for rec in self:
             rec._compute_is_cheque()
             if not rec.is_cheque:
