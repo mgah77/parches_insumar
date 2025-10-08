@@ -35,7 +35,7 @@
         <field name="model">account.payment</field>
         <field name="arch" type="xml">
             <tree string="Estado de Cheques" default_order="date asc">                
-                <field name="move_id" string="Factura"/>
+                <field name="move_id.name" string="Factura"/>
                 <field name="partner_id" string="Cliente"/>
                 <field name="partner_vat" string="RUT"/>
                 <field name="date" string="Fecha de Pago"/>
