@@ -9,7 +9,14 @@
                 <div>
                     <field name="payment_form" />
                 </div>
-            </xpath>                    
+            </xpath>
+            <xpath expr="//field[@name='payment_method_id']" position="after">
+                <group attrs="{'invisible': [('payment_method_id.name', '!=', 'Cheque')]}">
+                    <field name="serie_cheque"/>
+                    <field name="banco_cheque_id" options="{'no_create_edit': False}"/>
+                    <field name="fecha_cobro"/>
+                </group>
+            </xpath>                     
         </field>
     </record>
     <record id="view_account_payment_invoice_form_inherit" model="ir.ui.view">
@@ -22,14 +29,7 @@
                 <div>
                     <field name="payment_form" />
                 </div>
-            </xpath>    
-            <xpath expr="//field[@name='payment_method_id']" position="after">
-                <group attrs="{'invisible': [('payment_method_id.name', '!=', 'Cheque')]}">
-                    <field name="serie_cheque"/>
-                    <field name="banco_cheque_id" options="{'no_create_edit': False}"/>
-                    <field name="fecha_cobro"/>
-                </group>
-            </xpath>                
+            </xpath>         
         </field>
     </record>
 
