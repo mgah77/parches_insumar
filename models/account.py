@@ -66,3 +66,17 @@ class AccountMoveLine(models.Model):
                 values.append(product.name)
             line.name = '\n'.join(values)
 
+class AccountPayment(models.Model):
+    _inherit = 'account.payment'
+
+    serie_cheque = fields.Char(string="Serie del cheque")
+    banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
+    fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
+
+    @api.onchange('payment_method_id')
+    def _onchange_payment_method_id(self):
+        """Limpia los datos si cambia el método de pago"""
+        if self.payment_method_id and self.payment_method_id.name.lower() != 'cheque':
+            self.serie_cheque = False
+            self.banco_cheque_id = False
+            self.fecha_cobro = False
