@@ -34,17 +34,17 @@
         <field name="name">estado.cheques.tree</field>
         <field name="model">account.payment</field>
         <field name="arch" type="xml">
-            <tree string="Estado de Cheques" default_order="date asc">                
-                <field name="factura_name" string="Factura"/>
-                <field name="partner_id" string="Cliente"/>
-                <field name="partner_vat" string="RUT"/>
-                <field name="date" string="Fecha de Pago"/>
-                <field name="amount" string="Monto" widget="monetary"/>
+            <tree string="Estado de Cheques" default_order="date asc" editable="bottom" create="false" delete="false">                
+                <field name="factura_name" string="Factura" readonly="1"/>
+                <field name="partner_id" string="Cliente" readonly="1"/>
+                <field name="partner_vat" string="RUT" readonly="1"/>
+                <field name="date" string="Fecha de Pago" readonly="1"/>                              
+                <field name="amount" string="Monto" widget="monetary" readonly="1"/>
                 <field name="currency_id" invisible="1"/>
-                <field name="serie_cheque" string="N° Documento"/>
+                <field name="serie_cheque" string="N° Documento" readonly="1"/>
                 <field name="fecha_cobro" string="Fecha Documento"/>
-                <field name="banco_cheque_id" string="Banco"/>
-                <field name="estado_cheque" string="Estado" widget="badge" decoration-success="estado_cheque == 'cobrado'" decoration-danger="estado_cheque == 'no_cobrado'"/>
+                <field name="banco_cheque_id" string="Banco" readonly="1"/>
+                <field name="estado_cheque" string="Estado" widget="badge" decoration-success="estado_cheque == 'cobrado'" decoration-danger="estado_cheque == 'no_cobrado'" readonly="1"/>
                 
                 <button name="action_toggle_estado_cheque"
                         type="object"
