@@ -72,25 +72,3 @@ class AccountPayment(models.Model):
     serie_cheque = fields.Char(string="Serie del cheque")
     banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
     fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
-    is_cheque = fields.Boolean(string="¿Es pago con cheque?", compute="_compute_is_cheque", store=False)
-
-    @api.depends('payment_method_line_id', 'payment_method_id')
-    def _compute_is_cheque(self):
-        for rec in self:
-            metodo = False
-            # algunos pagos usan payment_method_line_id, otros payment_method_id
-            if rec.payment_method_line_id and rec.payment_method_line_id.payment_method_id:
-                metodo = rec.payment_method_line_id.payment_method_id.name
-            elif rec.payment_method_id:
-                metodo = rec.payment_method_id.name
-
-            rec.is_cheque = bool(metodo and metodo.strip().lower() == 'cheque')
-
-    @api.onchange('payment_method_line_id', 'payment_method_id')
-    def _onchange_payment_method(self):
-        for rec in self:
-            rec._compute_is_cheque()
-            if not rec.is_cheque:
-                rec.serie_cheque = False
-                rec.banco_cheque_id = False
-                rec.fecha_cobro = False
