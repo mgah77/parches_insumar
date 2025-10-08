@@ -6,6 +6,9 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='payment_method_line_id']" position="after">
+                <!-- Campo auxiliar, necesario para attrs -->
+                <field name="is_cheque" invisible="1"/>
+
                 <group attrs="{'invisible': [('is_cheque', '=', False)]}">
                     <field name="serie_cheque"/>
                     <field name="banco_cheque_id" options="{'no_create_edit': False}"/>
@@ -15,5 +18,4 @@
 
         </field>
     </record>
-
 </odoo>
