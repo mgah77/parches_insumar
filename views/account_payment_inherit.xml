@@ -34,10 +34,7 @@
         <field name="name">estado.cheques.tree</field>
         <field name="model">account.payment</field>
         <field name="arch" type="xml">
-            <tree string="Estado de Cheques" default_order="date asc"
-                  decoration-success="estado_cheque == 'cobrado'"
-                  decoration-danger="estado_cheque == 'no_cobrado'">
-                
+            <tree string="Estado de Cheques" default_order="date asc">                
                 <field name="factura_relacionada_id" string="Factura"/>
                 <field name="partner_id" string="Cliente"/>
                 <field name="partner_vat" string="RUT"/>
@@ -47,7 +44,7 @@
                 <field name="serie_cheque" string="N° Documento"/>
                 <field name="fecha_cobro" string="Fecha Documento"/>
                 <field name="banco_cheque_id" string="Banco"/>
-                <field name="estado_cheque" string="Estado" readonly="1"/>
+                <field name="estado_cheque" string="Estado" widget="badge" decoration-success="estado_cheque == 'cobrado'" decoration-danger="estado_cheque == 'no_cobrado'"/>
                 
                 <button name="action_toggle_estado_cheque"
                         type="object"
@@ -59,21 +56,6 @@
         </field>
     </record>
 
-    <!-- Colorear los estados -->
-    <record id="estado_cheques_tree_style" model="ir.ui.view">
-        <field name="name">estado.cheques.tree.style</field>
-        <field name="model">account.payment</field>
-        <field name="inherit_id" ref="view_estado_cheques_tree"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='estado_cheque']" position="attributes">
-                <attribute name="options">{'no_open': True}</attribute>
-            </xpath>
-            <xpath expr="//tree" position="attributes">
-                <attribute name="decoration-danger">estado_cheque == 'no_cobrado'</attribute>
-                <attribute name="decoration-success">estado_cheque == 'cobrado'</attribute>
-            </xpath>
-        </field>
-    </record>
 
  <record id="action_estado_cheques" model="ir.actions.act_window">
     <field name="name">Estado de Cheques</field>
