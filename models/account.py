@@ -75,25 +75,12 @@ class AccountPayment(models.Model):
  
     partner_vat = fields.Char(string="RUT", related='partner_id.document_number', store=False)
 
-    factura_relacionada_id = fields.Many2one(
-        'account.move',
-        string='Factura',
-        compute='_compute_factura_relacionada',
-        store=False
-    )
-
     estado_cheque = fields.Selection([
         ('no_cobrado', 'No Cobrado'),
         ('cobrado', 'Cobrado'),
     ], string="Estado del Cheque", default='no_cobrado')
 
-    def _compute_factura_relacionada(self):
-        for rec in self:
-            move = self.env['account.move'].search([
-                ('payment_id', '=', rec.id),
-                ('move_type', '=', 'out_invoice')
-            ], limit=1)
-            rec.factura_relacionada_id = move
+    factura_name = fields.Char(related='move_id.name', string='Factura', store=False, readonly=True)
 
     def action_toggle_estado_cheque(self):
         for record in self:
