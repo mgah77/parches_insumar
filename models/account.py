@@ -72,6 +72,15 @@ class AccountPayment(models.Model):
     serie_cheque = fields.Char(string="Serie del cheque")
     banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
     fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
+    
+    estado_cheque = fields.Selection([
+        ('no_cobrado', 'No Cobrado'),
+        ('cobrado', 'Cobrado'),
+    ], string="Estado del Cheque", default='no_cobrado')
+
+    def action_toggle_estado_cheque(self):
+        for record in self:
+            record.estado_cheque = 'cobrado' if record.estado_cheque == 'no_cobrado' else 'no_cobrado'
 
 class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'

@@ -30,4 +30,65 @@
 
         </field>
     </record>
+
+       <record id="view_estado_cheques_tree" model="ir.ui.view">
+        <field name="name">estado.cheques.tree</field>
+        <field name="model">account.payment</field>
+        <field name="arch" type="xml">
+            <tree string="Estado de Cheques" default_order="date asc">
+                <field name="invoice_ids" string="Factura" widget="many2many_tags" context="{'default_move_type': 'out_invoice'}"/>
+                <field name="partner_id" string="Cliente"/>
+                <field name="partner_id.document_number" string="RUT" readonly="1"/>
+                <field name="date" string="Fecha de Pago"/>
+                <field name="amount" string="Monto" widget="monetary"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="serie_cheque" string="N° Documento"/>
+                <field name="fecha_cobro" string="Fecha Documento"/>
+                <field name="banco_cheque_id" string="Banco"/>
+                
+                <!-- Estado con color -->
+                <field name="estado_cheque" string="Estado">
+                    <attribute name="widget">statusbar</attribute>
+                    <attribute name="statusbar_visible">no_cobrado,cobrado</attribute>
+                </field>
+
+                <!-- Botón visible solo cuando NO está cobrado -->
+                <button name="action_toggle_estado_cheque"
+                        type="object"
+                        string="Marcar como Cobrado"
+                        icon="fa-check"
+                        class="oe_highlight"
+                        attrs="{'invisible': [('estado_cheque', '=', 'cobrado')]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Colorear los estados -->
+    <record id="estado_cheques_tree_style" model="ir.ui.view">
+        <field name="name">estado.cheques.tree.style</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="view_estado_cheques_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='estado_cheque']" position="attributes">
+                <attribute name="options">{'no_open': True}</attribute>
+            </xpath>
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-danger">estado_cheque == 'no_cobrado'</attribute>
+                <attribute name="decoration-success">estado_cheque == 'cobrado'</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_estado_cheques" model="ir.actions.act_window">
+        <field name="name">Estado de Cheques</field>
+        <field name="res_model">account.payment</field>
+        <field name="view_mode">tree</field>
+        <field name="domain">[('payment_method_line_id', 'in', [1,2,4,22,29,32,34,39,45])]</field>
+    </record>
+
+    <menuitem id="menu_estado_cheques"
+              name="Estado de Cheques"
+              parent="account.menu_finance_reports"
+              action="action_estado_cheques"
+              sequence="90"/>
 </odoo>
