@@ -44,6 +44,7 @@
                 <field name="serie_cheque" string="N° Documento" readonly="1"/>
                 <field name="fecha_cobro" string="Fecha Documento"/>
                 <field name="banco_cheque_id" string="Banco" readonly="1"/>
+                <field name="sucursal_nombre" string="Sucursal" readonly="1"/>
                 <field name="estado_cheque" string="Estado" widget="badge" decoration-success="estado_cheque == 'cobrado'" decoration-danger="estado_cheque == 'no_cobrado'" readonly="1"/>
                 
                 <button name="action_toggle_estado_cheque"

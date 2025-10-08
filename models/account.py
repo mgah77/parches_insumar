@@ -84,7 +84,19 @@ class AccountPayment(models.Model):
 
     def action_toggle_estado_cheque(self):
         for record in self:
-            record.estado_cheque = 'cobrado' if record.estado_cheque == 'no_cobrado' else 'no_cobrado'
+            record.estado_cheque = 'cobrado' if record.estado_cheque == 'no_cobrado' else 'no_cobrado'    
+
+    sucursal_nombre = fields.Char(string="Sucursal", compute="_compute_sucursal_nombre", store=False)
+
+    def _compute_sucursal_nombre(self):
+        for rec in self:
+            team_id = rec.move_id.team_id.id if rec.move_id and rec.move_id.team_id else False
+            if team_id == 1:
+                rec.sucursal_nombre = "ParVial"
+            elif team_id == 5:
+                rec.sucursal_nombre = "Ñuble"
+            else:
+                rec.sucursal_nombre = ""
 
 class AccountPaymentRegister(models.TransientModel):
     _inherit = 'account.payment.register'
