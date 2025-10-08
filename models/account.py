@@ -76,7 +76,7 @@ class AccountPayment(models.Model):
     @api.onchange('payment_method_id')
     def _onchange_payment_method_id(self):
         """Limpia los datos si cambia el método de pago"""
-        if self.payment_method_id and self.payment_method_id.name.lower() != 'cheque':
+        if self.payment_method_line_id and self.payment_method_line_id.name.lower() != 'cheque':
             self.serie_cheque = False
             self.banco_cheque_id = False
             self.fecha_cobro = False
