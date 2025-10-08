@@ -72,3 +72,21 @@ class AccountPayment(models.Model):
     serie_cheque = fields.Char(string="Serie del cheque")
     banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
     fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
+
+class AccountPaymentRegister(models.TransientModel):
+    _inherit = 'account.payment.register'
+
+    serie_cheque = fields.Char(string="Serie del cheque")
+    banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
+    fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
+
+    def _create_payments(self):
+        """Crea los pagos y les pasa los datos del cheque."""
+        payments = super()._create_payments()
+        for wiz in self:
+            payments.write({
+                'serie_cheque': wiz.serie_cheque,
+                'banco_cheque_id': wiz.banco_cheque_id.id if wiz.banco_cheque_id else False,
+                'fecha_cobro': wiz.fecha_cobro,
+            })
+        return payments
