@@ -80,7 +80,7 @@ class AccountPayment(models.Model):
         ('cobrado', 'Cobrado'),
     ], string="Estado del Cheque", default='no_cobrado')
 
-    factura_name = fields.Char(related='move_id.name', string='Factura', store=False, readonly=True)
+    factura_name = fields.Char(related='move_id.ref', string='Factura', store=False, readonly=True)
 
     def action_toggle_estado_cheque(self):
         for record in self:
