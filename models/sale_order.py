@@ -133,11 +133,3 @@ class SaleOrderLine(models.Model):
         for order in self.mapped('order_id'):
             for idx, line in enumerate(order.order_line, start=1):
                 line.line_number = idx
-
-    @api.onchange('product_id')
-    def product_id_change(self):
-        res = super().product_id_change()
-        if self.product_id:
-            # Solo usar el nombre del producto sin referencia interna
-            self.name = self.product_id.name or ''
-        return res
