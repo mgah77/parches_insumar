@@ -124,3 +124,12 @@ class SaleOrderLine(models.Model):
             self.env.remove_to_compute(self._fields['product_packaging_id'], self)
 
         return result
+
+
+    line_number = fields.Integer(string='N° Línea', compute='_compute_line_number', store=False)
+
+    @api.depends('order_id.order_line')
+    def _compute_line_number(self):
+        for order in self.mapped('order_id'):
+            for idx, line in enumerate(order.order_line, start=1):
+                line.line_number = idx
