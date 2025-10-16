@@ -115,3 +115,29 @@ class AccountPaymentRegister(models.TransientModel):
                 'fecha_cobro': wiz.fecha_cobro,
             })
         return payments
+
+class AccountPartialReconcile(models.Model):
+    _inherit = 'account.partial.reconcile'
+
+    def unlink(self):
+        # Guardar los asientos involucrados antes de eliminar conciliaciones
+        moves = (self.debit_move_id.move_id | self.credit_move_id.move_id)
+        res = super().unlink()
+
+        # Recalcular facturas, notas de crédito y pagos relacionados
+        for move in moves:
+            # Facturas de venta o compra y notas de crédito/débito
+            if move.move_type in ('out_invoice', 'in_invoice', 'out_refund', 'in_refund'):
+                move._compute_amount_residual()
+                move._compute_payment_state()
+
+            # Pagos o recibos (en algunos casos el asiento del pago está vinculado directamente)
+            if move.payment_id:
+                move.payment_id._compute_move_reconciled()
+                # Si el pago tiene facturas o notas asociadas, también recalculamos
+                related_moves = move.payment_id.reconciled_invoice_ids
+                for related in related_moves:
+                    related._compute_amount_residual()
+                    related._compute_payment_state()
+
+        return res
