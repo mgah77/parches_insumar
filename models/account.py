@@ -116,26 +116,26 @@ class AccountPaymentRegister(models.TransientModel):
             })
         return payments
 
-class AccountPartialReconcile(models.Model):
-    _inherit = 'account.partial.reconcile'
-
     def unlink(self):
-        # Guardar los asientos involucrados antes de eliminar conciliaciones
+        # Guardar los asientos involucrados antes de eliminar las conciliaciones
         moves = (self.debit_move_id.move_id | self.credit_move_id.move_id)
         res = super().unlink()
 
-        # Recalcular facturas, notas de crédito y pagos relacionados
         for move in moves:
-            # Facturas o notas (venta/compra)
+            # Facturas y notas de crédito/débito
             if move.move_type in ('out_invoice', 'in_invoice', 'out_refund', 'in_refund'):
                 move._compute_amount()
                 move._compute_payment_state()
 
-            # Si es un asiento de pago
+            # Pagos o recibos
             if move.payment_id:
                 payment = move.payment_id
-                # Recalcular su estado de conciliación y facturas asociadas
-                payment._compute_is_reconciled()
+
+                # Forzar recomputación del campo is_matched
+                if 'is_matched' in payment._fields:
+                    payment._recompute_field('is_matched')
+
+                # También recalcular las facturas asociadas al pago
                 related_moves = payment.reconciled_invoice_ids
                 for related in related_moves:
                     related._compute_amount()
