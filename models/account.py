@@ -126,17 +126,17 @@ class AccountPartialReconcile(models.Model):
 
         # Recalcular facturas, notas de crédito y pagos relacionados
         for move in moves:
-            # Facturas, notas de crédito o débito
+            # Facturas o notas (venta/compra)
             if move.move_type in ('out_invoice', 'in_invoice', 'out_refund', 'in_refund'):
-                # Recalcular totales y estado de pago
                 move._compute_amount()
                 move._compute_payment_state()
 
-            # Pagos o recibos (en algunos casos el asiento del pago está vinculado directamente)
+            # Si es un asiento de pago
             if move.payment_id:
-                move.payment_id._compute_move_reconciled()
-                # Si el pago tiene facturas o notas asociadas, también recalculamos
-                related_moves = move.payment_id.reconciled_invoice_ids
+                payment = move.payment_id
+                # Recalcular su estado de conciliación y facturas asociadas
+                payment._compute_is_reconciled()
+                related_moves = payment.reconciled_invoice_ids
                 for related in related_moves:
                     related._compute_amount()
                     related._compute_payment_state()
