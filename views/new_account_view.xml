@@ -6,6 +6,7 @@
     <record id="contacts.menu_contacts" model="ir.ui.menu">
         <field name="groups_id" eval="[(4, ref('base.group_user')), (3, ref('parches_insumar.group_wvl'))]"/>
     </record>
+    
 
     <!-- ========================= -->
     <!-- VISTAS CLIENTES -->
@@ -349,7 +350,7 @@
     <menuitem id="menu_root_nueva_facturacion"
               name="Contabilidad"
               parent=""
-              groups="parches_insumar.group_wvl,parches_insumar.group_admin"
+              groups="parches_insumar.group_wvl"
               sequence="77"/>
 
     <!-- ========================= -->

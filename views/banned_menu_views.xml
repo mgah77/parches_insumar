@@ -30,7 +30,7 @@
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin'), ref('parches_insumar.group_sala')])]"/>
     </record>
     <record id="crm.crm_menu_root" model="ir.ui.menu"> <!-- CRM -->
-        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
+        <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_master')])]"/>
     </record>
 
 
