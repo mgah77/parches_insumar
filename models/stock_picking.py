@@ -28,3 +28,58 @@ class StockPicking(models.Model):
                 record.user_stock_location_id = warehouse.lot_stock_id
             else:
                 record.user_stock_location_id = False
+    
+    
+    @api.model
+    def _get_recepciones_location(self, warehouse_view_location):
+        """Devuelve la sububicación 'Recepciones' bajo la bodega destino."""
+        return self.env['stock.location'].search([
+            ('location_id', '=', warehouse_view_location.id),
+            ('name', '=', 'Recepciones'),
+        ], limit=1)
+
+    @api.model
+    def _get_recepciones_picking_type(self, warehouse):
+        """Devuelve el picking.type de entrada (incoming) llamado 'Recepciones'
+           para el warehouse indicado."""
+        return self.env['stock.picking.type'].search([
+            ('code', '=', 'incoming'),
+            ('name', '=', 'Recepciones'),
+            ('warehouse_id', '=', warehouse.id),
+        ], limit=1)
+
+    def action_confirm(self):
+        # Primero confirmamos normalmente
+        res = super().action_confirm()
+
+        for picking in self:
+
+            # Solo aplicamos la lógica a transferencias internas
+            if picking.picking_type_code != 'internal':
+                continue
+
+            destino_usuario = picking.location_dest_id
+
+            # El usuario selecciona una bodega (usage='view', sin padre)
+            if destino_usuario.usage == 'view' and not destino_usuario.location_id:
+
+                # 1) Sububicación Recepciones dentro de esa bodega
+                recepciones_loc = self._get_recepciones_location(destino_usuario)
+                if not recepciones_loc:
+                    continue  # si la bodega no tiene Recepciones, no hacemos nada
+
+                # 2) Tipo de operación 'Recepciones' (incoming) para esa bodega
+                # Para saber la bodega → tomamos warehouse_id de la ubicación raíz
+                warehouse = destino_usuario.get_warehouse()
+                if not warehouse:
+                    continue
+
+                recepciones_type = self._get_recepciones_picking_type(warehouse)
+                if not recepciones_type:
+                    continue
+
+                # 3) Reemplazar destino y tipo de picking
+                picking.location_dest_id = recepciones_loc
+                picking.picking_type_id = recepciones_type
+
+        return res
