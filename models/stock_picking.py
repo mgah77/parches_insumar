@@ -20,6 +20,19 @@ class StockPicking(models.Model):
         store=False
     )
 
+    warehouse_view_ids = fields.Many2many(
+        comodel_name='stock.location',
+        compute='_compute_warehouse_views',
+        string='Ubicaciones raíz'
+    )
+
+    @api.depends()
+    def _compute_warehouse_views(self):
+        warehouses = self.env['stock.warehouse'].search([])
+        ids = warehouses.mapped('view_location_id').ids
+        for rec in self:
+            rec.warehouse_view_ids = [(6, 0, ids)]
+
     @api.depends('picking_type_id')
     def _compute_user_stock_location(self):
         for record in self:

@@ -144,7 +144,7 @@
 
         <xpath expr="//field[@name='location_dest_id'][@groups='stock.group_stock_multi_locations']" position="replace">
             <field name="location_dest_id"
-                domain="[('usage', '=', 'view'), ('location_id', '=', False)]"
+                domain="[('id', 'in', warehouse_view_ids)]"
                 options="{'no_create': True}"
                 groups="stock.group_stock_multi_locations"
                 attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"
