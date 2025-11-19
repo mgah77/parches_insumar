@@ -45,51 +45,35 @@ class StockPicking(models.Model):
         """Tipo de operación incoming 'Recepciones' de esa bodega."""
         return self.env['stock.picking.type'].search([
             ('code', '=', 'incoming'),
-            ('name', '=', 'Recepciones'),
+            ('name', 'ilike', 'Recepcion'),
             ('warehouse_id', '=', warehouse.id),
         ], limit=1)
 
     def button_validate(self):
-        # Antes de validar, ajustamos destino y tipo
+        # Ajuste ANTES de validar
         for picking in self:
 
-            # Solo para tu operación de "transferencia interna"
+            # Solo si la operación original es interna
             if picking.picking_type_id.code != 'internal':
                 continue
 
-            stock_dest = picking.location_dest_id
-            if not stock_dest:
-                continue
-
-            # Buscar bodega por su ubicación de Stock
-            warehouse = self.env['stock.warehouse'].search([
-                ('lot_stock_id', '=', stock_dest.id)
-            ], limit=1)
+            warehouse = picking.picking_type_id.warehouse_id
             if not warehouse:
                 continue
 
-            # Ubicación "Recepciones" hija de la vista de la bodega
+            # Buscar EXACTAMENTE la ubicación 'Recepciones'
             recepciones_loc = self.env['stock.location'].search([
                 ('location_id', '=', warehouse.view_location_id.id),
-                ('name', 'ilike', 'recepcion'),
+                ('name', '=', 'Recepciones'),
             ], limit=1)
+
             if not recepciones_loc:
                 continue
 
-            # Tipo de operación incoming "Recepciones" de esa bodega
-            recepciones_type = self.env['stock.picking.type'].search([
-                ('code', '=', 'incoming'),
-                ('name', 'ilike', 'recepcion'),
-                ('warehouse_id', '=', warehouse.id),
-            ], limit=1)
-            if not recepciones_type:
-                continue
-
-            # Cambiar destino y tipo EN EL PICKING
+            # Cambiar destino en encabezado
             picking.location_dest_id = recepciones_loc
-            picking.picking_type_id = recepciones_type
 
-            # Cambiar destino EN LOS MOVIMIENTOS antes de validar
+            # Cambiar destino de líneas de movimiento
             picking.move_ids_without_package.write({
                 'location_dest_id': recepciones_loc.id,
             })
@@ -97,5 +81,4 @@ class StockPicking(models.Model):
                 'location_dest_id': recepciones_loc.id,
             })
 
-        # Ahora sí validamos con el destino ya cambiado
         return super().button_validate()
