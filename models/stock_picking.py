@@ -49,43 +49,44 @@ class StockPicking(models.Model):
             ('warehouse_id', '=', warehouse.id),
         ], limit=1)
 
-    def action_confirm(self):
-        res = super().action_confirm()
+    def button_validate(self):
+        res = super().button_validate()
 
         for picking in self:
-            # Solo para transferencias internas
-            if picking.picking_type_code != 'internal':
+
+            # Solo si el tipo original es interno
+            if picking.picking_type_id.code != 'internal':
                 continue
 
-            stock_dest = picking.location_dest_id
-            if not stock_dest:
+            destino_actual = picking.location_dest_id
+            if not destino_actual:
                 continue
 
-            # 1. Obtener la bodega usando lot_stock_id
+            # Obtener bodega desde la ubicación actual de destino (Stock)
             warehouse = self.env['stock.warehouse'].search([
-                ('lot_stock_id', '=', stock_dest.id)
+                ('lot_stock_id', '=', destino_actual.id)
             ], limit=1)
             if not warehouse:
                 continue
 
-            # 2. Obtener ubicación 'Recepciones' (hija de view_location_id)
+            # Buscar ubicación de Recepciones (hija de view_location_id)
             recepciones_loc = self.env['stock.location'].search([
                 ('location_id', '=', warehouse.view_location_id.id),
-                ('name', '=', 'Recepciones'),
+                ('name', 'ilike', 'recepcion')
             ], limit=1)
             if not recepciones_loc:
                 continue
 
-            # 3. Obtener picking type incoming 'Recepciones' de esa bodega
+            # Buscar tipo de operación 'Recepciones' (incoming) de esta bodega
             recepciones_type = self.env['stock.picking.type'].search([
                 ('code', '=', 'incoming'),
-                ('name', '=', 'Recepciones'),
+                ('name', 'ilike', 'recepcion'),
                 ('warehouse_id', '=', warehouse.id),
             ], limit=1)
             if not recepciones_type:
                 continue
 
-            # 4. Reemplazar destino y tipo de picking
+            # Sobrescribir destino y tipo de picking DESPUÉS de validar
             picking.location_dest_id = recepciones_loc
             picking.picking_type_id = recepciones_type
 
