@@ -50,35 +50,43 @@ class StockPicking(models.Model):
         ], limit=1)
 
     def action_confirm(self):
-        res = super().action_confirm()
+    res = super().action_confirm()
 
-        for picking in self:
-            # Solo las transferencias internas
-            if picking.picking_type_code != 'internal':
-                continue
+    for picking in self:
+        # Solo para transferencias internas
+        if picking.picking_type_code != 'internal':
+            continue
 
-            # Destino que eligió el usuario: normalmente 'Stock' de la bodega destino
-            stock_dest = picking.location_dest_id
-            if not stock_dest:
-                continue
+        stock_dest = picking.location_dest_id
+        if not stock_dest:
+            continue
 
-            # Obtener la bodega a partir de esa ubicación de stock
-            warehouse = stock_dest.get_warehouse()
-            if not warehouse:
-                continue
+        # 1. Obtener la bodega usando lot_stock_id
+        warehouse = self.env['stock.warehouse'].search([
+            ('lot_stock_id', '=', stock_dest.id)
+        ], limit=1)
+        if not warehouse:
+            continue
 
-            # Buscar ubicación 'Recepciones' de esa bodega
-            recepciones_loc = self._get_recepciones_location(warehouse)
-            if not recepciones_loc:
-                continue
+        # 2. Obtener ubicación 'Recepciones' (hija de view_location_id)
+        recepciones_loc = self.env['stock.location'].search([
+            ('location_id', '=', warehouse.view_location_id.id),
+            ('name', '=', 'Recepciones'),
+        ], limit=1)
+        if not recepciones_loc:
+            continue
 
-            # Buscar picking type incoming 'Recepciones' de esa bodega
-            recepciones_type = self._get_recepciones_picking_type(warehouse)
-            if not recepciones_type:
-                continue
+        # 3. Obtener picking type incoming 'Recepciones' de esa bodega
+        recepciones_type = self.env['stock.picking.type'].search([
+            ('code', '=', 'incoming'),
+            ('name', '=', 'Recepciones'),
+            ('warehouse_id', '=', warehouse.id),
+        ], limit=1)
+        if not recepciones_type:
+            continue
 
-            # Reemplazar destino y tipo de operación
-            picking.location_dest_id = recepciones_loc
-            picking.picking_type_id = recepciones_type
+        # 4. Reemplazar destino y tipo de picking
+        picking.location_dest_id = recepciones_loc
+        picking.picking_type_id = recepciones_type
 
-        return res
+    return res
