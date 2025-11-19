@@ -50,43 +50,43 @@ class StockPicking(models.Model):
         ], limit=1)
 
     def action_confirm(self):
-    res = super().action_confirm()
+        res = super().action_confirm()
 
-    for picking in self:
-        # Solo para transferencias internas
-        if picking.picking_type_code != 'internal':
-            continue
+        for picking in self:
+            # Solo para transferencias internas
+            if picking.picking_type_code != 'internal':
+                continue
 
-        stock_dest = picking.location_dest_id
-        if not stock_dest:
-            continue
+            stock_dest = picking.location_dest_id
+            if not stock_dest:
+                continue
 
-        # 1. Obtener la bodega usando lot_stock_id
-        warehouse = self.env['stock.warehouse'].search([
-            ('lot_stock_id', '=', stock_dest.id)
-        ], limit=1)
-        if not warehouse:
-            continue
+            # 1. Obtener la bodega usando lot_stock_id
+            warehouse = self.env['stock.warehouse'].search([
+                ('lot_stock_id', '=', stock_dest.id)
+            ], limit=1)
+            if not warehouse:
+                continue
 
-        # 2. Obtener ubicación 'Recepciones' (hija de view_location_id)
-        recepciones_loc = self.env['stock.location'].search([
-            ('location_id', '=', warehouse.view_location_id.id),
-            ('name', '=', 'Recepciones'),
-        ], limit=1)
-        if not recepciones_loc:
-            continue
+            # 2. Obtener ubicación 'Recepciones' (hija de view_location_id)
+            recepciones_loc = self.env['stock.location'].search([
+                ('location_id', '=', warehouse.view_location_id.id),
+                ('name', '=', 'Recepciones'),
+            ], limit=1)
+            if not recepciones_loc:
+                continue
 
-        # 3. Obtener picking type incoming 'Recepciones' de esa bodega
-        recepciones_type = self.env['stock.picking.type'].search([
-            ('code', '=', 'incoming'),
-            ('name', '=', 'Recepciones'),
-            ('warehouse_id', '=', warehouse.id),
-        ], limit=1)
-        if not recepciones_type:
-            continue
+            # 3. Obtener picking type incoming 'Recepciones' de esa bodega
+            recepciones_type = self.env['stock.picking.type'].search([
+                ('code', '=', 'incoming'),
+                ('name', '=', 'Recepciones'),
+                ('warehouse_id', '=', warehouse.id),
+            ], limit=1)
+            if not recepciones_type:
+                continue
 
-        # 4. Reemplazar destino y tipo de picking
-        picking.location_dest_id = recepciones_loc
-        picking.picking_type_id = recepciones_type
+            # 4. Reemplazar destino y tipo de picking
+            picking.location_dest_id = recepciones_loc
+            picking.picking_type_id = recepciones_type
 
-    return res
+        return res
