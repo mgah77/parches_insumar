@@ -63,18 +63,21 @@ class StockPicking(models.Model):
             if not tipo_recep:
                 raise Exception("No existe tipo de operación 'Recepciones' para la bodega destino.")
 
-            # Crear la recepción en estado confirmado
+            # ubicación origen de la recepción (debe ser proveedores)
+            ubicacion_proveedor = self.env.ref('stock.stock_location_suppliers')
+
+            # crear la recepción en estado confirmado
             recepcion = self.env['stock.picking'].create({
                 'picking_type_id': tipo_recep.id,
-                'location_id': origen.id,
+                'location_id': ubicacion_proveedor.id,   # origen de la recepción
                 'location_dest_id': tipo_recep.default_location_dest_id.id,
                 'state': 'confirmed',
                 'origin': picking.name,
                 'company_id': picking.company_id.id,
-                'partner_id': picking.partner_id.id,  # si corresponde
+                'partner_id': picking.partner_id.id,
             })
 
-            # Crear las líneas (stock.move) de la recepción sin validar
+            # crear las líneas de la recepción con cantidad y quantity_done
             for mov in lineas:
                 self.env['stock.move'].create({
                     'picking_id': recepcion.id,
@@ -82,9 +85,9 @@ class StockPicking(models.Model):
                     'name': mov.name,
                     'product_uom': mov.product_uom.id,
                     'product_uom_qty': mov.product_uom_qty,
-                    'quantity_done': mov.product_uom_qty,     # aquí va la cantidad
-                    'location_id': origen.id,
-                    'location_dest_id': tipo_recep.default_location_dest_id.id,
+                    'quantity_done': mov.product_uom_qty,
+                    'location_id': ubicacion_proveedor.id,              # origen
+                    'location_dest_id': tipo_recep.default_location_dest_id.id,  # destino
                     'company_id': picking.company_id.id,
                     'state': 'confirmed',
                 })
