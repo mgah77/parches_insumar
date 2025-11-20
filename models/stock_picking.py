@@ -107,9 +107,10 @@ class StockPicking(models.Model):
                     })
             # Cancelar movimientos internos para permitir borrado
             (picking.move_ids_without_package | picking.move_ids).write({'state': 'cancel'})
-            # Dejar la transferencia interna realizada sin mover stock
-            picking.move_ids_without_package.unlink()
-            picking.move_ids.unlink()
+
+            # NO los borres, solo déjalos cancelados
+
+            # marcar el picking interno como realizado
             picking.state = 'done'
 
         # Validación normal para los pickings que no son internos
