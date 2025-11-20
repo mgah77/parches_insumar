@@ -71,6 +71,7 @@ class StockPicking(models.Model):
                 'state': 'confirmed',
                 'origin': picking.name,
                 'company_id': picking.company_id.id,
+                'partner_id': picking.partner_id.id,  # si corresponde
             })
 
             # Crear las líneas (stock.move) de la recepción sin validar
@@ -80,7 +81,7 @@ class StockPicking(models.Model):
                     'product_id': mov.product_id.id,
                     'name': mov.name,
                     'product_uom': mov.product_uom.id,
-                    'product_uom_qty': mov.product_uom_qty,
+                    'product_uom_qty': mov.product_uom_qty,     # aquí va la cantidad
                     'location_id': origen.id,
                     'location_dest_id': tipo_recep.default_location_dest_id.id,
                     'company_id': picking.company_id.id,
