@@ -1,5 +1,6 @@
 from odoo import models, fields, api ,_
 from collections import defaultdict
+from odoo.exceptions import UserError
 from odoo.tools import (
     date_utils,
     email_re,
