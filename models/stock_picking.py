@@ -123,3 +123,10 @@ class StockPicking(models.Model):
             return super(StockPicking, otros).button_validate()
 
         return True
+
+    #partner_id se llena automáticamente con company_id.partner_id
+
+    @api.onchange('picking_type_id')
+    def _onchange_picking_type_set_partner(self):
+        if self.picking_type_id and self.picking_type_id.code == 'internal':
+            self.partner_id = self.company_id.partner_id.id
