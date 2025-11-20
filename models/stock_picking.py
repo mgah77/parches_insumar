@@ -105,7 +105,8 @@ class StockPicking(models.Model):
                         'quantity': -mov.product_uom_qty,
                         'company_id': picking.company_id.id,
                     })
-
+            # Cancelar movimientos internos para permitir borrado
+            (picking.move_ids_without_package | picking.move_ids).write({'state': 'cancel'})
             # Dejar la transferencia interna realizada sin mover stock
             picking.move_ids_without_package.unlink()
             picking.move_ids.unlink()
