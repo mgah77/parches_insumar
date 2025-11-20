@@ -9,8 +9,7 @@
             </xpath>
             <field name="acteco_id" position="after">
                 <field name="glosa"/>
-            </field>
-            <xpath expr="//form/header/button[@name='duplicate']" position="replace"/>
+            </field>           
         </field>
     </record>
     <record model="ir.ui.view" id="view_account_inherit_tree">
