@@ -32,10 +32,6 @@ class AccountMove(models.Model):
         # Si no tiene equipo, no filtrar (ver todo)
         return super().search(domain, offset=offset, limit=limit, order=order, count=count)
 
-    # solo deshabilitarlo sin romper el método
-    def copy(self, default=None):
-        raise UserError("La factura no puede ser duplicada.")
-
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
