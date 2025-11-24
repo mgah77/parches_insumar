@@ -32,14 +32,6 @@ class AccountMove(models.Model):
         # Si no tiene equipo, no filtrar (ver todo)
         return super().search(domain, offset=offset, limit=limit, order=order, count=count)
 
-    def copy(self, default=None):
-        # Permitir cuando se está creando una nota de crédito
-        ctx = self.env.context
-        if ctx.get('default_reversed_entry_id') or ctx.get('default_move_type') in ('in_refund', 'out_refund'):
-            return super().copy(default)
-
-        # Bloquear duplicación normal
-        raise UserError("La factura no puede ser duplicada.")
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
