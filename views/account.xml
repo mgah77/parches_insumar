@@ -4,6 +4,9 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="l10n_cl_fe.view_invoice_form"/>
         <field name="arch" type="xml">
+             <xpath expr="//form" position="attributes">
+                <attribute name="duplicate">false</attribute>
+            </xpath>
             <xpath expr="//field[@name='acteco_id']" position="attributes">
                 <attribute name="string">Actividad económica</attribute>
             </xpath>
