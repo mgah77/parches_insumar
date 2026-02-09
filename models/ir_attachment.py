@@ -167,6 +167,17 @@ class IrAttachmentInherit(models.Model):
                                 
                                 # 1. Limpiar todos los namespaces (evitar ns0)
                                 self._strip_namespace(root)
+
+                                # =============================================================
+                                # INSERTA EL BLOQUE DE CORRECCIÓN AQUÍ
+                                # =============================================================
+                                caratula_rut_elem = root.find('.//Caratula/RutReceptor')
+                                documento_rut_elem = root.find('.//DTE/Documento/Encabezado/Receptor/RUTRecep')
+
+                                if caratula_rut_elem is not None and documento_rut_elem is not None:
+                                    if caratula_rut_elem.text != documento_rut_elem.text:
+                                        caratula_rut_elem.text = documento_rut_elem.text
+                                # =============================================================
                                 
                                 # 2. Definir xmlns correctos en EnvioDTE (Raíz)
                                 root.set('xmlns', 'http://www.sii.cl/SiiDte')
