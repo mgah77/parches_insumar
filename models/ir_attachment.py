@@ -11,20 +11,17 @@ class IrAttachmentInherit(models.Model):
 
     def _strip_namespace(self, elem):
         """
-        Función auxiliar recursiva para eliminar los URIs de los namespaces
-        de las etiquetas y atributos, evitando que ET.tostring genere prefijos ns0.
+        Elimina los URIs de los namespaces de las etiquetas y atributos
+        para evitar que ET.tostring genere prefijos ns0.
         """
-        # Limpiar el tag (nombre de la etiqueta)
         if '}' in elem.tag:
             elem.tag = elem.tag.split('}', 1)[1]
         
-        # Limpiar los atributos
         for key in list(elem.attrib.keys()):
             if '}' in key:
                 new_key = key.split('}', 1)[1]
                 elem.attrib[new_key] = elem.attrib.pop(key)
         
-        # Recursión para los hijos
         for child in elem:
             self._strip_namespace(child)
 
@@ -37,9 +34,7 @@ class IrAttachmentInherit(models.Model):
                     data_bytes = base64.b64decode(vals['datas'])
                     
                     # ---------------------------------------------------------
-                    # PRIMERA TRANSFORMACIÓN: Del primer archivo (ir_attachment.py)
-                    # 1. Eliminar 'standalone="no"' si existe
-                    # 2. Transformar DTE simple -> EnvioDTE
+                    # PRIMERA TRANSFORMACIÓN: Generar estructura EnvioDTE con 2 firmas
                     # ---------------------------------------------------------
                     if b'standalone="no"' in data_bytes:
                         data_bytes = data_bytes.replace(b' standalone="no"', b'')
@@ -47,7 +42,6 @@ class IrAttachmentInherit(models.Model):
                     if b'<?xml' in data_bytes:
                         try:
                             xml_str = data_bytes.decode('ISO-8859-1')
-                            
                             try:
                                 root = ET.fromstring(xml_str)
                             except Exception:
@@ -58,18 +52,19 @@ class IrAttachmentInherit(models.Model):
                                 root = ET.fromstring(xml_str)
                             
                             if root.tag.endswith('}EnvioDTE') or root.tag == 'EnvioDTE':
-                                pass
+                                pass # Si ya es EnvioDTE, pasa a la segunda transformación
                             elif root.tag.endswith('}DTE') or root.tag == 'DTE':
                                 original_root = copy.deepcopy(root)
                                 namespace = '{http://www.sii.cl/SiiDte}'
                                 
+                                # Datos para la carátula
                                 rut_emisor = original_root.find(f'.//{namespace}RUTEmisor') or original_root.find('.//RUTEmisor')
                                 rut_receptor = original_root.find(f'.//{namespace}RUTRecep') or original_root.find('.//RUTRecep')
                                 tipo_dte = original_root.find(f'.//{namespace}TipoDTE') or original_root.find('.//TipoDTE')
                                 tmst_firma = original_root.find(f'.//{namespace}TmstFirma') or original_root.find('.//TmstFirma')
                                 
+                                # Crear estructura EnvioDTE
                                 envio_dte = ET.Element('EnvioDTE')
-                                # IMPORTANTE: No definimos xmlns aquí para evitar ns0 en la creación
                                 envio_dte.set('version', '1.0')
                                 
                                 set_dte = ET.SubElement(envio_dte, 'SetDTE')
@@ -92,6 +87,7 @@ class IrAttachmentInherit(models.Model):
                                 dte_element = ET.SubElement(set_dte, 'DTE')
                                 dte_element.set('version', '1.0')
                                 
+                                # Copiar Documento al DTE
                                 documento_element = None
                                 if '}' in root.tag:
                                     doc_ns = root.tag.split('}')[0] + '}'
@@ -105,21 +101,18 @@ class IrAttachmentInherit(models.Model):
                                             tag_name = child.tag
                                             if '}' in tag_name:
                                                 tag_name = tag_name.split('}', 1)[1]
-                                            
                                             new_element = ET.SubElement(target, tag_name)
-                                            
                                             for attr_name, attr_value in child.attrib.items():
                                                 if '}' in attr_name:
                                                     attr_name = attr_name.split('}', 1)[1]
                                                 new_element.set(attr_name, attr_value)
-                                            
                                             if child.text:
                                                 new_element.text = child.text
-                                            
                                             copy_element_without_ns(child, new_element)
                                     
                                     copy_element_without_ns(documento_element, dte_element)
                                 
+                                # --- MANEJO DE LAS FIRMAS (REQUISITO: 2 FIRMAS) ---
                                 signature_in_dte = None
                                 for elem in original_root.iter():
                                     if elem.tag.endswith('}Signature') or elem.tag == 'Signature':
@@ -127,11 +120,21 @@ class IrAttachmentInherit(models.Model):
                                         break
                                 
                                 if signature_in_dte is not None:
-                                    signature_copy = copy.deepcopy(signature_in_dte)
-                                    for elem in signature_copy.iter():
+                                    # 1. Crear Firma para el DTE (Va dentro del nodo <DTE>)
+                                    sig_dte = copy.deepcopy(signature_in_dte)
+                                    for elem in sig_dte.iter():
                                         if '}' in elem.tag:
                                             elem.tag = elem.tag.split('}', 1)[1]
-                                    envio_dte.append(signature_copy)
+                                    # Insertar la firma dentro del elemento DTE
+                                    dte_element.append(sig_dte)
+                                    
+                                    # 2. Crear Firma para el EnvioDTE (Va en el nodo raíz <EnvioDTE>)
+                                    sig_envio = copy.deepcopy(signature_in_dte)
+                                    for elem in sig_envio.iter():
+                                        if '}' in elem.tag:
+                                            elem.tag = elem.tag.split('}', 1)[1]
+                                    # Insertar la firma al final del EnvioDTE
+                                    envio_dte.append(sig_envio)
                                 
                                 xml_declaration = '<?xml version="1.0" encoding="ISO-8859-1"?>'
                                 xml_content = xml_declaration + ET.tostring(envio_dte, encoding='unicode')
@@ -143,15 +146,11 @@ class IrAttachmentInherit(models.Model):
                             pass
                     
                     # ---------------------------------------------------------
-                    # SEGUNDA TRANSFORMACIÓN: Del segundo archivo (FixDTE)
-                    # 1. Corregir atributos del nodo DTE
-                    # 2. Agregar segunda firma si es necesario
-                    # 3. LIMPIEZA DE NAMESPACES (Solución al problema ns0:)
+                    # SEGUNDA TRANSFORMACIÓN: Limpieza y Aseguramiento de 2 Firmas
                     # ---------------------------------------------------------
                     if b'<?xml' in data_bytes:
                         try:
                             xml_str = data_bytes.decode('ISO-8859-1')
-                            
                             try:
                                 root = ET.fromstring(xml_str)
                             except:
@@ -166,54 +165,51 @@ class IrAttachmentInherit(models.Model):
                             
                             if root.tag.endswith('}EnvioDTE') or root.tag == 'EnvioDTE':
                                 
-                                # --- PASO 1: LIMPIEZA DE NAMESPACES ---
-                                # Eliminar cualquier 'ns0' o URIs internas que generen prefijos
+                                # 1. Limpiar todos los namespaces (evitar ns0)
                                 self._strip_namespace(root)
                                 
-                                # Re-asignar los atributos de namespace deseados manualmente
-                                # Esto fuerza a que sea el namespace por defecto y no un prefijo
+                                # 2. Definir xmlns correctos en EnvioDTE (Raíz)
                                 root.set('xmlns', 'http://www.sii.cl/SiiDte')
                                 root.set('xmlns:xsi', 'http://www.w3.org/2001/XMLSchema-instance')
                                 
-                                # Recorrer para buscar Signature y ponerle su xmlns específico
+                                # 3. Definir xmlns correctos en el nodo DTE
+                                dte_node = root.find('.//DTE')
+                                if dte_node is not None:
+                                    dte_node.set('xmlns', 'http://www.sii.cl/SiiDte')
+                                    if 'version' not in dte_node.attrib:
+                                        dte_node.set('version', '1.0')
+                                
+                                # 4. VERIFICAR Y COMPLETAR LAS FIRMAS
+                                # Buscar firmas existentes
+                                root_sigs = []
+                                for child in root:
+                                    if child.tag == 'Signature':
+                                        root_sigs.append(child)
+                                
+                                dte_sigs = []
+                                if dte_node is not None:
+                                    for child in dte_node:
+                                        if child.tag == 'Signature':
+                                            dte_sigs.append(child)
+                                
+                                # Lógica: Asegurar que haya 1 en Raíz y 1 en DTE
+                                # Si falta en Raíz, copiar la del DTE
+                                if len(root_sigs) == 0 and len(dte_sigs) > 0:
+                                    new_root_sig = copy.deepcopy(dte_sigs[0])
+                                    root.append(new_root_sig)
+                                    root_sigs.append(new_root_sig) # Actualizar lista
+                                
+                                # Si falta en DTE, copiar la de Raíz
+                                elif len(dte_sigs) == 0 and len(root_sigs) > 0:
+                                    new_dte_sig = copy.deepcopy(root_sigs[0])
+                                    dte_node.append(new_dte_sig)
+                                    dte_sigs.append(new_dte_sig)
+                                
+                                # 5. Asegurar que TODAS las firmas tengan el xmlns correcto
                                 for sig in root.iter('Signature'):
                                     sig.set('xmlns', 'http://www.w3.org/2000/09/xmldsig#')
-
-                                # --- PASO 2: Corrección de atributos y DTE ---
-                                namespace = '{http://www.sii.cl/SiiDte}'
-                                # Nota: Como limpiamos namespaces arriba, ahora buscamos sin URI o con lógica simple
                                 
-                                set_dte = root.find('.//SetDTE')
-                                if set_dte is not None:
-                                    dte_node = set_dte.find('DTE')
-                                    if dte_node is not None:
-                                        # Aseguramos atributos limpios
-                                        dte_node.set('xmlns', 'http://www.sii.cl/SiiDte')
-                                        if 'version' not in dte_node.attrib:
-                                            dte_node.set('version', '1.0')
-                                
-                                # --- PASO 3: Duplicar firma ---
-                                signature_original = None
-                                for elem in root.iter():
-                                    if elem.tag == 'Signature': # Ya está limpio
-                                        signature_original = elem
-                                        break
-                                
-                                if signature_original is not None:
-                                    signature_count = 0
-                                    for child in root:
-                                        if child.tag == 'Signature':
-                                            signature_count += 1
-                                    
-                                    if signature_count == 1:
-                                        signature_copy = copy.deepcopy(signature_original)
-                                        # La copia ya viene limpia si limpiamos el root antes,
-                                        # pero aseguramos que no tenga basura
-                                        root.append(signature_copy)
-                                
-                                # Convertir a string XML
                                 xml_declaration = '<?xml version="1.0" encoding="ISO-8859-1"?>'
-                                # Al no tener URIs en los tags internos, tostring no generará ns0:
                                 xml_content = xml_declaration + ET.tostring(root, encoding='unicode')
                                 data_bytes = xml_content.encode('ISO-8859-1')
                                 
