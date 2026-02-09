@@ -85,15 +85,53 @@ class IrAttachmentInherit(models.Model):
                                 ET.SubElement(sub_tot, 'TpoDTE').text = tipo_dte.text if tipo_dte is not None else '33'
                                 ET.SubElement(sub_tot, 'NroDTE').text = '1'
                                 
-                                # Limpiar namespaces del root original para evitar duplicados
-                                for elem in root.iter():
-                                    if '}' in elem.tag:
-                                        elem.tag = elem.tag.split('}', 1)[1]
+                                # Crear un nuevo elemento DTE con namespace SII en lugar de copiar el original
+                                dte_element = ET.SubElement(set_dte, 'DTE')
+                                dte_element.set('version', '1.0')
                                 
-                                # Agregar el DTE al SetDTE
-                                set_dte.append(root)
+                                # IMPORTANTE: Eliminar completamente namespaces como ns0: y reemplazar por elementos sin namespace
+                                # Buscar el elemento Documento dentro del root original
+                                documento_element = None
                                 
-                                # Buscar y copiar la firma
+                                # Buscar el Documento con o sin namespace
+                                if '}' in root.tag:
+                                    # Si el root tiene namespace, buscar Documento con namespace
+                                    doc_ns = root.tag.split('}')[0] + '}'
+                                    documento_element = root.find(f'{doc_ns}Documento')
+                                else:
+                                    # Si el root no tiene namespace, buscar Documento sin namespace
+                                    documento_element = root.find('Documento')
+                                
+                                if documento_element is not None:
+                                    # Función recursiva para copiar elementos sin namespace
+                                    def copy_element_without_ns(source, target):
+                                        for child in source:
+                                            # Obtener el nombre del tag sin namespace
+                                            tag_name = child.tag
+                                            if '}' in tag_name:
+                                                tag_name = tag_name.split('}', 1)[1]
+                                            
+                                            # Crear nuevo elemento sin namespace
+                                            new_element = ET.SubElement(target, tag_name)
+                                            
+                                            # Copiar atributos
+                                            for attr_name, attr_value in child.attrib.items():
+                                                # Limpiar namespace de atributos también si es necesario
+                                                if '}' in attr_name:
+                                                    attr_name = attr_name.split('}', 1)[1]
+                                                new_element.set(attr_name, attr_value)
+                                            
+                                            # Copiar texto
+                                            if child.text:
+                                                new_element.text = child.text
+                                            
+                                            # Copiar hijos recursivamente
+                                            copy_element_without_ns(child, new_element)
+                                    
+                                    # Copiar Documento y sus hijos sin namespaces
+                                    copy_element_without_ns(documento_element, dte_element)
+                                
+                                # Buscar y copiar la firma del DTE original
                                 signature_in_dte = None
                                 for elem in original_root.iter():
                                     if elem.tag.endswith('}Signature') or elem.tag == 'Signature':
@@ -112,8 +150,10 @@ class IrAttachmentInherit(models.Model):
                                 xml_content = xml_declaration + ET.tostring(envio_dte, encoding='unicode')
                                 data_bytes = xml_content.encode('ISO-8859-1')
                                 
-                        except Exception:
+                        except Exception as e:
                             # Si hay error en el parseo XML, continuar con data_bytes modificado
+                            import traceback
+                            traceback.print_exc()
                             pass
                     
                     # ---------------------------------------------------------
@@ -144,27 +184,36 @@ class IrAttachmentInherit(models.Model):
                             # Verificar si es un EnvioDTE (después de la primera transformación o ya lo era)
                             if root.tag.endswith('}EnvioDTE') or root.tag == 'EnvioDTE':
                                 
-                                # --- PASO 1: Corregir el atributo del DTE ---
+                                # --- PASO 1: Asegurar que todos los elementos tengan el namespace correcto ---
+                                # Verificar y corregir el DTE dentro de SetDTE
                                 namespace = '{http://www.sii.cl/SiiDte}'
                                 
-                                # Primero buscamos el SetDTE
+                                # Buscar el SetDTE
                                 set_dte = root.find(f'.//{namespace}SetDTE')
                                 if set_dte is None:
                                     set_dte = root.find('.//SetDTE')
                                 
-                                dte_node = None
                                 if set_dte is not None:
-                                    # Buscamos el DTE hijo directo
+                                    # Buscar el DTE dentro de SetDTE
                                     dte_node = set_dte.find(f'{namespace}DTE')
                                     if dte_node is None:
                                         dte_node = set_dte.find('DTE')
-                                
-                                # Si encontramos el DTE, corregir su atributo xmlns
-                                if dte_node is not None:
-                                    dte_node.set('xmlns', 'http://www.sii.cl/SiiDte')
-                                    # Nos aseguramos de que tenga versión
-                                    if 'version' not in dte_node.attrib:
-                                        dte_node.set('version', '1.0')
+                                    
+                                    # Si encontramos el DTE, asegurar que tenga los atributos correctos
+                                    if dte_node is not None:
+                                        dte_node.set('xmlns', 'http://www.sii.cl/SiiDte')
+                                        if 'version' not in dte_node.attrib:
+                                            dte_node.set('version', '1.0')
+                                        
+                                        # Buscar y eliminar cualquier atributo de namespace incorrecto como ns0:
+                                        for elem in dte_node.iter():
+                                            # Eliminar atributos con namespace incorrecto
+                                            attrs_to_remove = []
+                                            for attr_name in elem.attrib:
+                                                if attr_name.startswith('{') and '}' in attr_name:
+                                                    attrs_to_remove.append(attr_name)
+                                            for attr in attrs_to_remove:
+                                                del elem.attrib[attr]
                                 
                                 # --- PASO 2: Agregar la falta de la segunda firma ---
                                 # Buscar la firma existente (generalmente dentro de Documento/DTE)
@@ -214,6 +263,8 @@ class IrAttachmentInherit(models.Model):
                         
                 except Exception:
                     # Si hay error general, continuar sin modificar
+                    import traceback
+                    traceback.print_exc()
                     continue
         
         return super().create(vals_list)
