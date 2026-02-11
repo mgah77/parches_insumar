@@ -52,6 +52,18 @@
         </xpath>
         </field>
     </record>   
-
+    <record id="restrict_button_draft_to_admin" model="ir.ui.view">
+        <field name="name">account.move.form.restrict.draft</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">            
+            <!-- Ubicamos el botón button_draft -->
+            <button name="button_draft" position="attributes">
+                <!-- Establecemos que solo el grupo group_admin pueda verlo -->
+                <attribute name="groups">parches_insumar.group_admin</attribute>
+            </button>
+            
+        </field>
+    </record>
 
 </odoo>
