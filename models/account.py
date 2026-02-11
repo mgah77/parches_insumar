@@ -106,6 +106,16 @@ class AccountPaymentRegister(models.TransientModel):
     banco_cheque_id = fields.Many2one('res.bank', string="Banco del cheque")
     fecha_cobro = fields.Date(string="Fecha de cobro del cheque")
 
+    @api.onchange('payment_date')
+    def _onchange_payment_date(self):
+        if self.payment_date and self.payment_date > fields.Date.today():
+            return {
+                'warning': {
+                    'title': "Atención",
+                    'message': "La fecha de pago de la FACTURA no puede ser superior a la fecha actual."
+                }
+            }
+
     def _create_payments(self):
         """Crea los pagos y les pasa los datos del cheque."""
         payments = super()._create_payments()
