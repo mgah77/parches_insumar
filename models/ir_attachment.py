@@ -167,34 +167,79 @@ class IrAttachmentInherit(models.Model):
                                 
                                 # 1. Limpiar todos los namespaces (evitar ns0)
                                 self._strip_namespace(root)
-
                                 # =============================================================
-                                # BLOQUE DE CORRECCIÓN MEJORADO
+                                # BLOQUE DE CORRECCIÓN MEJORADO (ESTRUCTURA + DATOS)
                                 # =============================================================
                                 
-                                # Buscar datos dentro del DTE usando rutas flexibles (.//)
-                                # Esto encuentra las etiquetas sin importar si están dentro de <Documento> o directo en <DTE>
-                                rut_emisor_elem = root.find('.//DTE//Encabezado//Emisor//RUTEmisor')
-                                rut_receptor_elem = root.find('.//DTE//Encabezado//Receptor//RUTRecep')
-                                
-                                # Buscar los nodos de la Carátula que necesitan ser rellenados
-                                caratula_rut_emisor = root.find('.//Caratula/RutEmisor')
-                                caratula_rut_envia = root.find('.//Caratula/RutEnvia')
-                                caratula_rut_receptor = root.find('.//Caratula/RutReceptor')
-
-                                # Rellenar RutEmisor y RutEnvia (se asume que RutEnvia es el emisor)
-                                if rut_emisor_elem is not None and rut_emisor_elem.text:
-                                    texto_rut = rut_emisor_elem.text
-                                    if caratula_rut_emisor is not None:
-                                        caratula_rut_emisor.text = texto_rut
-                                    if caratula_rut_envia is not None:
-                                        caratula_rut_envia.text = texto_rut
-                                
-                                # Rellenar RutReceptor
-                                if rut_receptor_elem is not None and rut_receptor_elem.text:
-                                    if caratula_rut_receptor is not None:
-                                        caratula_rut_receptor.text = rut_receptor_elem.text
+                                # 1. Buscar el nodo DTE
+                                dte_node = root.find('.//DTE')
+                                if dte_node is not None:
+                                    documento_node = dte_node.find('Documento')
+                                    
+                                    # ---------------------------------------------------------
+                                    # PASO A: REESTRUCTURAR (CREAR DOCUMENTO SI FALTA)
+                                    # ---------------------------------------------------------
+                                    if documento_node is None:
+                                        # Crear el nuevo contenedor Documento
+                                        new_documento = ET.Element('Documento')
                                         
+                                        # Identificar hijos a mover (todo lo que no sea Signature)
+                                        # Usamos list() para poder modificar dte_node durante la iteración
+                                        children_to_move = [c for c in dte_node if c.tag != 'Signature']
+                                        
+                                        # Buscar datos para el ID (Folio y TipoDTE) antes de mover
+                                        folio_elem = None
+                                        tipo_dte_elem = None
+                                        for child in children_to_move:
+                                            if child.tag == 'Encabezado':
+                                                folio_elem = child.find('.//IdDoc/Folio')
+                                                tipo_dte_elem = child.find('.//IdDoc/TipoDTE')
+
+                                        # Generar el ID (ej: F2728558T33)
+                                        doc_id = f"ID{uuid.uuid4().hex[:8]}" # ID por defecto
+                                        if folio_elem is not None and tipo_dte_elem is not None and folio_elem.text and tipo_dte_elem.text:
+                                            doc_id = f"F{folio_elem.text}T{tipo_dte_elem.text}"
+                                        
+                                        new_documento.set('ID', doc_id)
+                                        
+                                        # Mover los nodos de DTE a Documento
+                                        for child in children_to_move:
+                                            dte_node.remove(child)
+                                            new_documento.append(child)
+                                        
+                                        # Insertar Documento al inicio del DTE
+                                        dte_node.insert(0, new_documento)
+                                        
+                                        # Nota: La firma (Signature) se queda en DTE, al final, que es donde debe estar.
+                                        # Ahora documento_node apunta al nuevo nodo
+                                        documento_node = new_documento
+
+                                    # ---------------------------------------------------------
+                                    # PASO B: CORREGIR DATOS DE CARATULA
+                                    # ---------------------------------------------------------
+                                    
+                                    # Buscar datos en el contenido (usamos .// para buscar en profundidad)
+                                    rut_emisor_elem = root.find('.//DTE//Encabezado//Emisor//RUTEmisor')
+                                    rut_receptor_elem = root.find('.//DTE//Encabezado//Receptor//RUTRecep')
+                                    
+                                    # Buscar campos vacíos en Carátula
+                                    caratula_rut_emisor = root.find('.//Caratula/RutEmisor')
+                                    caratula_rut_envia = root.find('.//Caratula/RutEnvia')
+                                    caratula_rut_receptor = root.find('.//Caratula/RutReceptor')
+
+                                    # Rellenar Emisor y Envía
+                                    if rut_emisor_elem is not None and rut_emisor_elem.text:
+                                        texto_rut = rut_emisor_elem.text
+                                        if caratula_rut_emisor is not None:
+                                            caratula_rut_emisor.text = texto_rut
+                                        if caratula_rut_envia is not None:
+                                            caratula_rut_envia.text = texto_rut
+                                    
+                                    # Rellenar Receptor
+                                    if rut_receptor_elem is not None and rut_receptor_elem.text:
+                                        if caratula_rut_receptor is not None:
+                                            caratula_rut_receptor.text = rut_receptor_elem.text
+                                
                                 # =============================================================
                                 
                                 # 2. Definir xmlns correctos en EnvioDTE (Raíz)
