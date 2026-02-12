@@ -169,14 +169,32 @@ class IrAttachmentInherit(models.Model):
                                 self._strip_namespace(root)
 
                                 # =============================================================
-                                # INSERTA EL BLOQUE DE CORRECCIÓN AQUÍ
+                                # BLOQUE DE CORRECCIÓN MEJORADO
                                 # =============================================================
-                                caratula_rut_elem = root.find('.//Caratula/RutReceptor')
-                                documento_rut_elem = root.find('.//DTE/Documento/Encabezado/Receptor/RUTRecep')
+                                
+                                # Buscar datos dentro del DTE usando rutas flexibles (.//)
+                                # Esto encuentra las etiquetas sin importar si están dentro de <Documento> o directo en <DTE>
+                                rut_emisor_elem = root.find('.//DTE//Encabezado//Emisor//RUTEmisor')
+                                rut_receptor_elem = root.find('.//DTE//Encabezado//Receptor//RUTRecep')
+                                
+                                # Buscar los nodos de la Carátula que necesitan ser rellenados
+                                caratula_rut_emisor = root.find('.//Caratula/RutEmisor')
+                                caratula_rut_envia = root.find('.//Caratula/RutEnvia')
+                                caratula_rut_receptor = root.find('.//Caratula/RutReceptor')
 
-                                if caratula_rut_elem is not None and documento_rut_elem is not None:
-                                    if caratula_rut_elem.text != documento_rut_elem.text:
-                                        caratula_rut_elem.text = documento_rut_elem.text
+                                # Rellenar RutEmisor y RutEnvia (se asume que RutEnvia es el emisor)
+                                if rut_emisor_elem is not None and rut_emisor_elem.text:
+                                    texto_rut = rut_emisor_elem.text
+                                    if caratula_rut_emisor is not None:
+                                        caratula_rut_emisor.text = texto_rut
+                                    if caratula_rut_envia is not None:
+                                        caratula_rut_envia.text = texto_rut
+                                
+                                # Rellenar RutReceptor
+                                if rut_receptor_elem is not None and rut_receptor_elem.text:
+                                    if caratula_rut_receptor is not None:
+                                        caratula_rut_receptor.text = rut_receptor_elem.text
+                                        
                                 # =============================================================
                                 
                                 # 2. Definir xmlns correctos en EnvioDTE (Raíz)
