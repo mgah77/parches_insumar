@@ -22,7 +22,13 @@
         <field name="groups_id" eval="[(6, 0, [ref('parches_insumar.group_admin')])]"/>
     </record>
 
-
+        <!-- tablero resumen para administrador insumar -->
+        <menuitem id="menu_tablero" 
+            name="Tablero" 
+            action="ir_actions_dashboard_action"             
+            sequence="37" 
+            groups="parches_insumar.group_adm_ins"
+        />
 
 </data>
 </odoo>
