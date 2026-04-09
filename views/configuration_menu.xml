@@ -25,7 +25,7 @@
         <!-- tablero resumen para administrador insumar -->
         <menuitem id="menu_tablero" 
             name="Tablero" 
-            action="ir_actions_dashboard_action"             
+            action="spreadsheet_dashboard.ir_actions_dashboard_action"             
             sequence="37" 
             groups="parches_insumar.group_adm_ins"
         />
