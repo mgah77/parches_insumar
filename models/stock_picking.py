@@ -43,3 +43,23 @@ class StockPicking(models.Model):
     def _onchange_picking_type_set_partner(self):
         if self.picking_type_id and self.picking_type_id.code == 'internal':
             self.partner_id = self.company_id.partner_id.id
+
+            # ... (Todo tu código anterior de SaleOrder y SaleOrderLine sigue igual) ...
+
+    # --- NUEVO CÓDIGO PARA COPIAR GLOSA A ALBARÁN ---
+
+    @api.model
+    def create(self, vals):
+        # 1. Verificamos si el albarán se está creando desde un grupo de abastecimiento
+        # (Esto sucede cuando se crea automáticamente desde una Venta)
+        if vals.get('group_id'):
+            # 2. Buscamos la orden de venta asociada a ese grupo
+            # Hacemos un browse seguro para evitar errores si no existe
+            group = self.env['procurement.group'].browse(vals['group_id'])
+            if group.exists() and group.sale_id:
+                # 3. Si existe la venta y tiene glosa, la inyectamos en los valores de creación
+                if group.sale_id.glosa:
+                    vals['glosa'] = group.sale_id.glosa
+        
+        # 4. Procedemos con la creación estándar del albarán (con los valores modificados)
+        return super().create(vals)
