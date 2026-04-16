@@ -31,7 +31,7 @@
         </xpath>
       
             <xpath expr="//field[@name='taxes_id']" position="after">
-                <field name="margenes" widget="percentage"/>
+                <field name="margenes" widget="percentage" groups="parches_insumar.group_admin"/>
             </xpath>
 
         </field>
