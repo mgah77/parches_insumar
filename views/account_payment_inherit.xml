@@ -34,7 +34,7 @@
         <field name="name">estado.cheques.tree</field>
         <field name="model">account.payment</field>
         <field name="arch" type="xml">
-            <tree string="Estado de Cheques" default_order="date asc" editable="bottom" create="false" delete="false">                
+            <tree string="Estado de Cheques" default_order="date desc" editable="bottom" create="false" delete="false">                
                 <field name="factura_name" string="Factura" readonly="1"/>
                 <field name="partner_id" string="Cliente" readonly="1"/>
                 <field name="partner_vat" string="RUT" readonly="1"/>
