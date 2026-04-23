@@ -29,6 +29,7 @@ class AccountMove(models.Model):
         related='company_id.has_reparos',
         readonly=True
     )
+    
 
     @api.model
     def search(self, domain, offset=0, limit=None, order=None, count=False):
