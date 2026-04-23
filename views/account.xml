@@ -48,8 +48,8 @@
                     <button name="%(action_show_reparos)d" 
                             string="REPAROS" 
                             type="action" 
-                            groups="parches_insumar.group_admin"
-                            invisible="not context.get('company_has_reparos')"/>
+                            groups="parches_insumar.group_admin"/>
+                           <!-- invisible="not context.get('company_has_reparos') " /-->
                 </header>
             </xpath>
 
