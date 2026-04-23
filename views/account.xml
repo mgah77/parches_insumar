@@ -1,4 +1,17 @@
 <odoo>
+
+
+        <!-- Acción de ventana para mostrar solo facturas con reparo -->
+    <record id="action_show_reparos" model="ir.actions.act_window">
+        <field name="name">Facturas con Reparos</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('sii_result','=','reparo')]</field>
+        <field name="context">{'search_default_sii_result': 'reparo'}</field>
+        <field name="help">Mostrando facturas con sii_result = reparo</field>
+    </record>
+
+
     <record model="ir.ui.view" id="view_account_inherit_form">
         <field name="name">account.parche.inherit.form</field>
         <field name="model">account.move</field>
@@ -97,16 +110,6 @@
             </button>
             
         </field>
-    </record>
-
-        <!-- Acción de ventana para mostrar solo facturas con reparo -->
-    <record id="action_show_reparos" model="ir.actions.act_window">
-        <field name="name">Facturas con Reparos</field>
-        <field name="res_model">account.move</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('sii_result','=','reparo')]</field>
-        <field name="context">{'search_default_sii_result': 'reparo'}</field>
-        <field name="help">Mostrando facturas con sii_result = reparo</field>
     </record>
 
 </odoo>
