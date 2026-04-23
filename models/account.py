@@ -23,6 +23,13 @@ class AccountMove(models.Model):
     glosa = fields.Char(string="Glosa")
     document_number = fields.Char(related='partner_id.document_number', string="RUT", store=False)
 
+    # company_has_reparos es para mostrar el boton que filtra las facturas con reparos en la vista tree
+    company_has_reparos = fields.Boolean(
+        string='Company has reparos',
+        related='company_id.has_reparos',
+        readonly=True
+    )
+
     @api.model
     def search(self, domain, offset=0, limit=None, order=None, count=False):
         # Agregar filtro por equipo del usuario
