@@ -29,7 +29,9 @@
             </xpath>
             <xpath expr="//field[@name='invoice_date']" position="before">
                 <field name="glosa"/>
+                <field name="company_has_reparos" invisible="1"/>
             </xpath>
+            
             <xpath expr="//field[@name='amount_tax_signed']" position="attributes">
                 <attribute name="string">IVA</attribute>
             </xpath>
@@ -43,26 +45,23 @@
         </field>
     </record>
 
-    <!-- Heredar la vista tree de facturas directo de account.move -->
+    <!-- Heredar la vista tree de facturas directo de account.move >
     <record id="view_move_tree_inherit_reparos" model="ir.ui.view">
         <field name="name">account.move.tree.inherit.reparos</field>
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
-            <!-- Insertar el campo invisible para usarlo en el botón -->
-            <xpath expr="//field[@name='name']" position="after">
-                <field name="company_has_reparos" invisible="1"/>
-            </xpath>
-            <!-- Añadir botón REPAROS antes del botón Crear (NEW) >
+            <! Insertar el campo invisible para usarlo en el botón>
+            <! Añadir botón REPAROS antes del botón Crear (NEW) >
             <xpath expr="//tree/header/button[@name='create']" position="before">
                 <button name="%(action_show_reparos)d"
                         string="REPAROS"
                         type="action"
                         groups="parches_insumar.group_admin"
                         invisible="not company_has_reparos"/>
-            </xpath-->
+            </xpath>
         </field>
-    </record>
+    </record-->
 
 
     <record id="account_move_search_custom" model="ir.ui.view">
