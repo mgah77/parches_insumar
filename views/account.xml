@@ -42,15 +42,6 @@
             </xpath>
             <xpath expr="//field[@name='activity_ids']" position="replace">               
             </xpath>
-            <xpath expr="//tree" position="inside">
-                <header>
-                    <button name="%(action_show_reparos)d" 
-                            string="REPAROS" 
-                            type="action" 
-                            groups="parches_insumar.group_admin" 
-                            invisible="not user.company_id.has_reparos"/>
-                </header>
-            </xpath>
             </field>
     </record>
 
