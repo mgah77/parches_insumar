@@ -50,6 +50,7 @@
                             type="action" 
                             />
                 </header>
+            </xpath>
             </field>
     </record>
 
