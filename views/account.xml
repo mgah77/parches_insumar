@@ -45,7 +45,7 @@
 
             <xpath expr="//tree" position="inside">
                 <header>
-                    <button name="%(account.action_account_invoice_refund)d" 
+                    <button name="%(l10n_cl_fe.print_cedible)d" 
                             string="REPAROS" 
                             type="action" />
                             <!--groups="parches_insumar.group_admin"/>
