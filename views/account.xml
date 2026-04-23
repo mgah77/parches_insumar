@@ -50,7 +50,7 @@
         <field name="inherit_id" ref="account.view_invoice_tree"/>
         <field name="arch" type="xml">
             <!-- Insertar el campo invisible para usarlo en el botón -->
-            <xpath expr="//tree/field[@name='name']" position="after">
+            <xpath expr="//field[@name='name']" position="after">
                 <field name="company_has_reparos" invisible="1"/>
             </xpath>
             <!-- Añadir botón REPAROS antes del botón Crear (NEW) >
