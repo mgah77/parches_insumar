@@ -23,13 +23,6 @@ class AccountMove(models.Model):
     glosa = fields.Char(string="Glosa")
     document_number = fields.Char(related='partner_id.document_number', string="RUT", store=False)
 
-    # company_has_reparos es para mostrar el boton que filtra las facturas con reparos en la vista tree
-    company_has_reparos = fields.Boolean(
-        string='Company has reparos',
-        related='company_id.has_reparos',
-        readonly=True
-    )
-
 
     @api.model
     def search(self, domain, offset=0, limit=None, order=None, count=False):
@@ -41,18 +34,6 @@ class AccountMove(models.Model):
         return super().search(domain, offset=offset, limit=limit, order=order, count=count)
 
 
-    def load_views(self, views, options=None):
-        """Inyecta company_has_reparos en el contexto para que el XML pueda leerlo"""
-        res = super(AccountMove, self).load_views(views, options=options)
-        
-        # Leer el campo de la compañía actual
-        # Asegúrate que 'has_reparos' es el nombre del campo en res.company
-        has_reparos = self.env.company.has_reparos
-        
-        # Inyectarlo en el contexto de la vista
-        res['context']['company_has_reparos'] = has_reparos
-            
-        return res
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
