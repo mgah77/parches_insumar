@@ -40,6 +40,19 @@
             </xpath>
             <xpath expr="//field[@name='activity_ids']" position="replace">               
             </xpath>
+
+            <!-- Insertar el campo invisible para usarlo en el botón -->
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="company_has_reparos" invisible="1"/>
+            </xpath>
+            <!-- Añadir botón REPAROS antes del botón Crear (NEW) -->
+            <xpath expr="//tree/header/button[@name='create']" position="before">
+                <button name="%(action_show_reparos)d"
+                        string="REPAROS"
+                        type="action"
+                        groups="parches_insumar.group_admin"
+                        invisible="not company_has_reparos"/>
+            </xpath>
         </field>
     </record>
     <record id="account_move_search_custom" model="ir.ui.view">
@@ -51,7 +64,9 @@
             <field name="glosa" string="Glosa"/>
         </xpath>
         </field>
-    </record>   
+    </record>  
+
+       <!-- Acción para restringir la vista del boton para volver a borrador --> 
     <record id="restrict_button_draft_to_admin" model="ir.ui.view">
         <field name="name">account.move.form.restrict.draft</field>
         <field name="model">account.move</field>
@@ -64,6 +79,16 @@
             </button>
             
         </field>
+    </record>
+
+        <!-- Acción de ventana para mostrar solo facturas con reparo -->
+    <record id="action_show_reparos" model="ir.actions.act_window">
+        <field name="name">Facturas con Reparos</field>
+        <field name="res_model">account.move</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('sii_result','=','reparo')]</field>
+        <field name="context">{'search_default_sii_result': 'reparo'}</field>
+        <field name="help">Mostrando facturas con sii_result = reparo</field>
     </record>
 
 </odoo>
