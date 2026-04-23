@@ -45,14 +45,14 @@
             <xpath expr="//tree/field[@name='name']" position="after">
                 <field name="company_has_reparos" invisible="1"/>
             </xpath>
-            <!-- Añadir botón REPAROS antes del botón Crear (NEW) -->
+            <!-- Añadir botón REPAROS antes del botón Crear (NEW)>
             <xpath expr="//tree/header/button[@name='create']" position="before">
                 <button name="%(action_show_reparos)d"
                         string="REPAROS"
                         type="action"
                         groups="parches_insumar.group_admin"
                         invisible="not company_has_reparos"/>
-            </xpath>
+            </xpath-->
         </field>
     </record>
     <record id="account_move_search_custom" model="ir.ui.view">
