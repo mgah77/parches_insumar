@@ -42,8 +42,7 @@
             </xpath>
             <xpath expr="//field[@name='activity_ids']" position="replace">               
             </xpath>
-            
-        </field>
+            </field>
     </record>
 
     <!-- Heredar la vista tree de facturas directo de account.move >
