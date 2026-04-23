@@ -1,17 +1,6 @@
 <odoo>
 
 
-        <!-- Acción de ventana para mostrar solo facturas con reparo -->
-    <record id="action_show_reparos" model="ir.actions.act_window">
-        <field name="name">Facturas con Reparos</field>
-        <field name="res_model">account.move</field>
-        <field name="view_mode">tree,form</field>
-        <field name="domain">[('sii_result','=','reparo')]</field>
-        <field name="context">{'search_default_sii_result': 'reparo'}</field>
-        <field name="help">Mostrando facturas con sii_result = reparo</field>
-    </record>
-
-
     <record model="ir.ui.view" id="view_account_inherit_form">
         <field name="name">account.parche.inherit.form</field>
         <field name="model">account.move</field>
@@ -42,7 +31,6 @@
             </xpath>
             <xpath expr="//field[@name='invoice_date']" position="before">
                 <field name="glosa"/>
-                <field name="company_has_reparos" invisible="1"/>
             </xpath>
             
             <xpath expr="//field[@name='amount_tax_signed']" position="attributes">
@@ -56,35 +44,8 @@
             <xpath expr="//field[@name='activity_ids']" position="replace">               
             </xpath>
 
-             <xpath expr="//tree/field[last()]" position="after">
-                <header>
-                    <button name="%(action_show_reparos)d" 
-                            string="REPAROS" 
-                            type="action" 
-                            />
-                </header>
-            </xpath>
             </field>
     </record>
-
-    <!-- Heredar la vista tree de facturas directo de account.move >
-    <record id="view_move_tree_inherit_reparos" model="ir.ui.view">
-        <field name="name">account.move.tree.inherit.reparos</field>
-        <field name="model">account.move</field>
-        <field name="inherit_id" ref="account.view_invoice_tree"/>
-        <field name="arch" type="xml">
-            <! Insertar el campo invisible para usarlo en el botón>
-            <! Añadir botón REPAROS antes del botón Crear (NEW) >
-            <xpath expr="//tree/header/button[@name='create']" position="before">
-                <button name="%(action_show_reparos)d"
-                        string="REPAROS"
-                        type="action"
-                        groups="parches_insumar.group_admin"
-                        invisible="not company_has_reparos"/>
-            </xpath>
-        </field>
-    </record-->
-
 
     <record id="account_move_search_custom" model="ir.ui.view">
         <field name="name">account.move.search.glosa.prioritaria</field>
