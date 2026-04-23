@@ -11,7 +11,7 @@
        """,
     'author' : 'M.Gah',
     'website': '',
-    'depends': ['account','stock','base','sale','sale_stock','sale_management','l10n_cl_fe','product','contacts','utm','hr','crm','l10n_cl_stock_picking','spreadsheet_dashboard'],
+    'depends': ['account','stock','base','sale','sale_stock','sale_management','l10n_cl_fe','product','contacts','utm','hr','crm','l10n_cl_stock_picking','spreadsheet_dashboard','Insumar_Crones'],
     'data': [
             "security/groups.xml",
             "security/ir.model.access.csv",
