@@ -1,6 +1,13 @@
 from odoo import models, fields, api, exceptions, _
 from odoo.tools import float_compare
 
+import logging
+from dateutil.relativedelta import relativedelta
+
+from odoo.exceptions import UserError
+
+_logger = logging.getLogger(__name__)
+
 class SaleOrderCompany(models.Model):
     _inherit = 'sale.order'  # Reemplaza 'your.model' por el nombre del modelo que deseas modificar
 
@@ -24,7 +31,70 @@ class SaleOrderCompany(models.Model):
         for order in self:
             if len(order.order_line) > 30:
                 raise exceptions.ValidationError("No se pueden tener más de 30 líneas de producto por orden.")
-            
+
+    
+    force_invoiced = fields.Boolean(
+        string="Forzar facturado",
+        help="Si está activo, la orden se considera totalmente facturada.",
+        copy=False,
+        tracking=True,  # deja rastro en el chatter con el usuario que hizo el cambio
+        readonly=True,
+    )
+
+    show_cambiar_estado_facturado_btn = fields.Boolean(
+        compute="_compute_show_cambiar_estado_facturado_btn",
+        store=False,
+    )
+
+    
+    @api.depends("date_order")
+    def _compute_show_cambiar_estado_facturado_btn(self):
+        for order in self:
+            if not order.date_order:
+                order.show_cambiar_estado_facturado_btn = False
+                continue
+
+            today = fields.Date.context_today(order)
+            limit_date = today - relativedelta(months=5)
+
+            # date_order es datetime; lo pasamos a fecha en TZ del usuario
+            order_date = fields.Datetime.context_timestamp(order, order.date_order).date()
+            order.show_cambiar_estado_facturado_btn = order_date <= limit_date
+
+    @api.depends("state", "order_line.invoice_status", "force_invoiced")
+    def _compute_invoice_status(self):
+        # computo estándar de Odoo
+        super()._compute_invoice_status()
+
+        # forzado a "invoiced"
+        for order in self.filtered(lambda o: o.force_invoiced and o.state in ("sale", "done")):
+            order.invoice_status = "invoiced"
+
+    def action_cambiar_estado_a_facturado(self):
+        for order in self:
+            if not order.show_cambiar_estado_facturado_btn:
+                raise UserError(
+                    _("Este botón sólo está disponible si la fecha de la venta es de hace más de 5 meses.")
+                )
+
+            if order.invoice_status != "to invoice":
+                raise UserError(
+                    _("Sólo puedes usar esta acción cuando el estado de facturación está en 'To Invoice'.")
+                )
+
+            # marca forzado
+            order.write({"force_invoiced": True})
+
+            # Log en chatter (además del tracking del write)
+            order.message_post(
+                body=_("Cambió el estado de facturación a <b>Facturado</b>. Usuario: %s")
+                     % (self.env.user.display_name,),
+                subtype_xmlid="mail.mt_note",
+            )
+
+        return True
+
+
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
