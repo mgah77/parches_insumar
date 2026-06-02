@@ -98,15 +98,23 @@ class AccountMove(models.Model):
         readonly=True,
         copy=False,
     )
-
+    
     def action_save_changes(self):
         self.ensure_one()
-
-        self.write({
-            'x_change_saved': True,
-            'x_change_saved_uid': self.env.user.id,
-            'x_change_saved_date': fields.Datetime.now(),
-        })
+        self.env.cr.execute("""
+            UPDATE account_move
+            SET x_change_saved = %s,
+                x_change_saved_uid = %s,
+                x_change_saved_date = %s
+            WHERE id = %s
+        """, (
+            True,
+            self.env.user.id,
+            fields.Datetime.now(),
+            self.id,
+        ))
+        # Invalidar caché para que Odoo refleje los cambios en la sesión actual
+        self.invalidate_recordset(['x_change_saved', 'x_change_saved_uid', 'x_change_saved_date'])
 
     def action_validate_changes(self):
         self.ensure_one()
@@ -119,11 +127,11 @@ class AccountMove(models.Model):
             SET amount_untaxed = %s,
                 amount_tax = %s,
                 amount_total = %s,
-                amount_residual = %s
-                amount_untaxed_signed = -%s
-                amount_tax_signed = -%s
-                amount_total_signed = -%s
-                amount_total_in_currency_signed = -%s
+                amount_residual = %s,
+                amount_untaxed_signed = -%s,
+                amount_tax_signed = -%s,
+                amount_total_signed = -%s,
+                amount_total_in_currency_signed = -%s,
                 amount_residual_signed = %s
             WHERE id = %s
         """, (
