@@ -32,6 +32,136 @@ class AccountMove(models.Model):
             domain = domain + [('team_id', '=', user_team_id.id)]
         # Si no tiene equipo, no filtrar (ver todo)
         return super().search(domain, offset=offset, limit=limit, order=order, count=count)
+    
+    #-------------------------------------------------------------
+    #para correccion y validacion de facturas ingresadas a mano
+    #-------------------------------------------------------------
+
+    x_new_amount_untaxed = fields.Monetary(
+        string='Nuevo Neto',
+        currency_field='currency_id',
+        copy=False,
+    )
+
+    x_new_amount_tax = fields.Monetary(
+        string='Nuevo Impuesto',
+        currency_field='currency_id',
+        copy=False,
+    )
+
+    x_new_amount_total = fields.Monetary(
+        string='Nuevo Total',
+        currency_field='currency_id',
+        copy=False,
+    )
+
+    x_new_amount_residual = fields.Monetary(
+        string='Nuevo Saldo',
+        currency_field='currency_id',
+        copy=False,
+    )
+
+    x_change_saved = fields.Boolean(
+        string='Cambios Grabados',
+        default=False,
+        copy=False,
+    )
+
+    x_change_validated = fields.Boolean(
+        string='Cambio Validado',
+        default=False,
+        copy=False,
+    )
+
+    x_change_saved_uid = fields.Many2one(
+        'res.users',
+        string='Grabado por',
+        readonly=True,
+        copy=False,
+    )
+
+    x_change_saved_date = fields.Datetime(
+        string='Fecha grabación',
+        readonly=True,
+        copy=False,
+    )
+
+    x_change_validated_uid = fields.Many2one(
+        'res.users',
+        string='Validado por',
+        readonly=True,
+        copy=False,
+    )
+
+    x_change_validated_date = fields.Datetime(
+        string='Fecha validación',
+        readonly=True,
+        copy=False,
+    )
+
+    def action_save_changes(self):
+        self.ensure_one()
+
+        self.write({
+            'x_change_saved': True,
+            'x_change_saved_uid': self.env.user.id,
+            'x_change_saved_date': fields.Datetime.now(),
+        })
+
+    def action_validate_changes(self):
+        self.ensure_one()
+
+        if not self.x_change_saved:
+            return
+
+        self.env.cr.execute("""
+            UPDATE account_move
+            SET amount_untaxed = %s,
+                amount_tax = %s,
+                amount_total = %s,
+                amount_residual = %s
+                amount_untaxed_signed = -%s
+                amount_tax_signed = -%s
+                amount_total_signed = -%s
+                amount_total_in_currency_signed = -%s
+                amount_residual_signed = %s
+            WHERE id = %s
+        """, (
+            self.x_new_amount_untaxed,
+            self.x_new_amount_tax,
+            self.x_new_amount_total,
+            self.x_new_amount_residual,
+            self.x_new_amount_untaxed,
+            self.x_new_amount_tax,
+            self.x_new_amount_total,
+            self.x_new_amount_total,
+            self.x_new_amount_residual,
+            self.id,
+        ))
+
+        self.env.cr.execute("""
+            UPDATE account_move_line
+            SET credit = %s,
+                balance = -%s,
+                amount_currency = -%s,
+                amount_residual = -%s,
+                amount_residual_currency = -%s
+            WHERE move_id = %s
+            AND display_type = 'payment_term'
+        """, (
+            self.x_new_amount_total,
+            self.x_new_amount_total,
+            self.x_new_amount_total,
+            self.x_new_amount_residual,
+            self.x_new_amount_residual,
+            self.id,
+        ))
+
+        self.write({
+            'x_change_validated': True,
+            'x_change_validated_uid': self.env.user.id,
+            'x_change_validated_date': fields.Datetime.now(),
+        })
 
 
 
