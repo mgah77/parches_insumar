@@ -98,23 +98,34 @@ class AccountMove(models.Model):
         readonly=True,
         copy=False,
     )
-    
+
+
+    def write(self, vals):
+        bypass_fields = {
+            'x_change_saved',
+            'x_change_saved_uid',
+            'x_change_saved_date',
+            'x_change_validated',
+            'x_change_validated_uid',
+            'x_change_validated_date',
+        }
+
+
+        if set(vals.keys()).issubset(bypass_fields):
+            return super(AccountMove, self.with_context(
+                check_move_validity=False
+            )).write(vals)
+
+        return super().write(vals)
+
     def action_save_changes(self):
         self.ensure_one()
-        self.env.cr.execute("""
-            UPDATE account_move
-            SET x_change_saved = %s,
-                x_change_saved_uid = %s,
-                x_change_saved_date = %s
-            WHERE id = %s
-        """, (
-            True,
-            self.env.user.id,
-            fields.Datetime.now(),
-            self.id,
-        ))
-        # Invalidar caché para que Odoo refleje los cambios en la sesión actual
-        self.invalidate_recordset(['x_change_saved', 'x_change_saved_uid', 'x_change_saved_date'])
+
+        self.write({
+            'x_change_saved': True,
+            'x_change_saved_uid': self.env.user.id,
+            'x_change_saved_date': fields.Datetime.now(),
+        })
 
     def action_validate_changes(self):
         self.ensure_one()
