@@ -104,18 +104,19 @@
             <form string="Corrección de Montos">
 
                 <header>
-
                     <button name="action_save_changes"
                             type="object"
                             string="Grabar Cambios"
                             class="btn-primary"
-                            invisible="x_change_saved"/>
+                            attrs="{'invisible': [('x_change_saved', '=', True)]}"/>
 
                     <button name="action_validate_changes"
                             type="object"
                             string="Validar Cambio"
                             class="btn-primary"
-                            invisible="not x_change_saved or x_change_validated"/>
+                            attrs="{'invisible': ['|',
+                                                ('x_change_saved', '=', False),
+                                                ('x_change_validated', '=', True)]}"/>
 
                 </header>
 
