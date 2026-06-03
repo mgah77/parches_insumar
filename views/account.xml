@@ -185,6 +185,11 @@
         <field name="model">account.move</field>
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
+                   <!-- 1. Agregar amount_untaxed como campo invisible para que el attrs funcione -->
+        <xpath expr="//field[@name='move_type']" position="after">
+            <field name="amount_untaxed" invisible="1"/>
+        </xpath>
+
             <xpath expr="//div[@name='button_box']" position="inside">
                 <!-- Condición: Solo facturas de proveedor con neto 0 y no en borrador -->
                 <button name="action_create_amount_fix" 
