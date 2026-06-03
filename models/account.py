@@ -99,6 +99,10 @@ class AccountMove(models.Model):
         copy=False,
     )
 
+    def _check_balanced(self, container=None):
+        if self.env.context.get('skip_balance_check'):
+            return
+        return super()._check_balanced(container)
 
     def write(self, vals):
         bypass_fields = {
@@ -108,13 +112,17 @@ class AccountMove(models.Model):
             'x_change_validated',
             'x_change_validated_uid',
             'x_change_validated_date',
+            'x_new_amount_untaxed',
+            'x_new_amount_tax',
+            'x_new_amount_total',
+            'x_new_amount_residual',
         }
 
-
-        if set(vals.keys()).issubset(bypass_fields):
-            return super(AccountMove, self.with_context(
-                check_move_validity=False
-            )).write(vals)
+        if set(vals.keys()).issubset(safe_fields):
+            return super(
+                AccountMove,
+                self.with_context(skip_balance_check=True)
+            ).write(vals)
 
         return super().write(vals)
 
