@@ -33,6 +33,20 @@ class AccountMove(models.Model):
         # Si no tiene equipo, no filtrar (ver todo)
         return super().search(domain, offset=offset, limit=limit, order=order, count=count)
 
+    def action_create_amount_fix(self):
+        self.ensure_one()
+        # Crear el registro de corrección y abrirlo
+        fix = self.env['account.move.amount.fix'].create({
+            'move_id': self.id,
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move.amount.fix',
+            'res_id': fix.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+
 
 
 class AccountMoveLine(models.Model):
