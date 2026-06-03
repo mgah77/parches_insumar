@@ -175,7 +175,7 @@
     <!-- Menú -->
     <menuitem id="menu_account_move_amount_fix" 
               name="Correcciones de Montos" 
-              parent="account.menu_finance_entries" 
+              parent="account.menu_finance_payables"
               action="action_account_move_amount_fix" 
               sequence="40"/>
 
