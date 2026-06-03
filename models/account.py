@@ -285,7 +285,7 @@ class AccountMoveAmountFix(models.Model):
             self.env.cr.execute("""
                 UPDATE account_move_line
                 SET credit = %s,
-                    balance = %s,
+                    balance = -%s,
                     amount_currency = -%s,
                     amount_residual = -%s,
                     amount_residual_currency = -%s
