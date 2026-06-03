@@ -33,9 +33,48 @@ class AccountMove(models.Model):
         # Si no tiene equipo, no filtrar (ver todo)
         return super().search(domain, offset=offset, limit=limit, order=order, count=count)
 
+    # correccion de montos de facturas de proveedor
+
     def action_create_amount_fix(self):
         self.ensure_one()
         # Crear el registro de corrección y abrirlo
+        fix = self.env['account.move.amount.fix'].create({
+            'move_id': self.id,
+        })
+        return {
+            'type': 'ir.actions.act_window',
+            'res_model': 'account.move.amount.fix',
+            'res_id': fix.id,
+            'view_mode': 'form',
+            'target': 'current',
+        }
+    
+
+    amount_fix_ids = fields.One2many(
+        'account.move.amount.fix', 
+        'move_id', 
+        string='Correcciones de Monto'
+    )
+    
+    has_pending_fix = fields.Boolean(
+        string='Tiene corrección pendiente',
+        compute='_compute_has_pending_fix'
+    )
+
+    @api.depends('amount_fix_ids.state')
+    def _compute_has_pending_fix(self):
+        for move in self:
+            # True si existe al menos una corrección en borrador o grabada
+            move.has_pending_fix = any(
+                fix.state in ('draft', 'saved') for fix in move.amount_fix_ids
+            )
+
+    def action_create_amount_fix(self):
+        self.ensure_one()
+        # Doble chequeo por código
+        if self.has_pending_fix:
+            raise UserError(_('Ya existe una corrección pendiente para esta factura.'))
+            
         fix = self.env['account.move.amount.fix'].create({
             'move_id': self.id,
         })
