@@ -177,6 +177,7 @@
               name="Correcciones de Montos" 
               parent="account.menu_finance_payables"
               action="action_account_move_amount_fix" 
+              groups="parches_insumar.group_admin"
               sequence="40"/>
 
     <!-- Botón en la factura de proveedor -->
@@ -204,7 +205,7 @@
                               ('amount_untaxed', '!=', 0.0), 
                               ('state', '=', 'draft'), 
                               ('has_pending_fix', '=', True)]}"
-                    groups="account.group_account_manager"/>
+                    groups="parches_insumar.group_admin"/>
         </xpath>
         
         </field>
