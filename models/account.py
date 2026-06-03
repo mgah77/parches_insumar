@@ -105,7 +105,8 @@ class AccountMove(models.Model):
         return super()._check_balanced(container)
 
     def write(self, vals):
-        bypass_fields = {
+
+        safe_fields = {
             'x_change_saved',
             'x_change_saved_uid',
             'x_change_saved_date',
@@ -117,6 +118,7 @@ class AccountMove(models.Model):
             'x_new_amount_total',
             'x_new_amount_residual',
         }
+
 
         if set(vals.keys()).issubset(safe_fields):
             return super(
