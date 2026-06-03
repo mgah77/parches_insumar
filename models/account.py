@@ -142,3 +142,161 @@ class AccountPartialReconcile(models.Model):
                     move.payment_state = 'not_paid'
 
             return res
+
+
+class AccountMoveAmountFix(models.Model):
+    _name = 'account.move.amount.fix'
+    _description = 'Corrección de Montos de Factura'
+    _inherit = ['mail.thread', 'mail.activity.mixin'] # Para chatter y adjuntos
+    _order = 'id desc'
+
+    name = fields.Char(
+        string='Referencia',
+        default='Nuevo',
+        readonly=True,
+        copy=False
+    )
+    move_id = fields.Many2one(
+        'account.move',
+        string='Factura',
+        required=True,
+        readonly=True,
+        states={'draft': [('readonly', False)]}
+    )
+    currency_id = fields.Many2one(
+        related='move_id.currency_id',
+        readonly=True
+    )
+    
+    # --- Valores Actuales (Solo lectura para auditoría) ---
+    old_amount_untaxed = fields.Monetary(string='Neto Original', readonly=True)
+    old_amount_tax = fields.Monetary(string='Impuesto Original', readonly=True)
+    old_amount_total = fields.Monetary(string='Total Original', readonly=True)
+    old_amount_residual = fields.Monetary(string='Saldo Original', readonly=True)
+
+    # --- Nuevos Valores ---
+    new_amount_untaxed = fields.Monetary(
+        string='Nuevo Neto', 
+        currency_field='currency_id',
+        states={'draft': [('required', True)]}
+    )
+    new_amount_tax = fields.Monetary(
+        string='Nuevo Impuesto', 
+        currency_field='currency_id',
+        states={'draft': [('required', True)]}
+    )
+    new_amount_total = fields.Monetary(
+        string='Nuevo Total', 
+        currency_field='currency_id',
+        states={'draft': [('required', True)]}
+    )
+    new_amount_residual = fields.Monetary(
+        string='Nuevo Saldo', 
+        currency_field='currency_id',
+        states={'draft': [('required', True)]}
+    )
+
+    # --- Auditoría ---
+    saved_by = fields.Many2one('res.users', string='Grabado por', readonly=True, tracking=True)
+    saved_date = fields.Datetime(string='Fecha grabación', readonly=True, tracking=True)
+    validated_by = fields.Many2one('res.users', string='Validado por', readonly=True, tracking=True)
+    validated_date = fields.Datetime(string='Fecha validación', readonly=True, tracking=True)
+    notes = fields.Html(string='Motivo de la corrección')
+
+    state = fields.Selection([
+        ('draft', 'Borrador'),
+        ('saved', 'Grabado'),
+        ('validated', 'Validado'),
+    ], default='draft', tracking=True)
+
+    # --- Métodos ---
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get('name', 'Nuevo') == 'Nuevo':
+                vals['name'] = self.env['ir.sequence'].next_by_code('account.move.amount.fix') or 'Nuevo'
+            
+            # Rellenar valores antiguos al crear
+            if vals.get('move_id'):
+                move = self.env['account.move'].browse(vals['move_id'])
+                vals.update({
+                    'old_amount_untaxed': move.amount_untaxed,
+                    'old_amount_tax': move.amount_tax,
+                    'old_amount_total': move.amount_total,
+                    'old_amount_residual': move.amount_residual,
+                })
+        return super().create(vals_list)
+
+    def action_save(self):
+        for rec in self:
+            if rec.state != 'draft':
+                raise UserError(_('Solo se pueden grabar correcciones en estado Borrador.'))
+            rec.write({
+                'state': 'saved',
+                'saved_by': self.env.uid,
+                'saved_date': fields.Datetime.now(),
+            })
+
+    def action_validate(self):
+        for rec in self:
+            if rec.state != 'saved':
+                raise UserError(_('Solo se pueden validar correcciones en estado Grabado.'))
+            
+            # Ejecución SQL Directa
+            self.env.cr.execute("""
+                UPDATE account_move
+                SET amount_untaxed = %s,
+                    amount_tax = %s,
+                    amount_total = %s,
+                    amount_residual = %s,
+                    amount_untaxed_signed = -%s,
+                    amount_tax_signed = -%s,
+                    amount_total_signed = -%s,
+                    amount_total_in_currency_signed = -%s,
+                    amount_residual_signed = -%s
+                WHERE id = %s
+            """, (
+                rec.new_amount_untaxed,
+                rec.new_amount_tax,
+                rec.new_amount_total,
+                rec.new_amount_residual,
+                rec.new_amount_untaxed,
+                rec.new_amount_tax,
+                rec.new_amount_total,
+                rec.new_amount_total,
+                rec.new_amount_residual,
+                rec.move_id.id,
+            ))
+
+            self.env.cr.execute("""
+                UPDATE account_move_line
+                SET credit = %s,
+                    balance = %s,
+                    amount_currency = -%s,
+                    amount_residual = -%s,
+                    amount_residual_currency = -%s
+                WHERE move_id = %s
+                AND display_type = 'payment_term'
+            """, (
+                rec.new_amount_total,
+                rec.new_amount_total,
+                rec.new_amount_total,
+                rec.new_amount_residual,
+                rec.new_amount_residual,
+                rec.move_id.id,
+            ))
+
+            # Invalidar caché del ORM para que Odoo lea los nuevos datos desde la BD
+            rec.move_id.invalidate_recordset()
+
+            rec.write({
+                'state': 'validated',
+                'validated_by': self.env.uid,
+                'validated_date': fields.Datetime.now(),
+            })
+            
+            # Mensaje en el chatter de la factura original
+            rec.move_id.message_post(
+                body=_("Se ha aplicado una corrección manual de montos. Referencia: %s") % rec.name,
+                subject=_("Corrección de Montos")
+            )
