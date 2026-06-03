@@ -10,4 +10,4 @@ access_res_partner_wvl,res.partner.wvl,base.model_res_partner,parches_insumar.gr
 access_price_check_wizard_user,price.check.wizard,model_price_check_wizard,base.group_user,1,1,1,1
 access_price_check_wizard_line_user,price.check.wizard.line,model_price_check_wizard_line,base.group_user,1,1,1,1
 access_account_move_amount_fix_manager,account.move.amount.fix.manager,model_account_move_amount_fix,parches_insumar.group_adm_ins,1,1,1,1
-access_account_move_amount_fix_user,account.move.amount.fix.user,model_account_move_amount_fix,parches_insumar.group_admin,1,0,0,0
+access_account_move_amount_fix_user,account.move.amount.fix.user,model_account_move_amount_fix,account.group_account_user,1,0,0,0
