@@ -200,27 +200,26 @@
         <field name="inherit_id" ref="account.view_move_form"/>
         <field name="arch" type="xml">
            
-        <!-- 1. Hacemos disponibles los campos para la condición -->
-        <xpath expr="//field[@name='move_type']" position="after">
-            <field name="amount_untaxed" invisible="1"/>
-            <field name="has_pending_fix" invisible="1"/>
-        </xpath>
+    <xpath expr="//field[@name='move_type']" position="after">
+        <field name="amount_untaxed" invisible="1"/>
+        <field name="has_pending_fix" invisible="1"/>
+        <field name="has_residual_mismatch" invisible="1"/>
+    </xpath>
 
-        <!-- 2. Botón con la nueva condición -->
-        <xpath expr="//div[@name='button_box']" position="inside">
-   <button name="action_create_amount_fix" 
-                    type="object" 
-                    class="oe_stat_button" 
-                    icon="fa-pencil-square-o"
-                    string="Corregir Montos"
-                    attrs="{'invisible': ['|', '|', '|', 
-                              ('move_type', '!=', 'in_invoice'), 
-                              ('amount_untaxed', '!=', 0.0), 
-                              ('state', '=', 'draft'), 
-                              ('has_pending_fix', '=', True)]}"
-                    groups="parches_insumar.group_admin"/>
-        </xpath>
-        
+    <xpath expr="//div[@name='button_box']" position="inside">
+        <button name="action_create_amount_fix" 
+                type="object" 
+                class="oe_stat_button" 
+                icon="fa-pencil-square-o"
+                string="Corregir Montos"
+                attrs="{'invisible': ['|', '|', '|', 
+                        ('move_type', '!=', 'in_invoice'), 
+                        ('state', '=', 'draft'), 
+                        ('has_pending_fix', '=', True),
+                        '&amp;', ('amount_untaxed', '!=', 0.0), ('has_residual_mismatch', '=', False)
+                        ]}"
+                groups="parches_insumar.group_admin"/>
+    </xpath>
         </field>
     </record>
 

@@ -86,7 +86,32 @@ class AccountMove(models.Model):
             'target': 'current',
         }
 
+    has_residual_mismatch = fields.Boolean(
+        string='Desbalance residual',
+        compute='_compute_has_residual_mismatch',
+    )
 
+    @api.depends('amount_residual_signed', 'line_ids.amount_residual', 'line_ids.display_type')
+    def _compute_has_residual_mismatch(self):
+        for move in self:
+            if move.move_type != 'in_invoice':
+                move.has_residual_mismatch = False
+                continue
+            
+            # Buscamos la línea específica donde display_type es payment_term
+            payment_term_lines = move.line_ids.filtered(
+                lambda l: l.display_type == 'payment_term'
+            )
+            
+            if payment_term_lines:
+                # Comparamos directamente el campo de la factura vs el campo puntual de la línea
+                # Si existe la línea y su valor es diferente, es True
+                move.has_residual_mismatch = any(
+                    line.amount_residual != move.amount_residual_signed 
+                    for line in payment_term_lines
+                )
+            else:
+                move.has_residual_mismatch = False
 
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
