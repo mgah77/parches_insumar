@@ -212,7 +212,7 @@
                 class="oe_stat_button" 
                 icon="fa-pencil-square-o"
                 string="Corregir Montos"
-                attrs="{'invisible': ['|', '|', 
+                attrs="{'invisible': ['|', '|', '|', 
                         ('move_type', '!=', 'in_invoice'), 
                         ('has_pending_fix', '=', True),
                         '&amp;', ('amount_untaxed', '!=', 0.0), ('has_residual_mismatch', '=', False)
