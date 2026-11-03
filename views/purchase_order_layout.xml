@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!--
+        Layout de impresión para PEDIDOS DE COMPRA (purchase.order)
+        Basado en l10n_cl_fe.dte_external_layout (formato de facturas electrónicas).
+
+        Diferencias respecto de la factura:
+        - Título "ORDEN DE COMPRA" en vez del tipo de documento SII (document_class_id)
+        - N° del pedido (o.name) en vez del folio SII (sii_document_number)
+        - Se omiten bloques que no aplican a una OC: timbre electrónico SII,
+          cedible, referencias SII y comisiones.
+
+        Instalación:
+        1) Colocar este archivo en el módulo l10n_cl_fe (junto a layout.xml)
+        2) Agregar 'purchase' a los depends del __manifest__.py (si no está)
+        3) Agregar el nombre de este archivo a la lista 'data' del __manifest__.py,
+           después de layout.xml
+    -->
+    <template t-name="parches_insumar.dte_purchase_order_layout">
+        <t t-set="o" t-value="o.with_context({'lang': 'es_CL'})"/>
+        <t t-call="web.basic_layout">
+            <!-- Multicompany -->
+            <t t-if="not o and doc">
+                <t t-set="o" t-value="doc"/>
+            </t>
+            <t t-if="o and 'company_id' in o">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-if="not o or not 'company_id' in o">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+            <t t-set="partner_id" t-value="o.partner_id"/>
+            <t t-set="commercial_partner_id" t-value="o.partner_id.commercial_partner_id"/>
+            <t t-set="logo" t-value="company.logo_web"/>
+            <div class="cl_invoice">
+                <div class="header">
+                  <div class="row">
+                      <div class="col-6">
+                          <p class="company-ref">
+                              <span t-field="o.company_id.partner_id.ref"/>
+                          </p>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-7 center-text">
+                          <img t-if="logo" t-att-src="image_data_uri(logo)" class="logo-img"/>
+                          <h4 class="company-name">
+                              <t t-esc="company.name"/>
+                          </h4>
+                          <p class="company-details">
+                              <span t-field="company.activity_description.name"/><br/>
+                              <br/>
+                                <t t-if="company.id == 1">
+                                    <!-- El pedido de compra no tiene equipo de ventas (team_id):
+                                         se usa la dirección de la sucursal PAR VIAL. -->
+                                    <span>Dirección: PAR VIAL 2704, Puerto Montt</span><br/>
+                                    <span>Telefono: 65 231 3101</span><br/>
+                                    <span>Email: compras@insumar.cl</span><br/>
+                                </t>
+                              <t t-if="company.id != 1">
+                              <span>Dirección: </span><span t-field="company.street"/>, <span t-field="company.city_id.name"/>, <span t-field="company.city"/>
+                              </t>
+                              <br/>
+                              <t t-if="company.id != 1">
+                              <span> Teléfono: </span><t t-if="len(o.company_id.sucursal_ids) == 1"><span t-field="company.phone"/></t>
+                              </t>
+                              <br/>
+                              <t t-if="company.id != 1">
+                              <span>E-Mail: <span t-field="company.email"/></span>
+                              </t>
+                              <br/>
+                              <span t-field="company.website"/>
+                          </p>
+                      </div>
+                      <div class="col-5">
+                          <div class="document-box">
+                              <h6 class="rut-header">
+                                R.U.T.: <span t-field="company.document_number"/>
+                              </h6>
+                              <h6 class="document-class-header">
+                                  ORDEN DE COMPRA
+                              </h6>
+                              <h6 t-if="o.name" class="sii-doc-number">
+                                  N° <span t-esc="o.name"/>
+                              </h6>
+                              <br />
+                          </div>
+                          <div class="row center-text" style="text-align: center !important;">
+                              <p class="sii-info" t-if="o.company_id.sii_regional_office_id">
+                                SII - <span t-field="o.company_id.sii_regional_office_id.name"/>
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row hidden-row">
+                      <div name="company_address"/>
+                  </div>
+                </div>
+                <div class="page" style="padding-top:55px;">
+                    <div class="row table-container">
+                        <table class="table table-no-margin">
+                            <tbody>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Señor (es):</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="commercial_partner_id.name"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Fecha:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <t t-if="'date_order' in o and o.date_order">
+                                            <span t-field="o.date_order" t-options='{"widget": "date"}'/>
+                                        </t>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>RUT:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="commercial_partner_id.document_number"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Comuna:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-field="partner_id.city_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Domicilio:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="partner_id.street"/>
+                                        <span t-field="partner_id.street2"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Ciudad:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-field="partner_id.city"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Giro:</strong>
+                                    </td>
+                                        <td class="table-cell-wide">
+                                            <!-- Giro del proveedor -->
+                                            <span t-field="partner_id.activity_description.name" class="text-center" style="color:black; text-align:center;"/>
+                                        </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Condición de Pago:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-if="'payment_term_id' in o and o.payment_term_id" t-field="o.payment_term_id.name"/>
+                                    </td>
+                                </tr>
+                                <tr class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                        <strong>Comprador:</strong>
+                                    </td>
+                                    <td class="table-cell-wide">
+                                        <span t-field="o.user_id.name"/>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <strong>Fecha Esperada:</strong>
+                                    </td>
+                                    <td class="table-cell-no-padding">
+                                        <span t-if="'date_planned' in o and o.date_planned" t-field="o.date_planned" t-options='{"widget": "date"}'/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div name="detalle" class="detail-container">
+                        <t t-set="order_lines" t-value="o.order_line.filtered(lambda l: not l.display_type)"/>
+                        <!-- ¿Hay descuento en al menos una línea? -->
+                        <t t-set="display_discount" t-value="any([l.discount for l in order_lines])"/>
+                        <div class="row table-container" name="detalles" style="min-height: 543px; max-height: 543px;">
+                        <table class="table table-condensed">
+                            <thead>
+                                <tr class="table-row-small" style="padding:0px;">
+                                    <th/>
+                                    <th>Descripción</th>
+                                    <th class="text-teft">Precio Unitario</th>
+                                    <th>Cantidad</th>
+                                    <th t-if="display_discount" class="text-left">Desc.(%)</th>
+                                    <th class="text-left">Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody class="invoice_tbody" style="text-align: center;">
+                                <tr t-foreach="order_lines.sorted(key=lambda l: (l.sequence))" t-as="l" class="table-row-small">
+                                    <td class="table-cell-no-padding">
+                                    </td>
+                                    <td class="table-cell-no-padding" style="text-align: left;">
+                                        <span t-field="l.name"/>
+                                    </td>
+                                    <td class="table-cell-no-padding" style="text-align: right;">
+                                        <span t-field="l.price_unit" t-options="{'widget': 'monetary', 'display_currency': o.currency_id, 'digits': 0}"/>
+                                    </td>
+                                    <td class="table-cell-no-padding" style="text-align: right;">
+                                        <span t-esc="'%.0f' % l.product_qty"/>
+                                    </td>
+                                    <td t-if="display_discount" class="table-cell-no-padding">
+                                        <span t-field="l.discount"/>
+                                    </td>
+                                    <td class="table-cell-no-padding" style="text-align: right;">
+                                        <span t-field="l.price_subtotal" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <hr  style="margin-top: -5px;" />
+                    <div class="row" style="margin-top: -5px;">
+                    <div class="col-5" style="font-size: 10px;">
+                                <t t-if="o.partner_ref">
+                                    <strong>Ref. Proveedor: </strong>
+                                    <span t-field="o.partner_ref"/>
+                                </t>
+                                <div t-if="o.notes" style="font-size: 10px;">
+                                    <strong>Observaciones: </strong>
+                                    <span t-field="o.notes"/>
+                                </div>
+                    </div>
+                      <div class="col-3" style="font-size: 10px;">
+                        <t t-if="o.incoterm_id">
+                            <div><strong>Incoterm: </strong><span t-field="o.incoterm_id.name"/></div>
+                        </t>
+                        <t t-if="o.currency_id and o.currency_id.name != 'CLP'">
+                            <div><strong>Moneda: </strong><span t-field="o.currency_id.name"/></div>
+                        </t>
+                      </div>
+                            <div id="total" class="col-4">
+                                <table class="table table-sm">
+                                    <tr name="subtotal">
+                                        <td>
+                                            Neto
+                                        </td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr t-if="o.amount_tax">
+                                        <td>IVA</td>
+                                        <td class="text-end o_price_total">
+                                            <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-black">
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-end">
+                                            <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!-- Reemplaza la impresión estándar del Pedido de Compra por este layout
+         (equivalente a lo que hace dte_invoice con account.report_invoice) -->
+    <template id="dte_purchase_order" inherit_id="purchase.report_purchaseorder">
+        <xpath expr="//t[@t-call='web.html_container']" position="replace">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.html_container">
+                    <t t-call="parches_insumar.dte_purchase_order_layout" t-lang="'es_CL'"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+
+    <!-- Opcional: la Solicitud de Cotización (RFQ / pedido en borrador) usa el mismo layout.
+         Eliminar este bloque si se prefiere mantener el formato estándar de Odoo para RFQ. -->
+    <template id="dte_request_quotation" inherit_id="purchase.report_requestquotation">
+        <xpath expr="//t[@t-call='web.html_container']" position="replace">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="web.html_container">
+                    <t t-call="parches_insumar.dte_purchase_order_layout" t-lang="'es_CL'"/>
+                </t>
+            </t>
+        </xpath>
+    </template>
+</odoo>
