@@ -27,7 +27,8 @@
             "views/crm.xml",
             "views/price_check_wizard_views.xml",
             "views/new_account_view.xml",
-            "views/account_payment_inherit.xml"
+            "views/account_payment_inherit.xml",
+            "views/purchase_order_layout.xml"
     ],
     'assets': {
         'web.report_assets_common': [
