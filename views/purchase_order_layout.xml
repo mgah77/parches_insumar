@@ -6,15 +6,16 @@
 
         Diferencias respecto de la factura:
         - Título "ORDEN DE COMPRA" en vez del tipo de documento SII (document_class_id)
+          (en borrador/RFQ muestra "SOLICITUD DE COTIZACIÓN")
         - N° del pedido (o.name) en vez del folio SII (sii_document_number)
         - Se omiten bloques que no aplican a una OC: timbre electrónico SII,
           cedible, referencias SII y comisiones.
 
-        Instalación:
-        1) Colocar este archivo en el módulo l10n_cl_fe (junto a layout.xml)
-        2) Agregar 'purchase' a los depends del __manifest__.py (si no está)
-        3) Agregar el nombre de este archivo a la lista 'data' del __manifest__.py,
-           después de layout.xml
+        Instalación (módulo parches_insumar):
+        1) Colocar este archivo dentro del módulo parches_insumar
+        2) En __manifest__.py asegurarse de tener en depends: 'purchase' y 'l10n_cl_fe'
+           (purchase: plantillas que heredamos; l10n_cl_fe: estilos CSS y campos CL)
+        3) Agregar el nombre de este archivo a la lista 'data' del __manifest__.py
     -->
     <template t-name="parches_insumar.dte_purchase_order_layout">
         <t t-set="o" t-value="o.with_context({'lang': 'es_CL'})"/>
@@ -78,7 +79,8 @@
                                 R.U.T.: <span t-field="company.document_number"/>
                               </h6>
                               <h6 class="document-class-header">
-                                  ORDEN DE COMPRA
+                                  <t t-if="o.state in ['draft', 'sent']">SOLICITUD DE COTIZACIÓN</t>
+                                  <t t-else="">ORDEN DE COMPRA</t>
                               </h6>
                               <h6 t-if="o.name" class="sii-doc-number">
                                   N° <span t-esc="o.name"/>
@@ -179,8 +181,9 @@
                     </div>
                     <div name="detalle" class="detail-container">
                         <t t-set="order_lines" t-value="o.order_line.filtered(lambda l: not l.display_type)"/>
-                        <!-- ¿Hay descuento en al menos una línea? -->
-                        <t t-set="display_discount" t-value="any([l.discount for l in order_lines])"/>
+                        <!-- 'discount' no existe en purchase.order.line estándar de Odoo 16:
+                             la columna solo aparece si algún módulo instalado agrega ese campo -->
+                        <t t-set="display_discount" t-value="any([l.discount for l in order_lines if 'discount' in l])"/>
                         <div class="row table-container" name="detalles" style="min-height: 543px; max-height: 543px;">
                         <table class="table table-condensed">
                             <thead>
@@ -279,9 +282,11 @@
         </xpath>
     </template>
 
-    <!-- Opcional: la Solicitud de Cotización (RFQ / pedido en borrador) usa el mismo layout.
+    <!-- Solicitud de Cotización (RFQ / pedido en borrador): mismo layout.
+         En Odoo 16 la plantilla del RFQ es purchase.report_purchasequotation
+         (report_requestquotation era el nombre de versiones anteriores).
          Eliminar este bloque si se prefiere mantener el formato estándar de Odoo para RFQ. -->
-    <template id="dte_request_quotation" inherit_id="purchase.report_requestquotation">
+    <template id="dte_purchase_quotation" inherit_id="purchase.report_purchasequotation">
         <xpath expr="//t[@t-call='web.html_container']" position="replace">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.html_container">
