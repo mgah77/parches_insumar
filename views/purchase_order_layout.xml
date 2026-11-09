@@ -56,7 +56,7 @@
                                          se usa la dirección de la sucursal PAR VIAL. -->
                                     <span>Dirección: PAR VIAL 2704, Puerto Montt</span><br/>
                                     <span>Telefono: 65 231 3101</span><br/>
-                                    <span>Email: compras@insumar.cl</span><br/>
+                                    <span>Email: abastecimiento@insumar.cl</span><br/>
                                 </t>
                               <t t-if="company.id != 1">
                               <span>Dirección: </span><span t-field="company.street"/>, <span t-field="company.city_id.name"/>, <span t-field="company.city"/>
@@ -82,15 +82,14 @@
                                   <t t-if="o.state in ['draft', 'sent']">SOLICITUD DE COTIZACIÓN</t>
                                   <t t-else="">ORDEN DE COMPRA</t>
                               </h6>
-                              <h6 t-if="o.name" class="sii-doc-number">
-                                  N° <span t-esc="o.name"/>
-                              </h6>
+                              <t t-set="doc_number" t-value="''.join(c for c in (o.name or '') if c.isdigit()) or o.name"/>
+                                <h6 t-if="o.name" class="sii-doc-number">
+                                    N° <span t-esc="doc_number"/>
+                                </h6>
                               <br />
                           </div>
                           <div class="row center-text" style="text-align: center !important;">
-                              <p class="sii-info" t-if="o.company_id.sii_regional_office_id">
-                                SII - <span t-field="o.company_id.sii_regional_office_id.name"/>
-                              </p>
+                              
                           </div>
                       </div>
                   </div>
